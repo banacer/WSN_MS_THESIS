@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<buildTargets>
+<default version="4">
+<default>true</default>
+<project/>
+<target>micaz</target>
+<make-extras/>
+<includes>
+<include global="false" include="none" ncc="false" recursive="false">/opt/tinyos-2.1.1/tos/sensorboards/mda320</include>
+</includes>
+<excludes>
+<exclude>.*\.svn.*</exclude>
+</excludes>
+<typedefs/>
+<macros/>
+<boards/>
+<no-std-incl>false</no-std-incl>
+<component/>
+<component-file>/my_sender/src/SenderAppC.nc</component-file>
+<include-last-build>true</include-last-build>
+<include-env-default-paths>true</include-env-default-paths>
+<environment_variables/>
+</default>
+<client-data/>
+</buildTargets>

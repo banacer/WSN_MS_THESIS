@@ -1,0 +1,3 @@
+COMPONENT=SenderAppC
+include $(MAKERULES)
+SENSORBOARD=mda300ca
