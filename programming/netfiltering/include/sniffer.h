@@ -13,14 +13,13 @@
 #include<stdio.h> //For standard things
 #include<stdlib.h>    //malloc
 #include<string.h>    //strlen
-#include<linux/if.h>
+
 #include<netinet/ip_icmp.h>   //Provides declarations for icmp header
 #include<netinet/udp.h>   //Provides declarations for udp header
 #include<netinet/tcp.h>   //Provides declarations for tcp header
 #include<netinet/ip.h>
 #include<netinet/ip6.h>//Provides declarations for ip header
 #include<netinet/if_ether.h>  //For ETH_P_ALL
-#include<linux/if_packet.h>
 #include<net/ethernet.h>  //For ether_header
 #include<sys/socket.h>
 #include<arpa/inet.h>
@@ -28,6 +27,14 @@
 #include<sys/time.h>
 #include<sys/types.h>
 #include<unistd.h>
+#ifdef __unix
+#include<linux/if_packet.h>
+#include<linux/if.h>
+#else
+#include<net/if_packet.h>
+#include<net/if.h>
+
+#endif
 
 
 // Define some constants.
@@ -40,6 +47,8 @@ int sendIPV6Packet(char* , int ,char* );
 int sendIPV4Packet(char*, int ,char* );
 unsigned short int checksum (unsigned short int *, int );
 char* getIPAddr(char* , int );
+char* 6to4Convert(char* , int );
+char* 4to6Convert(char*, int);
 
 
 

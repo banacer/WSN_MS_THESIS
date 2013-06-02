@@ -22,23 +22,47 @@ University of Houston\\
 Email: dbenhaddou@uh.edu}}
 \maketitle
 \begin{abstract}
-
+The internet has seen its importance grow exponentially throughout the previous two decades. It has started as set of computers sharing static information written by human beings and accessed by other human beings. It followed mainly the publisher subscriber model. Later on, with the arrival of internet 2.0, the subscriber had now the ability to affect the content at the publisher's level and this basic idea gave rise to a whole new world of applications such as wikis, blogs, social networks and other applications. The next revolution in the internet is the introduction of machines as players within the internet. This will allow the machines to intercommunicate between them or what is known as machine-to-machine communication. More and more devices will be able to communicate and thus be part of the internet. This will give rise to a whole new dimension of possibilities as the focus of the internet will not only be human interactions but also machine interactions. As an example of autonomous machines communicating through, the components of smart grids will be part of the internet of things. Devices such as AMI, smart homes, wireless sensor networks will all be part of the internet of things. Any device within the smart grid will be uniquely identified through the network and therefore will be able to communicate. In this paper, we provide a back-end architecture and a real-world testbed for the smart home communication.
 \end{abstract}
-\begin{IEEEkeywords}
-WSN, 6lowPAN, TinyOs, IOT, cyber physical systems
-\end{IEEEkeywords}
-\IEEEpeerreviewmaketitle
-\section{Introduction}
 
+\begin{IEEEkeywords}
+WSN, 6lowPAN, TinyOS, IOT, cyber physical systems
+\end{IEEEkeywords}
+
+%\IEEEpeerreviewmaketitle
+\section{Introduction}
+The direction that is taken by the global society is a direction leading to what is known by "always connected" model. People are eager to receive the information as fast as possible and whenever available. They also want to send information as fast as possible and whenever wanted. Also, these requests and responses that are dictated by the human are not all the time directed towards humans , but can be sent also to devices and machines but that is not always possible at this time being. The future  of internet goes into this direction: being able to connect human beings as well as machine in order to provide robust and flexible communication for all. The machines on the other hand need an interface to be able to communicate on the internet. In this paper, we create a small network where a machine-to-machine communication is possible. This can be part of what is known as internet of things. The testbed created is composed of a wireless sensor network(WSN), a middleware station and a mobile client within the field of smart grids where data is collected from the motes within the WSN and sent to the middleware. The mobile client accesses this data and the mobile client can send messages directly to any mote within the WSN network in order to turn on or off any appliance. The issues that were handled are the following:
+\begin{itemize}
+\item The system is developed using heterogeneous networks, different data link layer technologies
+\item The WSN uses IPV6 over 6lowPAN whereas other parts of the system uses IPV4
+\end{itemize}
+To solve these issues, different programs have been used to deal with these issues. 
+ 
 \section{Literature review}
 
 \section{Internet of things}
 
 \section{6lowpan}
+6loWPAN stands for  "IPv6 over Low power Wireless Personal Area Networks". 
 
 \section{Architecture}
 
 \section{Implementation}
+To have a system that is capable of providing a two-way communication between any host and the any mote within the wireless sensor network, four building blocks had to be provided and which are the following:
+\begin{itemize}
+\item Mote programming
+\item Mote sink packet forwarding
+\item Network gateway packet transformation
+\item Network gateway sensor data server
+\end{itemize}
+
+\subsection{Mote programming}
+Each mote within the WSN network is equipped with a current transformer that is attached to data acquisition board through which data is read and transformed to the appropriate format and sent to the network host. In addition to this, the appliance is attached to the mote through the relay pins existing within the data acquisition board in the mote. In other words, the mote can control the electricity going to each mote and can allow it or block it. This means that one can control the appliance by using some of the functionalities provided by the mote. From the mote's perspective there are two parts that are implemented within its TinyOS program. A TCP server that is used to receive on/off requests in order to control the mote and a TCP client used to send sensor data.Once the program installed, an IPV6 address is passed to the installation routine in order to assign a static IPV6 address to the mote in which the program is cross-compiled and installed. The TCP server and TCP client work in parallel as each one's traffic is handled separately.
+
+\subsubsection{TCP server}
+The TCP server is an important component in the mote's program. Any one willing to control the appliance must connect to the TCP server and send requests. As a mote may control more than one appliance, we then identify the appliance by a unique id and send a zero to turn off or one to turn on. Requests such as "1 1" means to turn on the appliance with id 1.
+\subsubsection{TPC Client}
+The TCP Client is an important component in the mote's program. It serves as mean to send sensor data to the gateway reliably. Once the mote is turned on, the client connects to a TCP server that is in the gateway, then the consumption data is sensed periodically (once per second) and sent to the TCP server who deals with the sensor data.
 
 \section{Measurements}
 

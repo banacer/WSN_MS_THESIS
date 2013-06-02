@@ -1,5 +1,5 @@
 #include "sniffer.h"
-
+//HI HI
 struct sockaddr_in source,dest;
 int tcp = 0, udp = 0, icmp = 0, others = 0, igmp = 0,total = 0;
 int i,j;
@@ -700,5 +700,16 @@ char* getIPAddr(char* addr , int version)
 		}
 	}
 	return NULL;
+}
+char* convert6to4(char* addr, int len)
+{
+	return NULL;
+}
+
+char* convert4to6(char*addr, int len)
+{
+	return NULL;
+}
+
 }
 
