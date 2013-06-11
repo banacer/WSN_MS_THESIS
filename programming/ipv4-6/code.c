@@ -34,14 +34,14 @@ int main(int argc, char *argv[])
 
 		chunk = atoi(strtok(NULL,"."));
 		strcat(result,toHex(chunk));
-		strcat(result,":");
+		strcat(result,"::");
 
 		chunk = atoi(strtok(NULL,"."));
 		strcat(result,toHex(chunk));
 
 		chunk = atoi(strtok(NULL,"."));
 		strcat(result,toHex(chunk));
-		strcat(result,"::1");
+		//strcat(result,"::1");
 
 		printf("the result is %s \n",result);
 
