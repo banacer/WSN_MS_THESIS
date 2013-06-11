@@ -1,155 +1,126 @@
-#include "sniffer.h"
-
-struct sockaddr_in source,dest;
-int tcp = 0, udp = 0, icmp = 0, others = 0, igmp = 0,total = 0;
-int i,j;
-char map[10][2][100];
-int map_size;
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "my_sniffer.h"
 
 int main()
 {
-	FILE* map_file;
-    int saddr_size , data_size;
-    struct sockaddr saddr;
-    unsigned char *buffer = (unsigned char *) malloc(65536);
+	int sockfd,retval,data_size;
+	char *buf;
+	char *addr;
+	char *src_addr;
+	char *dest_addr;
 
+	socklen_t clilen;
+	struct sockaddr_in cliaddr;
+	struct sockaddr_in *in;
+	struct sockaddr_in6 *in6;
+	struct iphdr *ip_hdr;
+	struct ip6_hdr *ip6_hdr;
+	struct ethhdr *header;
 
-    printf("Starting...\n");
-    map_file = fopen("data/ipmapping.dat","r");
-    i = 0;
-    while(!feof(map_file))
+	sockfd = socket( PF_PACKET, SOCK_PACKET , htons(ETH_P_ALL));
+	if (sockfd < 0)
 	{
-    	fscanf(map_file,"%s , %s",map[i][0],map[i][1]);
-    	i++;
+		perror("sock:");
+		exit(1);
 	}
-    map_size = i;
+	buf = (char *)calloc(10000,sizeof(char));
 
-    int sock_raw = socket( PF_PACKET, SOCK_PACKET , htons(ETH_P_ALL)) ;
+	clilen = sizeof(struct sockaddr_in);
+	while(1)
+	{
+		header = (struct ethhdr* ) buf;
 
-    if(sock_raw < 0)
-    {
-        perror("Socket Error");
-        return 1;
-    }
-    while(1)
-    {
-        saddr_size = sizeof(saddr);
-        //Receive a packet
-        data_size = recvfrom(sock_raw , buffer , 65536 , 0 , &saddr , (socklen_t*)&saddr_size);
-        if(data_size < 0 )
-        {
-            printf("Recvfrom error , failed to get packets\n");
-            return 1;
-        }
-        //Now process the packet
-        ProcessPacket(buffer , data_size);
-    }
-    close(sock_raw);
-    free(buffer);
-    printf("Finished");
-    return 0;
+		data_size = recvfrom(sockfd,buf,10000,0,(struct sockaddr *)&cliaddr,&clilen);
+
+		if(header->h_proto == 0) // MOST PROBABLY IPV6 WE SHOULD MAKE SURE IT IS
+		{
+
+			ip6_hdr = (struct ip6_hdr *)(buf);
+
+			in6 = (struct sockaddr_in6 *) malloc(sizeof(struct sockaddr_in6));
+			in6->sin6_addr.__in6_u = ip6_hdr->ip6_src.__in6_u;
+			addr = calloc(INET6_ADDRSTRLEN,sizeof(char));
+			inet_ntop(AF_INET6, &(in6->sin6_addr), addr, INET6_ADDRSTRLEN);
+
+			if(ip6_hdr->ip6_nxt == 6) // This is a TCP header to be forwarded
+			{
+				buf += IP6_HDRLEN; // cursor is pointing towards the TCP datagram
+				data_size -= IP6_HDRLEN; // size of TCP datagram buffer is adjusted
+				//compute new addresses
+				//src addr
+				in6 = (struct sockaddr_in6 *) malloc(sizeof(struct sockaddr_in6));
+				in6->sin6_addr.__in6_u = ip6_hdr->ip6_src.__in6_u;
+				src_addr = calloc(INET6_ADDRSTRLEN,sizeof(char));
+				inet_ntop(AF_INET6, &(in6->sin6_addr), src_addr, INET6_ADDRSTRLEN);
+				free(in6);
+
+				//dest addr
+				in6 = (struct sockaddr_in6 *) malloc(sizeof(struct sockaddr_in6));
+				in6->sin6_addr.__in6_u = ip6_hdr->ip6_dst.__in6_u;
+				dest_addr = calloc(INET6_ADDRSTRLEN,sizeof(char));
+				inet_ntop(AF_INET6, &(in6->sin6_addr), dest_addr, INET6_ADDRSTRLEN);
+				free(in6);
+
+				src_addr = cleanIPV6(src_addr);
+				dest_addr = cleanIPV6(dest_addr);
+
+				printf("src 6 addr %s  , 4 addr %s\n",src_addr, translate(6,src_addr));
+				printf("des 6 addr %s  , 4 addr %s\n",dest_addr, translate(6,dest_addr));
+
+				sendIPV4Packet(buf,data_size,translate(6,src_addr),translate(6,dest_addr));
+
+				free(src_addr);
+				free(dest_addr);
+
+
+			}
+		}
+		else if(header->h_proto == 8)
+		{
+			ip_hdr = (struct iphdr *)(buf + sizeof(struct ethhdr));
+			if(ip_hdr->protocol == 6) // check if it is TCP
+			{
+				buf += (sizeof(struct ethhdr)+ IP4_HDRLEN);
+				data_size -= (sizeof(struct ethhdr)+ IP4_HDRLEN);
+				//compute new addresses
+				//src addr
+				in = (struct sockaddr_in *) malloc(sizeof(struct sockaddr_in));
+				in->sin_addr.s_addr = ip_hdr->saddr;
+				src_addr = calloc(INET_ADDRSTRLEN,sizeof(char));
+				inet_ntop(AF_INET, &(in->sin_addr), src_addr, INET_ADDRSTRLEN);
+				free(in);
+
+				//dest addr
+				in = (struct sockaddr_in *) malloc(sizeof(struct sockaddr_in));
+				in->sin_addr.s_addr = ip_hdr->daddr;
+				dest_addr = calloc(INET_ADDRSTRLEN,sizeof(char));
+				inet_ntop(AF_INET, &(in->sin_addr), dest_addr, INET_ADDRSTRLEN);
+				free(in);
+
+				//printf("src 4 addr %s len = %d , 6 addr %s\n",src_addr,strlen(src_addr), translate(4,src_addr));
+				//printf("des 4 addr %s len = %d , 6 addr %s\n",dest_addr, translate(4,dest_addr));
+
+				sendIPV6Packet(buf,data_size,translate(4,src_addr),translate(4,dest_addr));
+
+				free(src_addr);
+				free(dest_addr);
+
+			}
+		}
+
+	}
 }
-
-void ProcessPacket(unsigned char* buffer, int size)
+int sendIPV6Packet(char* buffer,int size,char *src ,char *dest)
 {
-	uint8_t protocol;
-	char* addr;
-	short val;
-    //Get the IP Header part of this packet , excluding the ethernet header
-    struct iphdr *iph = (struct iphdr*)(buffer + sizeof(struct ethhdr));
-    struct ip6_hdr *iph6 = (struct ip6_hdr*)(buffer );
-    struct sockaddr_in *in;
-    struct sockaddr_in6 *in6;
-    in = (struct sockaddr_in *) malloc(sizeof(struct sockaddr_in));
-	in->sin_addr.s_addr = iph->saddr;
-	printf("\n version: %d\n",iph->version);
-    if(iph->version == 6)
-    {
-    	protocol = iph6->ip6_nxt;
-
-
-    	if(protocol != 0)
-    	{
-    		for (i = 0; i < size; i++)
-    		{
-    			printf("%02X%s", (uint8_t)buffer[i], (i + 1)%16 ? " " : "\n");
-    		}
-
-    	}
-
-    }
-    else if(iph->version == 4)
-    {
-    	protocol = iph->protocol;
-    }
-    ++total;
-
-    switch (protocol) //Check the Protocol and do accordingly...
-    {
-        case 1:  //ICMP Protocol
-            ++icmp;
-            break;
-
-        case 2:  //IGMP Protocol
-            ++igmp;
-            break;
-
-        case 6:
-        case 17://TCP AND UDP Protocol
-            ++tcp;
-            ++udp;
-            if(iph->version == 4)
-            {
-            	in = (struct sockaddr_in*) (buffer);
-            	buffer = (buffer  + sizeof(struct ethhdr) + IP4_HDRLEN);
-            	size = size - sizeof(struct ethhdr) - IP4_HDRLEN;
-            	in->sin_addr.s_addr = iph->saddr;
-            	if(strcasecmp("10.50.0.188",inet_ntoa(in->sin_addr)) == 0)
-            		addr = "fec0::3";
-            	else
-            		addr = NULL;
-            	if(addr != NULL)
-            	{
-            		sendIPV6Packet(buffer,size,"fec0::3");
-            	}
-            }
-            else
-            {
-            	buffer = (buffer  + IP6_HDRLEN );//+ sizeof(struct ethhdr) );
-            	size = size - IP6_HDRLEN; // - sizeof(struct ethhdr);
-            	in6 = (struct sockaddr_in6 *) malloc(sizeof(struct sockaddr_in6));
-            	in6->sin6_addr.__in6_u = iph6->ip6_src.__in6_u;
-            	addr = calloc(INET6_ADDRSTRLEN,sizeof(char));
-            	inet_ntop(AF_INET6, &(in6->sin6_addr), addr, INET6_ADDRSTRLEN);
-            	printf("\nYOU ARE HERE %s !\n",addr);
-            	if(strcmp("fec0::3",addr) == 0)
-            		addr = "10.50.0.188";
-            	else
-            		addr = "10.50.0.188";
-            	if(addr != NULL)
-            	{
-
-            		sendIPV4Packet(buffer,size,"10.50.0.188");
-            	}
-            }
-            break;
-
-        default: //Some Other Protocol like ARP etc.
-            ++others;
-            break;
-    }
-    //printf("TCP : %d   UDP : %d   ICMP : %d   IGMP : %d   Others : %d   Total : %d\r", tcp , udp , icmp , igmp , others , total);
-}
-
-int sendIPV6Packet(char* buffer,int size, char *dest)
-{
-	int i, status, frame_length, sd, bytes;
+	int status, frame_length, sd, bytes;
     char *interface, *target, *src_ip, *dst_ip;
     struct ip6_hdr iphdr;
-    struct tcphdr tcphdr;
-    char *payload;
-    int payloadlen;
-    unsigned char *tcp_flags, *src_mac, *dst_mac, *ether_frame;
+
+
+
+    unsigned char *src_mac, *dst_mac, *ether_frame;
     struct addrinfo hints, *res;
     struct sockaddr_in6 *ipv6;
     struct sockaddr_ll device;
@@ -278,7 +249,7 @@ int sendIPV6Packet(char* buffer,int size, char *dest)
 	dst_mac[5] = 0xff;
 
 	// Source IPv6 address: you need to fill this out
-	strcpy (src_ip, "fec0::64");
+	strcpy (src_ip, src);
 
 	// Destination URL or IPv6 address: you need to fill this out
 	strcpy (target, dest);
@@ -372,48 +343,29 @@ int sendIPV6Packet(char* buffer,int size, char *dest)
 
 	return 0;
 }
-int sendIPV4Packet(char *buffer, int size, char* dest)
+int sendIPV4Packet(char *buffer, int size,char* src, char* dest)
 {
-	  int i, status, frame_length, sd, bytes, *ip_flags;
+	int i, status, sd, *ip_flags;
+	  const int on = 1;
 	  char *interface, *target, *src_ip, *dst_ip;
 	  struct ip iphdr;
 	  struct tcphdr tcphdr;
-	  char *payload;
 	  int payloadlen;
-	  unsigned char *tcp_flags, *src_mac, *dst_mac, *ether_frame;
-	  struct addrinfo hints, *res = NULL;
-	  struct sockaddr_in *ipv4;
-	  struct sockaddr_ll device;
+	  unsigned char *tcp_flags, *packet;
+	  struct addrinfo hints, *res;
+	  struct sockaddr_in *ipv4, sin;
 	  struct ifreq ifr;
 	  void *tmp;
+
 	  // Allocate memory for various arrays.
-
-	  tmp = (unsigned char *) malloc (6 * sizeof (unsigned char));
-	  if (tmp != NULL) {
-	    src_mac = tmp;
-	  } else {
-	    fprintf (stderr, "ERROR: Cannot allocate memory for array 'src_mac'.\n");
-	    exit (EXIT_FAILURE);
-	  }
-	  memset (src_mac, 0, 6 * sizeof (unsigned char));
-
-	  tmp = (unsigned char *) malloc (6 * sizeof (unsigned char));
-	  if (tmp != NULL) {
-	    dst_mac = tmp;
-	  } else {
-	    fprintf (stderr, "ERROR: Cannot allocate memory for array 'dst_mac'.\n");
-	    exit (EXIT_FAILURE);
-	  }
-	  memset (dst_mac, 0, 6 * sizeof (unsigned char));
-
 	  tmp = (unsigned char *) malloc (IP_MAXPACKET * sizeof (unsigned char));
 	  if (tmp != NULL) {
-	    ether_frame = tmp;
+	    packet = tmp;
 	  } else {
-	    fprintf (stderr, "ERROR: Cannot allocate memory for array 'ether_frame'.\n");
+	    fprintf (stderr, "ERROR: Cannot allocate memory for array 'packet'.\n");
 	    exit (EXIT_FAILURE);
 	  }
-	  memset (ether_frame, 0, IP_MAXPACKET * sizeof (unsigned char));
+	  memset (packet, 0, IP_MAXPACKET * sizeof (unsigned char));
 
 	  tmp = (char *) malloc (40 * sizeof (char));
 	  if (tmp != NULL) {
@@ -469,16 +421,6 @@ int sendIPV4Packet(char *buffer, int size, char* dest)
 	  }
 	  memset (tcp_flags, 0, 4 * sizeof (unsigned char));
 
-	  // Maximum TCP payload size = 65535 - IPv4 header (20 bytes) - TCP header (20 bytes)
-	  tmp = (char *) malloc ((IP_MAXPACKET - IP4_HDRLEN - TCP_HDRLEN) * sizeof (char));
-	  if (tmp != NULL) {
-	    payload = tmp;
-	  } else {
-	    fprintf (stderr, "ERROR: Cannot allocate memory for array 'payload'.\n");
-	    exit (EXIT_FAILURE);
-	  }
-	  memset (payload, 0, (IP_MAXPACKET - IP4_HDRLEN - TCP_HDRLEN) * sizeof (char));
-
 	  // Interface to send packet through.
 	  strcpy (interface, "eth0");
 
@@ -488,35 +430,18 @@ int sendIPV4Packet(char *buffer, int size, char* dest)
 	    exit (EXIT_FAILURE);
 	  }
 
-	  // Use ioctl() to look up interface name and get its MAC address.
+	  // Use ioctl() to look up interface index which we will use to
+	  // bind socket descriptor sd to specified interface with setsockopt() since
+	  // none of the other arguments of sendto() specify which interface to use.
 	  memset (&ifr, 0, sizeof (ifr));
 	  snprintf (ifr.ifr_name, sizeof (ifr.ifr_name), "%s", interface);
-	  if (ioctl (sd, SIOCGIFHWADDR, &ifr) < 0) {
-	    perror ("ioctl() failed to get source MAC address ");
+	  if (ioctl (sd, SIOCGIFINDEX, &ifr) < 0) {
+	    perror ("ioctl() failed to find interface ");
 	    return (EXIT_FAILURE);
 	  }
 	  close (sd);
-
-	  // Copy source MAC address.
-	  memcpy (src_mac, ifr.ifr_hwaddr.sa_data, 6);
-
-	  // Find interface index from interface name and store index in
-	  // struct sockaddr_ll device, which will be used as an argument of sendto().
-	  if ((device.sll_ifindex = if_nametoindex (interface)) == 0) {
-	    perror ("if_nametoindex() failed to obtain interface index ");
-	    exit (EXIT_FAILURE);
-	  }
-
-	  // Set destination MAC address: you need to fill this out
-	  dst_mac[0] = 0xff;
-	  dst_mac[1] = 0xff;
-	  dst_mac[2] = 0xff;
-	  dst_mac[3] = 0xff;
-	  dst_mac[4] = 0xff;
-	  dst_mac[5] = 0xff;
-
 	  // Source IPv4 address: you need to fill this out
-	  strcpy (src_ip, "10.50.1.45");
+	  strcpy (src_ip, src);
 
 	  // Destination URL or IPv4 address: you need to fill this out
 	  strcpy (target, dest);
@@ -524,7 +449,7 @@ int sendIPV4Packet(char *buffer, int size, char* dest)
 	  // Fill out hints for getaddrinfo().
 	  memset (&hints, 0, sizeof (struct addrinfo));
 	  hints.ai_family = AF_INET;
-	  hints.ai_socktype = SOCK_RAW;
+	  hints.ai_socktype = SOCK_STREAM;
 	  hints.ai_flags = hints.ai_flags | AI_CANONNAME;
 
 	  // Resolve target using getaddrinfo().
@@ -540,12 +465,6 @@ int sendIPV4Packet(char *buffer, int size, char* dest)
 	    exit (EXIT_FAILURE);
 	  }
 	  freeaddrinfo (res);
-
-	  // Fill out sockaddr_ll.
-	  device.sll_family = AF_PACKET;
-	  device.sll_protocol = htons (ETH_P_IP);
-	  memcpy (device.sll_addr, dst_mac, 6);
-	  device.sll_halen = htons (6);
 
 	  // IPv4 header
 
@@ -605,51 +524,59 @@ int sendIPV4Packet(char *buffer, int size, char* dest)
 	  iphdr.ip_sum = 0;
 	  iphdr.ip_sum = checksum ((unsigned short int *) &iphdr, IP4_HDRLEN);
 
-	  // Fill out ethernet frame header.
 
-	    // Ethernet frame length = ethernet header (MAC + MAC + ethernet type) + ethernet data (IP header + TCP header + TCP options)
-	    frame_length = 6 + 6 + 2 + IP4_HDRLEN + size;
+	  // First part is an IPv4 header.
+	  memcpy (packet, &iphdr, IP4_HDRLEN);
 
-	    // Destination and Source MAC addresses
-	    memcpy (ether_frame, dst_mac, 6);
-	    memcpy (ether_frame + 6, src_mac, 6);
+	  // Next part of packet is upper layer protocol header.
+	  memcpy ((packet + IP4_HDRLEN), buffer,size );
 
-	    // Next is ethernet type code (ETH_P_IP for IPv4).
-	    // http://www.iana.org/assignments/ethernet-numbers
-	    ether_frame[12] = ETH_P_IP / 256;
-	    ether_frame[13] = ETH_P_IP % 256;
+	  // The kernel is going to prepare layer 2 information (ethernet frame header) for us.
+	  // For that, we need to specify a destination for the kernel in order for it
+	  // to decide where to send the raw datagram. We fill in a struct in_addr with
+	  // the desired destination IP address, and pass this structure to the sendto() function.
+	  memset (&sin, 0, sizeof (struct sockaddr_in));
+	  sin.sin_family = AF_INET;
+	  sin.sin_addr.s_addr = iphdr.ip_dst.s_addr;
 
-	    // Next is ethernet frame data (IPv4 header + TCP header).
-
-	    // IPv4 header
-	    memcpy (ether_frame + 14, &iphdr, IP4_HDRLEN);
-
-	    // TCP header
-	    memcpy (ether_frame + 14 + IP4_HDRLEN, buffer, size);
-
-	  // Open raw socket descriptor.
-	  if ((sd = socket (PF_PACKET, SOCK_RAW, htons (ETH_P_ALL))) < 0) {
+	  // Submit request for a raw socket descriptor.
+	  if ((sd = socket (AF_INET, SOCK_RAW, IPPROTO_RAW)) < 0) {
 	    perror ("socket() failed ");
 	    exit (EXIT_FAILURE);
 	  }
 
-	  // Send ethernet frame to socket.
-	  if ((bytes = sendto (sd, ether_frame, frame_length, 0, (struct sockaddr *) &device, sizeof (device))) <= 0) {
-	    perror ("sendto() failed");
+	  // Set flag so socket expects us to provide IPv4 header.
+	  if (setsockopt (sd, IPPROTO_IP, IP_HDRINCL, &on, sizeof (on)) < 0) {
+	    perror ("setsockopt() failed to set IP_HDRINCL ");
 	    exit (EXIT_FAILURE);
 	  }
 
+	  // Bind socket to interface index.
+	  if (setsockopt (sd, SOL_SOCKET, SO_BINDTODEVICE, &ifr, sizeof (ifr)) < 0) {
+	    perror ("setsockopt() failed to bind to interface ");
+	    exit (EXIT_FAILURE);
+	  }
+
+	  // Send packet.
+	  i = sendto (sd, packet, IP4_HDRLEN + size, 0, (struct sockaddr *) &sin, sizeof (struct sockaddr));
+	  printf("SIZE SENT: %d\n",i);
+	  if (i < 0)  {
+	    perror ("sendto() failed ");
+	    exit (EXIT_FAILURE);
+	  }
+
+	  // Close socket descriptor.
 	  close (sd);
 
 	  // Free allocated memory.
-	  free (src_mac);
-	  free (dst_mac);
-	  free (ether_frame);
+	  free (packet);
 	  free (interface);
 	  free (target);
 	  free (src_ip);
 	  free (dst_ip);
 	  free (ip_flags);
+	  free (tcp_flags);
+
 	  return 0;
 }
 unsigned short int checksum (unsigned short int *addr, int len)
@@ -675,27 +602,139 @@ unsigned short int checksum (unsigned short int *addr, int len)
   return (answer);
 }
 
-char* getIPAddr(char* addr , int version)
+char* toHex(int num)
 {
-	int i;
+	char* buffer;
+	buffer = (char *) calloc(16,sizeof(char));
+	sprintf(buffer,"%02X",num);
+	return buffer;
+}
+
+int toDec(char one, char two)
+{
+	return (convert(one) * 16) + convert(two);
+}
+
+int convert(char c)
+{
+	if(48 <= c && c <= 57)
+			c -= 48;
+		else if(65 <= c && c <= 70)
+			c-=55; //remove letters (-65) add 10 for A to be 10 (+10) = -55
+		else if(97 <= c && c <= 102)
+			c -= 87; //remove letters (-97) add 10 for a to be 10 (+10) = -55
+	return c;
+}
+
+char* translate(int version, char* myaddr) //version indicates the current version not the target!
+{
+	char* result;
+	char* buffer;
+	int chunk;
+	char* val;
+	char *addr;
+	addr = calloc(strlen(myaddr),sizeof(char));
+	result = (char *) calloc(100,sizeof(char));
+	strcpy(addr,myaddr);
+
 	if(version == 4)
 	{
-		for(i = 0; i < map_size; i++)
-		{
-			if(strcmp(addr,map[i][0]) == 0)
-				return map[i][1];
-		}
-	}
+		chunk = atoi(strtok(addr,"."));
+		strcat(result,toHex(chunk));
 
-	if(version == 6)
-	{
-		for(i = 0; i < map_size; i++)
-		{
-			if(strcmp(addr,map[i][1]) == 0)
-				return map[i][0];
-		}
+		chunk = atoi(strtok(NULL,"."));
+		strcat(result,toHex(chunk));
+		strcat(result,"::");
+
+		chunk = atoi(strtok(NULL,"."));
+		strcat(result,toHex(chunk));
+
+		chunk = atoi(strtok(NULL,"."));
+		strcat(result,toHex(chunk));
+
+		return cleanIPV6(result);
 	}
-	return NULL;
+	else if(version == 6)
+	{
+		val = strtok(addr,":");
+		buffer = (char *) calloc(3,sizeof(char));
+		chunk = toDec(val[0],val[1]);
+		sprintf(buffer,"%d",chunk);
+		strcat(result,buffer);
+		strcat(result,".");
+
+		buffer = (char *) calloc(3,sizeof(char));
+		chunk = toDec(val[2],val[3]);
+		sprintf(buffer,"%d",chunk);
+		strcat(result,buffer);
+		strcat(result,".");
+
+		val = strtok(NULL,":");
+		buffer = (char *) calloc(3,sizeof(char));
+		chunk = toDec(val[0],val[1]);
+		sprintf(buffer,"%d",chunk);
+		strcat(result,buffer);
+		strcat(result,".");
+
+		buffer = (char *) calloc(3,sizeof(char));
+		chunk = toDec(val[2],val[3]);
+		sprintf(buffer,"%d",chunk);
+		strcat(result,buffer);
+		return result;
+	}
+}
+char* cleanIPV6(char* addr)
+{
+	char* result;
+	char* buffer;
+	int chunk;
+	char *val1, *val2;
+	char* buff;
+	int i;
+	int count = 1;
+	result = (char *) calloc(16,sizeof(char));
+	val1 = strtok(addr,":");
+	val2 = (char*) malloc(sizeof(char));
+	while(val2 != NULL)
+	{
+		val2 = strtok(NULL,":");
+		if(strlen(val1) < 4)
+		{
+			for(i = 0; i < 4 - strlen(val1); i++)
+			{
+				strcat(result,"0");
+			}
+			strcat(result,val1);
+			strcat(result,":");
+		}
+		else
+		{
+			if( val2 == NULL)
+			{
+				strcat(result,":");
+				for(i = 0; i < strlen(val1); i++)
+				{
+					if(val1[i] != '0')
+					{
+						buff = (char *) calloc(2,sizeof(char));
+						buff[0] = val1[i];
+						buff[1] = '\0';
+						strcat(result,buff);
+					}
+				}
+			}
+			else
+			{
+				strcat(result,val1);
+				strcat(result,":");
+			}
+		}
+		if(val2 != NULL)
+			strcpy(val1,val2);
+		count++;
+	}
+	return result;
+
 }
 
 

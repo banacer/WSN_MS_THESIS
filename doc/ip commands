@@ -1,0 +1,16 @@
+#ACTIVATE THE IPV6-TO-USB TUNNEL
+sudo driver/ip-driver /dev/ttyUSB1 micaz
+#DROP ALL INCOMING PACKETS
+sudo iptables -P INPUT DROP
+#ENABLE IP FORWARDING
+echo 1 > /proc/sys/net/ipv4/ip_forward
+
+#DISABLE ICMP REDIRECT TO HOST
+#first type sudo bash
+
+/sbin/sysctl -w net.ipv4.conf.all.accept_redirects=0
+/sbin/sysctl -w net.ipv4.conf.all.send_redirects=0
+/sbin/sysctl -w net.ipv6.conf.all.accept_redirects=0
+/sbin/sysctl -w net.ipv6.conf.all.send_redirects=0
+
+
