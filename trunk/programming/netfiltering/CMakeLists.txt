@@ -8,6 +8,8 @@ FILE(GLOB HEADER_FILES include/*.c)
 SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -g")
 set(CMAKE_CXX_FLAGS "-Wextra -Wall -ansi -pedantic")
 add_executable(sniffer src/sniffer.c ${HEADER_FILES})
+add_executable(my_sniffer src/my_sniffer.c ${HEADER_FILES})
+add_executable(test src/test.c ${HEADER_FILES})
 
 #cleaning part
 IF (UNIX)

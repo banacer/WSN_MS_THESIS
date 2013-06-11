@@ -1,12 +1,12 @@
 /*
- * sniffer.h
+ * my_sniffer.h
  *
- *  Created on: May 1, 2013
+ *  Created on: Jun 3, 2013
  *      Author: banacer
  */
 
-#ifndef SNIFFER_H_
-#define SNIFFER_H_
+#ifndef MY_SNIFFER_H_
+#define MY_SNIFFER_H_
 #include <netinet/in.h>
 #include <errno.h>
 #include <netdb.h>
@@ -36,10 +36,13 @@
 #define IP6_HDRLEN 40         // IPv6 header length
 #define TCP_HDRLEN 20         // TCP header length, excludes options data
 
-void ProcessPacket(unsigned char* , int);
-int sendIPV6Packet(char* , int ,char* );
-int sendIPV4Packet(char*, int ,char* );
+int sendIPV6Packet(char* , int ,char* ,char* );
+int sendIPV4Packet(char*, int ,char* ,char* );
 unsigned short int checksum (unsigned short int *, int );
-char* getIPAddr(char* , int );
+char* toHex(int );
+int toDec(char , char );
+int convert(char );
+char* translate(int , char* );
+char* cleanIPV6(char* );
 
-#endif /* SNIFFER_H_ */
+#endif /* MY_SNIFFER_H_ */
