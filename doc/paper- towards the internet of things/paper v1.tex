@@ -1,8 +1,7 @@
 \documentclass[conference]{IEEEtran}
-\ifCLASSINFOpdf
-\else
-\fi
-\hyphenation{op-tical net-works semi-conduc-tor}
+\usepackage{graphicx}
+
+
 \begin{document}
 
 \title{Towards the Internet of Things: A Real-World Testbed}
@@ -11,7 +10,7 @@
 Al Akhawayn University In Ifrane\\
 Email: n.khalil@aui.ma}
 \and
-\IEEEauthorblockN{Mohammed Riduane Abid}
+\IEEEauthorblockN{Mohamed Riduan Abid}
 \IEEEauthorblockA{School of Electrical and Engineering\\
 Al Akhawayn University In Ifrane\\
 Email: r.abid@aui.ma}
@@ -43,9 +42,18 @@ To solve these issues, different programs have been used to deal with these issu
 \section{Internet of things}
 The internet of things is a new concept based on the idea that there will be much more users that are computers, machine than human beings. This means that machines will play an important role in the internet and they will be able to communicate autonomously without the interaction of human beings. Wireless sensor network will be part of the internet of things and therefore will be actively communicating in the internet by sending sensor data. Nowadays, the internet is mainly based on a human-to-human. In the future of internet called the internet of things, we will have in addition to human-to-human communication, human-to-machine communication and machine-to-machine communication. An example of human-to-machine communication is when the human will be able to control the wireless sensor network's sampling time. An example of machine-to-machine communication which will be discussed in this paper is the middleware being able to turn off the light because no one is in the room. The middleware by making use of the sensor data will communicate with motes to turn on or off the light bulb.
 \section{6lowpan}
-6loWPAN stands for  "IPv6 over Low power Wireless Personal Area Networks". 
+6loWPAN stands for  "IPv6 over Low power Wireless Personal Area Networks". It stands for the name of the working group within IETF. It is based on the idea that all the devices independently of their processing power or energy resources should be able to have the TCP-IP protocol stack and be part of the internet of things. In order to be able to build the T
+CP-IP protocol stack in low-power devices, there have been multiple aspects of the protocol stack that has to be optimized. As an example, the IP MTU(maximum transmission unit) 
 
 \section{Architecture}
+
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[scale=0.5]{images/network_diagram.jpg}
+\caption{Network diagram}
+\label{fig:network}
+\end{figure}
 
 \section{Implementation}
 To have a system that is capable of providing a two-way communication between any host and the any mote within the wireless sensor network, four building blocks had to be provided and which are the following:
