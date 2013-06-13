@@ -33,7 +33,7 @@ WSN, 6lowPAN, TinyOS, IOT, cyber physical systems
 The direction that is taken by the global society is a direction leading to what is known by "always connected" model. People are eager to receive the information as fast as possible and whenever available. They also want to send information as fast as possible and whenever wanted. Also, these requests and responses that are dictated by the human are not all the time directed towards humans , but can be sent also to devices and machines but that is not always possible at this time being. The future  of internet goes into this direction: being able to connect human beings as well as machine in order to provide robust and flexible communication for all. The machines on the other hand need an interface to be able to communicate on the internet. In this paper, we create a small network where a machine-to-machine communication is possible. This can be part of what is known as internet of things. The testbed created is composed of a wireless sensor network(WSN), a middleware station and a mobile client within the field of smart grids where data is collected from the motes within the WSN and sent to the middleware. The mobile client accesses this data and the mobile client can send messages directly to any mote within the WSN network in order to turn on or off any appliance. The issues that were handled are the following:
 \begin{itemize}
 \item The system is developed using heterogeneous networks, different data link layer technologies
-\item The WSN uses IPV6 over 6lowPAN whereas other parts of the system uses IPV4
+\item The WSN uses IPV6 over 6lowPAN whereas other components of the system use IPV4
 \end{itemize}
 To solve these issues, different programs have been used to deal with these issues. 
  
@@ -42,11 +42,16 @@ To solve these issues, different programs have been used to deal with these issu
 \section{Internet of things}
 The internet of things is a new concept based on the idea that there will be much more users that are computers, machine than human beings. This means that machines will play an important role in the internet and they will be able to communicate autonomously without the interaction of human beings. Wireless sensor network will be part of the internet of things and therefore will be actively communicating in the internet by sending sensor data. Nowadays, the internet is mainly based on a human-to-human. In the future of internet called the internet of things, we will have in addition to human-to-human communication, human-to-machine communication and machine-to-machine communication. An example of human-to-machine communication is when the human will be able to control the wireless sensor network's sampling time. An example of machine-to-machine communication which will be discussed in this paper is the middleware being able to turn off the light because no one is in the room. The middleware by making use of the sensor data will communicate with motes to turn on or off the light bulb.
 \section{6lowpan}
-6loWPAN stands for  "IPv6 over Low power Wireless Personal Area Networks". It stands for the name of the working group within IETF. It is based on the idea that all the devices independently of their processing power or energy resources should be able to have the TCP-IP protocol stack and be part of the internet of things. In order to be able to build the T
-CP-IP protocol stack in low-power devices, there have been multiple aspects of the protocol stack that has to be optimized. As an example, the IP MTU(maximum transmission unit) 
-
+6loWPAN stands for  "IPv6 over Low power Wireless Personal Area Networks". It stands for the name of the working group within IETF. It is based on the idea that all the devices independently of their processing power or energy resources should be able to have the TCP/IP protocol stack and be part of the internet of things. In order to be able to build the TCP/IP protocol stack in low-power devices, there have been multiple aspects of the protocol stack that has to be optimized. As an example, the IP MTU(maximum transmission unit) is fixed at 1280 bytes whereas the Zigbee MTU is only 127 bytes. This means that not every IPV6 packet can be inserted within a Zigbee frame. Another issue is related to the addressing with the 128 bits address. in 6lowpan, the addressing via the IPV6 address is performed hierarchically to first identify is the packet is sent to a device within that network but afterwards, addressing is done by counting mainly on the 16 last bits of the IPV6 address. These were just two of a large set of issues that 6lowpan tries to solve in order to enable even the low-power devices to join the internet of things. TinyOS as being one of the most used operating system comes with its implementation of 6lowpan through a project called BLIP (Berkeley Low-power IP stack) that provides a lightweight implementation of the 6lowpan and that can be installed and used with a variety of motes as long as they support IPV6. This project makes use of BLIP to provide the TCP/IP protocol stack to the devices within the wireless sensor network.
 \section{Architecture}
-
+The project is composed of three building blocks. 
+\begin{itemize}
+\item Wireless sensor network (WSN)
+\item Gateway server
+\item Middleware
+\item Mobile client
+\end{itemize}
+The WSN communicates using zigbee as well as with the gateway server using IPV6 technology whereas whereas the communication between the gateway server, the middleware and the mobile client is done via Wifi using IPV4 technology. The architecture enables any component within this system to communicate with any other system independently of the communication medium used (Zigbee or Wifi) or the network technology used (IPV4 or IPV6). Figure 1 is a network diagram that depicts the different components of the system as well as the routes that exist for any component to communicate with another.
 
 \begin{figure}[htbp]
 \centering
@@ -55,6 +60,8 @@ CP-IP protocol stack in low-power devices, there have been multiple aspects of t
 \label{fig:network}
 \end{figure}
 
+\subsection{Wireless sensor network}
+The wireless sensor network is based on the mesh topology. It is also designed in order to be an ad-hoc network. This means that you can place the mote any where as long as there is one link it can attain to communicate with. The routing is multi-hop and links are created dynamically between different motes of the WSN.
 \section{Implementation}
 To have a system that is capable of providing a two-way communication between any host and the any mote within the wireless sensor network, four building blocks had to be provided and which are the following:
 \begin{itemize}
@@ -69,7 +76,7 @@ Each mote within the WSN network is equipped with a current transformer that is 
 
 \subsubsection{TCP server}
 The TCP server is an important component in the mote's program. Any one willing to control the appliance must connect to the TCP server and send requests. As a mote may control more than one appliance, we then identify the appliance by a unique id and send a zero to turn off or one to turn on. Requests such as "1 1" means to turn on the appliance with id 1.
-\subsubsection{TPC Client}
+\subsubsection{TCP Client}
 The TCP Client is an important component in the mote's program. It serves as mean to send sensor data to the gateway reliably. Once the mote is turned on, the client connects to a TCP server that is in the gateway, then the consumption data is sensed periodically (once per second) and sent to the TCP server who deals with the sensor data.
 
 \subsection{Mote sink packet forwarding}
