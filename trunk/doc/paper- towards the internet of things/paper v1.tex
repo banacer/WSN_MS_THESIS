@@ -61,7 +61,20 @@ The WSN communicates using zigbee as well as with the gateway server using IPV6 
 \end{figure}
 
 \subsection{Wireless sensor network}
-The wireless sensor network is based on the mesh topology. It is also designed in order to be an ad-hoc network. This means that you can place the mote any where as long as there is one link it can attain to communicate with. The routing is multi-hop and links are created dynamically between different motes of the WSN.
+The wireless sensor network is based on the mesh topology. It is also designed in order to be an ad-hoc network. This means that you can place the mote any where as long as there is one link it can attain to communicate with. The routing is multi-hop and links are created dynamically between different motes of the WSN provided that there frames can reach the destination. 
+
+\subsection{Gateway server}
+The gateway server is a crucial component within the system. It is responsible for extracting Wifi frames and forwarding them as Zigbee frames and vice versa. It is also responsible for receiving IPV4 packet and transforming them into IPV6 and vice versa. The gateway server has other functionalities which are the ability to receive sensor data from all the motes in the wireless sensor network and forwarding them to the middleware. In case the link between the gateway server and the middleware is lost, the gateway server stores the received data and sends them when the link is up again. This feature serves as a way to avoid losing data.
+
+\subsection{Middleware}
+The middleware is a special program that is used to hide the heterogeneity of the system from external users. The middleware also provides automation mechanisms to control and reduce the energy consumption, but the main features are the ability to receive data, filter it, transform it and store it in a coherent fashion in order to make the most of this data and use it smartly to reduce consumption. Concerning the client access, the middleware provides a set of web services that enable the clients to access all sorts of information such as the real-time consumption, daily consumption and other information inferred from the sensor data coming from the wireless sensor network.
+
+\subsection{Mobile client}
+The mobile client application is an interactive application for android phones that enable users to get access to the real-time consumption of their homes and also to remotely control their appliance by turning on and off any appliance linked to some mote in the wireless sensor network. The mobile client when wanting to turn on or off some appliance sends a request directly towards the mote responsible for that action and designate the mote using its "vitual" IPV4 address that it does not own in really since it has an IPV6 address but that virtual IPV4 address is reserved for that mote and the translation is dealt with at the level of the gateway.
+
+\ Now that all components have been explained, the data flow of the information is to be explained. As it was stated before, the any component of the system can communicate with any other independently of the data link layer technology or network layer technology.
+
+
 \section{Implementation}
 To have a system that is capable of providing a two-way communication between any host and the any mote within the wireless sensor network, four building blocks had to be provided and which are the following:
 \begin{itemize}
