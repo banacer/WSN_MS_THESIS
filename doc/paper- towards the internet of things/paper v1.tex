@@ -70,9 +70,33 @@ The gateway server is a crucial component within the system. It is responsible f
 The middleware is a special program that is used to hide the heterogeneity of the system from external users. The middleware also provides automation mechanisms to control and reduce the energy consumption, but the main features are the ability to receive data, filter it, transform it and store it in a coherent fashion in order to make the most of this data and use it smartly to reduce consumption. Concerning the client access, the middleware provides a set of web services that enable the clients to access all sorts of information such as the real-time consumption, daily consumption and other information inferred from the sensor data coming from the wireless sensor network.
 
 \subsection{Mobile client}
-The mobile client application is an interactive application for android phones that enable users to get access to the real-time consumption of their homes and also to remotely control their appliance by turning on and off any appliance linked to some mote in the wireless sensor network. The mobile client when wanting to turn on or off some appliance sends a request directly towards the mote responsible for that action and designate the mote using its "vitual" IPV4 address that it does not own in really since it has an IPV6 address but that virtual IPV4 address is reserved for that mote and the translation is dealt with at the level of the gateway.
+The mobile client application is an interactive application for android phones that enable users to get access to the real-time consumption of their homes and also to remotely control their appliance by turning on and off any appliance linked to some mote in the wireless sensor network. The mobile client when wanting to turn on or off some appliance sends a request directly towards the mote responsible for that action and designate the mote using its "virtual" IPV4 address that it does not own in really since it has an IPV6 address but that virtual IPV4 address is reserved for that mote and the translation is dealt with at the level of the gateway.
 
 \ Now that all components have been explained, the data flow of the information is to be explained. As it was stated before, the any component of the system can communicate with any other independently of the data link layer technology or network layer technology.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[height=110mm,width=90mm]{images/control_appliance_data_flow.jpg}
+\caption{Data flow diagram for the mobile client sending on/off commands}
+\label{fig:control_appliance}
+\end{figure}
+
+\
+As one of the main goals of this project is to provide a two-way communication between the client and sensor, we will explain both way's flow of information. Figure 2 depicts the flow of information going from the client to the appliance. As the mobile client in the system is connected to a Wifi network that uses IPV4 and the mote is a network that uses a IPV6, then there should be a process that does some transformation to incoming and outgoing packets. So the client sends the packet to the virtual IPV4 address of the mote. The gateway receives it translates the virtual IPV4 address into the real IPV6 address of the mote and sets as source address the virtual IPV6 address of the mobile client. The new IPV6 packet is created holding the same payload as the original IPV4 packet. This new IPV6 packet is to be forwarded to the wireless sensor network. To do so, it is passed to the tunnel that encapsulates the packet into a USB frame and sends it to the mote sink that extracts the IPV6 packet from the USB frame and encapsulates it into a Zigbee frame. Once the Zigbee frame arrives to the destination mote, the TCP datagram is extracted from the IPV6 packet and passed to the TCP server of the mote that reads the message and executes it by turning on/off the appliance using I2C protocol.
+
+\
+As a second part of the two-way communication, the mote sends periodically sensor data to the middleware but again the communication is goes through several steps as depicted in figure 3.
+\linebreak 
+The mote reads periodically sends sensor data from the sensor, transforms the data and sends it. To send it the mote client connects to a TCP server hosted at the gateway. The IPV6 packet is encapsulated in a Zigbee frame that is forwarded to the mote  sink that extracts the IPV6 packet and  encapsulates it into a USB frame and forwarded to the gateway that reads the TCP datagram. Once the sensor data is at the gateway, the gateway forwards the sensor data to the middleware and if the link is down, the sensor data is temporarily stored in a database hosted in the gateway and once the link is up, all the stored data is sent to the middleware and cleared from the database.
+
+
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[height=110mm,width=90mm]{images/send_sensor_data_data_flow.jpg}
+\caption{Data flow diagram for the mobile client sending on/off commands}
+\label{fig:control_appliance}
+\end{figure}
 
 
 \section{Implementation}
