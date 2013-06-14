@@ -1,7 +1,6 @@
 \documentclass[conference]{IEEEtran}
 \usepackage{graphicx}
 
-
 \begin{document}
 
 \title{Towards the Internet of Things: A Real-World Testbed}
@@ -120,19 +119,18 @@ The TCP Client is an important component in the mote's program. It serves as mea
 The mote sink packet forwarding module is a special program installed within a mote that is equipped with a USB port that plays the role of a network interface card. The mote is attached to the gateway station and has the BLIP (Berkeley Low power IP stack Protocol) module within in. In addition it communicates with the gateway using USB protocol. In the gateway station, the network interface module is a sort of a IPV6 over USB tunnel which means that if an IPV6 packet packet is going to the sink, it is encapsulated within a USB frame and once it arrives to the mote, the IPV6 packet is extracted and forwarded to the destination mote holding that IPV6 address. The other way around is fairly similar, when a mote wants to send an IPV6 packet to the outside world, the mote creates the packet, sends it to the sink that forwards it by encapsulating it into a USB frame.
 
 \subsection{Network gateway packet transformation}
-This is a very important component in the system. The issue is the following. The WSN network supports only IPV6 while other components such as the middleware and the mobile client do not necessary have an IPV6 address, but we still want all the components to communicate independently of the IP technology to be used. To do so, we have created a network packet transformation program. This program basically converts IPV4 to IPV6 and vice versa. To do so, it assigns virtual IPV4 addresses to IPV6 address holders and and IPV6 address to IPV4 address holders. With such a program, each player in the network has both an IPV4 and an IPV6 but is aware of only the one that is assigned to him. The other "virtual" address is known only at the level of the program installed at the gateway station between the WSN and the outside world. The flow of information works as follow; when a station wants to send requests to a mote, it will send IPV4 packet holding the request to the mote but by addressing it using its virtual IPV4 address. This packet will be sniffed by this packet transformation program that will extract the TCP datagram from the ip packet, create a new IPV6 packet specifying the source address as the virtual address of the host and the destination as the address of the mote and then append the TCP datagram to the newly created packet and send it to the mote sink packet forwarding component that is seen by the gateway as a network interface card. This leads to a complicated issue that is to be handled and which is that the program should keep track of the request responses in order to forward them correctly to the destination. To solve such a problem, an algorithm has been created whose sole role is to mechanically compute the IPV6 address of the host based on its IPV4 and vice versa. This algorithm is based on function whose primary quality is the fact that it is bijective which means any IPV4 address is mapped to one and only one IPV6 function and vice versa. So whenever a request is coming, the source and destination address will be converted using this algorithm and this will make avoid the whole request response tracking part.
+This is a very important component in the system. The issue is the following. The WSN network supports only IPV6 while other components such as the middleware and the mobile client do not necessary have an IPV6 address, but we still want all the components to communicate independently of the IP technology to be used. To do so, we have created a network packet transformation program. This program basically converts IPV4 to IPV6 and vice versa. To do so, it assigns virtual IPV4 addresses to IPV6 address holders and and IPV6 address to IPV4 address holders. With such a program, each player in the network has both an IPV4 and an IPV6 but is aware of only the one that is assigned to him. The other "virtual" address is known only at the level of the program installed at the gateway station between the WSN and the outside world. 
+\\
+ The flow of information works as follow; when a station wants to send requests to a mote, it will send IPV4 packet holding the request to the mote but by addressing it using its virtual IPV4 address. This packet will be sniffed by this packet transformation program that will extract the TCP datagram from the ip packet, create a new IPV6 packet specifying the source address as the virtual address of the host and the destination as the address of the mote and then append the TCP datagram to the newly created packet and send it to the mote sink packet forwarding component that is seen by the gateway as a network interface card. This leads to a complicated issue that is to be handled and which is that the program should keep track of the request responses in order to forward them correctly to the destination. 
+\\
+To solve such a problem, an algorithm has been created whose sole role is to mechanically compute the IPV6 address of the host based on its IPV4 and vice versa. This algorithm is based on function whose primary quality is the fact that it is bijective which means any IPV4 address is mapped to one and only one IPV6 function and vice versa. So whenever a request is coming, the source and destination address will be converted using this algorithm and this will make avoid the whole request response tracking part.
 \section{Measurements}
 
 \section{Conclusion}
 The conclusion goes here.
-
-\begin{thebibliography}{1}
-
-\bibitem{IEEEhowto:kopka}
-H.~Kopka and P.~W. Daly, \emph{A Guide to \LaTeX}, 3rd~ed.\hskip 1em plus
-  0.5em minus 0.4em\relax Harlow, England: Addison-Wesley, 1999.
-
-\end{thebibliography}
+	
+\bibliographystyle{plain}
+\bibliography{myrefs}
 
 \end{document}
 
