@@ -1,6 +1,6 @@
 \documentclass[conference]{IEEEtran}
 \usepackage{graphicx}
-
+\usepackage[noadjust]{cite}
 
 \begin{document}
 
@@ -28,7 +28,6 @@ The internet has seen its importance grow exponentially throughout the previous 
 WSN, 6lowPAN, TinyOS, IOT, cyber physical systems
 \end{IEEEkeywords}
 
-%\IEEEpeerreviewmaketitle
 \section{Introduction}
 The direction that is taken by the global society is a direction leading to what is known by "always connected" model. People are eager to receive the information as fast as possible and whenever available. They also want to send information as fast as possible and whenever wanted. Also, these requests and responses that are dictated by the human are not all the time directed towards humans , but can be sent also to devices and machines but that is not always possible at this time being. The future  of internet goes into this direction: being able to connect human beings as well as machine in order to provide robust and flexible communication for all. The machines on the other hand need an interface to be able to communicate on the internet. In this paper, we create a small network where a machine-to-machine communication is possible. This can be part of what is known as internet of things. The testbed created is composed of a wireless sensor network(WSN), a middleware station and a mobile client within the field of smart grids where data is collected from the motes within the WSN and sent to the middleware. The mobile client accesses this data and the mobile client can send messages directly to any mote within the WSN network in order to turn on or off any appliance. The issues that were handled are the following:
 \begin{itemize}
@@ -38,7 +37,7 @@ The direction that is taken by the global society is a direction leading to what
 To solve these issues, different programs have been used to deal with these issues. 
  
 \section{Literature review}
-
+Smart grid as being one of the most important applications of the internet of things makes use of different technologies such as Zigbee in the WSN \cite{ref1}.  \cite{ref2} discusses the need to introduce IPV6 within the wireless sensor networks and discusses the the existing approaches as well as the issues related to introducing IPV6 on top of Zigbee. Such issues are fragmentation, frame size, addressing, and security issues. This paper introduces a real testbed that includes the whole TCP/IP protocol provided by the BLIP project that takes into consideration most of those issues and implement the two-way communication as needed by smart grids and measures the performance of such a system. 
 \section{Internet of things}
 The internet of things is a new concept based on the idea that there will be much more users that are computers, machine than human beings. This means that machines will play an important role in the internet and they will be able to communicate autonomously without the interaction of human beings. Wireless sensor network will be part of the internet of things and therefore will be actively communicating in the internet by sending sensor data. Nowadays, the internet is mainly based on a human-to-human. In the future of internet called the internet of things, we will have in addition to human-to-human communication, human-to-machine communication and machine-to-machine communication. An example of human-to-machine communication is when the human will be able to control the wireless sensor network's sampling time. An example of machine-to-machine communication which will be discussed in this paper is the middleware being able to turn off the light because no one is in the room. The middleware by making use of the sensor data will communicate with motes to turn on or off the light bulb.
 \section{6lowpan}
@@ -61,7 +60,14 @@ The WSN communicates using zigbee as well as with the gateway server using IPV6 
 \end{figure}
 
 \subsection{Wireless sensor network}
-The wireless sensor network is based on the mesh topology. It is also designed in order to be an ad-hoc network. This means that you can place the mote any where as long as there is one link it can attain to communicate with. The routing is multi-hop and links are created dynamically between different motes of the WSN provided that there frames can reach the destination. 
+The hardware is composed of motes of type crossbow MPR2600 that are used to build the wireless sensor network as shown in figure 2.From the network aspect, the wireless sensor network is based on the mesh topology. It is also designed in order to be an ad-hoc network. This means that you can place the mote any where as long as there is one link it can attain to communicate with. The routing is multi-hop and links are created dynamically between different motes of the WSN provided that there frames can reach the destination.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[scale=0.5]{images/micaz.png}
+\caption{Crossbow MRP2600}
+\label{fig:micaz}
+\end{figure}
 
 \subsection{Gateway server}
 The gateway server is a crucial component within the system. It is responsible for extracting Wifi frames and forwarding them as Zigbee frames and vice versa. It is also responsible for receiving IPV4 packet and transforming them into IPV6 and vice versa. The gateway server has other functionalities which are the ability to receive sensor data from all the motes in the wireless sensor network and forwarding them to the middleware. In case the link between the gateway server and the middleware is lost, the gateway server stores the received data and sends them when the link is up again. This feature serves as a way to avoid losing data.
@@ -82,10 +88,10 @@ The mobile client application is an interactive application for android phones t
 \end{figure}
 
 \
-As one of the main goals of this project is to provide a two-way communication between the client and sensor, we will explain both way's flow of information. Figure 2 depicts the flow of information going from the client to the appliance. As the mobile client in the system is connected to a Wifi network that uses IPV4 and the mote is a network that uses a IPV6, then there should be a process that does some transformation to incoming and outgoing packets. So the client sends the packet to the virtual IPV4 address of the mote. The gateway receives it translates the virtual IPV4 address into the real IPV6 address of the mote and sets as source address the virtual IPV6 address of the mobile client. The new IPV6 packet is created holding the same payload as the original IPV4 packet. This new IPV6 packet is to be forwarded to the wireless sensor network. To do so, it is passed to the tunnel that encapsulates the packet into a USB frame and sends it to the mote sink that extracts the IPV6 packet from the USB frame and encapsulates it into a Zigbee frame. Once the Zigbee frame arrives to the destination mote, the TCP datagram is extracted from the IPV6 packet and passed to the TCP server of the mote that reads the message and executes it by turning on/off the appliance using I2C protocol.
+As one of the main goals of this project is to provide a two-way communication between the client and sensor, we will explain both way's flow of information. Figure 3 depicts the flow of information going from the client to the appliance. As the mobile client in the system is connected to a Wifi network that uses IPV4 and the mote is a network that uses a IPV6, then there should be a process that does some transformation to incoming and outgoing packets. So the client sends the packet to the virtual IPV4 address of the mote. The gateway receives it translates the virtual IPV4 address into the real IPV6 address of the mote and sets as source address the virtual IPV6 address of the mobile client. The new IPV6 packet is created holding the same payload as the original IPV4 packet. This new IPV6 packet is to be forwarded to the wireless sensor network. To do so, it is passed to the tunnel that encapsulates the packet into a USB frame and sends it to the mote sink that extracts the IPV6 packet from the USB frame and encapsulates it into a Zigbee frame. Once the Zigbee frame arrives to the destination mote, the TCP datagram is extracted from the IPV6 packet and passed to the TCP server of the mote that reads the message and executes it by turning on/off the appliance using I2C protocol.
 
 \
-As a second part of the two-way communication, the mote sends periodically sensor data to the middleware but again the communication is goes through several steps as depicted in figure 3.
+As a second part of the two-way communication, the mote sends periodically sensor data to the middleware but again the communication is goes through several steps as depicted in figure 4.
 \linebreak 
 The mote reads periodically sends sensor data from the sensor, transforms the data and sends it. To send it the mote client connects to a TCP server hosted at the gateway. The IPV6 packet is encapsulated in a Zigbee frame that is forwarded to the mote  sink that extracts the IPV6 packet and  encapsulates it into a USB frame and forwarded to the gateway that reads the TCP datagram. Once the sensor data is at the gateway, the gateway forwards the sensor data to the middleware and if the link is down, the sensor data is temporarily stored in a database hosted in the gateway and once the link is up, all the stored data is sent to the middleware and cleared from the database.
 
@@ -134,8 +140,8 @@ The conclusion goes here.
 %Bibliography
 \mbox{}
 \nocite{*}
-\bibliographystyle{plain} 
-\bibliography{myrefs}
+\bibliographystyle{IEEEtran} 
+\bibliography{IEEEabrv,myrefs}
      
 
 \end{document}
