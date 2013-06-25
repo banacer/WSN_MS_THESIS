@@ -1,9 +1,10 @@
-\documentclass[12pt,a4paper,final]{report}
+\documentclass[oneside,12pt,a4paper,final]{book}
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amssymb}
 \usepackage{graphicx}
+\usepackage[acronym]{glossaries}
 
 \newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
 
@@ -11,98 +12,60 @@
 \title{An internet of things testbed for the smart grid application}
 
 \begin{document}
+\frontmatter
+%COVER PAGE
+\input{cover_page.tex}
+\chapter{Acknowledgements}
 
-\begin{titlepage}
-\begin{center}
-\includegraphics[width=0.6\textwidth]{img/aui_logo.jpg}
-%\includegraphics[width=0.45\textwidth]{img/tum_logo.jpg}
-\linebreak
-\linebreak
-\linebreak
-\linebreak
-\linebreak
-\linebreak
-% Title
-\HRule \\[0.4cm]
-{ \huge \bfseries An Internet Of Things Testbed For The Smart Grid Application}\\[0.4cm]
-
-\HRule \\[1.5cm]
-
-% Author and supervisor
-\begin{minipage}{0.4\textwidth}
-\begin{flushleft} \large
-\emph{Author:}\\
-Nacer \textsc{Khalil}
-\end{flushleft}
-\end{minipage}
-\begin{minipage}{0.4\textwidth}
-\begin{flushright} \large
-\emph{Supervisor:} \\
-Dr.~Riduan \textsc{Abid} \\
-Dr.~Driss \textsc{Benhaddou} \\
-Dr.~Michael \textsc{Gerndt} 
-\end{flushright}
-\end{minipage}
-
-\vfill
-
-% Bottom of the page
-{\large \today}
-
-\end{center}
-\end{titlepage}
-
-
-\begin{abstract}
-
-\end{abstract}
-
-\renewcommand{\abstractname}{Acknowledgements}
-\begin{abstract}
-
-\end{abstract}
-
+\chapter{Abstract}
+\chapter{Résumé}
+%\chapter{ملخص}
 
 %THIS IS THE TABLE OF CONTENT PART
 \tableofcontents
-\newpage
-\chapter{Introduction}
 
+
+\mainmatter
+\chapter{Introduction}
+\section{Importance of study}
+\section{Rationale of study}
 \section{Problem statement}
 \section{Purpose of study}
-\section{Importance of study}
 \section{scope of study}
-\section{Rationale of study}
-\section{Definition of terms}
+\section{Outcome of the study}
+\section{Outline of the Thesis}
 
 \chapter{Literature review}
 
-\chapter{Methodology}
-\section{System Architecture}
-\section{Implementation}
+\chapter{Internet Of Things}
+
+
+\chapter{System Architecture}
+
+\chapter{Implementation}
+
+
 \chapter{Findings}
 \section{Experiment}
-\section{Data grathering}
+%\subsection{Methodology}
+\section{Data gathering}
 \section{Interpretation of result}
+
 \chapter{Conclusion}
 
-\chapter{Recommendations}
+\chapter{Future Work}
 
+\appendix
+\chapter{TinyOs program}
+\chapter{6to4/4to6 packet transformation}
+
+\backmatter
 \mbox{}
 \nocite{*}
 \bibliographystyle{IEEEtran} 
 \bibliography{IEEEabrv,myrefs}
 \newpage
 \listoffigures
-
-\appendix
-
-\chapter{TinyOs program}
-
-
-\chapter{6to4/4to6 packet transformation}
-
-
 
 
 \end{document}
