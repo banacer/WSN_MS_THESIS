@@ -4,6 +4,7 @@
 \usepackage{amsfonts}
 \usepackage{amssymb}
 \usepackage{graphicx}
+
 \newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
 
 \author{Nacer Khalil}
@@ -52,9 +53,14 @@ Dr.~Michael \textsc{Gerndt}
 \end{titlepage}
 
 
-\chapter{Abstract}
+\begin{abstract}
 
-\chapter{Acknowledgements}
+\end{abstract}
+
+\renewcommand{\abstractname}{Acknowledgements}
+\begin{abstract}
+
+\end{abstract}
 
 
 %THIS IS THE TABLE OF CONTENT PART
@@ -72,9 +78,12 @@ Dr.~Michael \textsc{Gerndt}
 \chapter{Literature review}
 
 \chapter{Methodology}
-
+\section{System Architecture}
+\section{Implementation}
 \chapter{Findings}
-
+\section{Experiment}
+\section{Data grathering}
+\section{Interpretation of result}
 \chapter{Conclusion}
 
 \chapter{Recommendations}
@@ -85,6 +94,15 @@ Dr.~Michael \textsc{Gerndt}
 \bibliography{IEEEabrv,myrefs}
 \newpage
 \listoffigures
-\chapter{Appendix}
+
+\appendix
+
+\chapter{TinyOs program}
+
+
+\chapter{6to4/4to6 packet transformation}
+
+
+
 
 \end{document}
