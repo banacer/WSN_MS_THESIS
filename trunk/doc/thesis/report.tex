@@ -4,22 +4,58 @@
 \usepackage{amsfonts}
 \usepackage{amssymb}
 \usepackage{graphicx}
-\usepackage[acronym]{glossaries}
-
+\usepackage{setspace}
 \newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+%\usepackage{hyperref}
+\usepackage[acronym]{glossaries} 
 
 \author{Nacer Khalil}
 \title{An internet of things testbed for the smart grid application}
 
+
+\makeglossaries
+
 \begin{document}
+\doublespacing
+\input{acronym}
 \frontmatter
+
 %COVER PAGE
-\input{cover_page.tex}
+\input{cover_page}
+
 \chapter{Acknowledgements}
+I am deeply thankful to my supervisor Dr. Mohamed Riduan Abid for his very close supervision, guidance and for the advice he kept giving me during the lifetime of the project. Your advices whether they are computer science related, or even every day life related wise words things I will never forget. 
+\\
+I am also thankful for having Dr. Driss Benhaddou as a supervisor. His advice, insight, guidance and very enlightening ideas. I wouldn't have been so interested in smart grids without the discussions we had on the topic.
+\\
+I would also like to thank Dr. Michael Gerndt for his guidance in this thesis and also for his help and advising throughout my masters degree in Technische Universät München.
+\\
+I  also thank Dr. Hamid Harroud who suggested several directions to take throughout the course of this project.
+\\
+My special thanks to my close friends who helped relax in times that seemed very stressful.
+\\
+I also greatly thank all excellent professors of whom I had the chance to be a student.
+
+
 
 \chapter{Abstract}
+\paragraph{}
+The information technology is advancing exponentially and is having bigger impact on our lives as time advances. The next revolution in computing is called the \gls{iot}. It is basically the internet we know nowadays except that physical objects (fridge, television, air conditioning) will be the major players in this complex system. In this context, the project builds on this idea a test bed for smart home energy optimization. The project allows users to monitor their energy consumption via their smart phone and also the users can control their appliances by turning on and off appliances remotely.
+\paragraph{}
+The system is divided into three main components. Each of them is using different technologies such as \gls{tinyos}, \gls{nesc}, \gls{j2se}, \gls{http} and other technologies that will be discussed in the thesis report.
+\paragraph{}
+At this stage, the system allows monitoring, but turning on and off appliances is not yet there mainly because of the absence of the material but the communication for that purpose is there.
+
 \chapter{Résumé}
+La technologie de l'information progresse de façon exponentielle et impact sur nos vies prend de l'importance plus le temps avance. La prochaine révolution de l'informatique est appelé le \glsreset {iot}. Il s'agit essentiellement de Internet tel que nous la connaissons aujourd'hui, sauf que les objets physiques (réfrigérateur, television, climatiseur) seront les principaux acteurs de ce complexe système. Dans ce contexte, le projet s'appuie sur cette idée un prototype qui a pour but l'optimisation intelligente de l'énergie dans les domiciles. Le projet permet aux utilisateurs de suivre de près leur consommation d'énergie via leur smartphone et permet de contrôler leurs appareils en allumand et éteignant les appareils à distance.
+\paragraph {}
+Le système est divisé en trois composantes principales. Chacun d'entre eux  utilise différentes technologies telles que \gls{tinyos}, \gls{nesc}, \gls{j2se}, \gls{http} et d'autres technologies qui seront présentées dans le rapport de thèse.
+\paragraph{}
+A ce stade, le système permet de surveiller, mais allumer et éteindre les appareils n'est pas encore mise en place principalement en raison de l'absence de matériel, mais l'infrastructure de communication pour ce but là est en place.
 %\chapter{ملخص}
+
+
+\printglossaries
 
 %THIS IS THE TABLE OF CONTENT PART
 \tableofcontents
@@ -27,6 +63,7 @@
 
 \mainmatter
 \chapter{Introduction}
+
 \section{Importance of study}
 \section{Rationale of study}
 \section{Problem statement}
@@ -59,13 +96,15 @@
 \chapter{TinyOs program}
 \chapter{6to4/4to6 packet transformation}
 
-\backmatter
-\mbox{}
-\nocite{*}
+%\backmatter
+%\mbox{}
+%\nocite{*}
 \bibliographystyle{IEEEtran} 
 \bibliography{IEEEabrv,myrefs}
-\newpage
-\listoffigures
 
+\newpage
+
+\listoffigures
+\listoftables
 
 \end{document}
