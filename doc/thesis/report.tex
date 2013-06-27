@@ -5,12 +5,15 @@
 \usepackage{amssymb}
 \usepackage{graphicx}
 \usepackage{setspace}
+\usepackage{arabtex}
+\usepackage{utf8}
 \newcommand{\HRule}{\rule{\linewidth}{0.6mm}}
 %\usepackage{hyperref}
 \usepackage[acronym]{glossaries} 
 \makeglossaries
 \author{Nacer Khalil}
 \title{Internet of Things: a Real-World Deployment Towards Smart Grids Integration}
+
 \newenvironment{dedication}{\vspace{6ex}\begin{quotation}\begin{center}\begin{em}}{\par\end{em}\end{center}\end{quotation}}
 
     
@@ -59,7 +62,28 @@ La technologie de l'information progresse de façon exponentielle et son impact 
 Le système est divisé en trois composantes principales. Chacun d'entre eux  utilise différentes technologies telles que \gls{tinyos}, \gls{nesc}, \gls{j2se}, \gls{http} et d'autres technologies qui seront présentées dans le rapport de thèse.
 \paragraph{}
 A ce stade, le système permet de surveiller, mais controler les appareils n'est pas encore mise en place principalement en raison de l'absence de matériel, mais l'infrastructure de communication pour ce but là est en place.
+\setcode{utf8}
+
 %\chapter{ملخص}
+
+\chapter{Arabic}
+\paragraph{}
+\begin{arabtex}
+تكنولوجيا المعلومات تتقدم باطراد وجود أكبر تأثير على حياتنا كما تقدم الوقت. الثورة القادمة في مجال الحوسبة يسمى إنترنت الأشياء (قام المحفل). انها اساسا شبكة الانترنت ونحن نعلم في الوقت الحاضر إلا أن الأشياء المادية (ثلاجة، تلفزيون، تكييف هواء ...) وسوف تكون القوى الفاعلة الرئيسية في هذا النظام المعقد. وفي هذا السياق، فإن المشروع يبني على هذه الفكرة على سرير اختبار لترشيد استهلاك الطاقة الذكية الرئيسية. ال يسمح المشروع للمستخدمين لرصد استهلاك الطاقة لديها عبر الذكية الخاصة بهم الهاتف وأيضا يمكن للمستخدمين التحكم في الأجهزة عن طريق تشغيل وإيقاف الأجهزة عن بعد.
+\end{arabtex}
+\paragraph{}
+\begin{arabtex}
+وينقسم النظام إلى ثلاثة عناصر رئيسية. كل واحد منهم يستخدم
+التكنولوجيات المختلفة، مث لTinyOS، NESC، ومعيار جافا
+طبعة J2SE، بروتوكول نقل النص التشعبي HTTP وغيرها من التكنولوجيات
+التي سيتم مناقشتها في التقرير أطروحة.
+\end{arabtex}
+\paragraph{}
+\begin{arabtex}
+
+في هذه المرحلة، ونظام مراقبة يسمح، ولكن تشغيل وإيقاف تطبيق صحيفة-
+ ليس هناك حتى الآن وذلك أساسا بسبب غياب المعدات ولكن البلاغ لهذا الغرض هناك.
+\end{arabtex}
 
 \singlespacing
 
@@ -117,7 +141,9 @@ Each of these four component exist to solve part of the problem. Each of these c
 It is to be noted that some of the concepts will be discussed from the architectural point in Chapter 4 but not from an implementation point in Chapter 5. The sole reason behind is the fact that some of the equipment required for this thesis did not arrive on time and therefore the parts in the implementation requiring such equipment was omitted to meet the deadlines.
 \section{Outcome of the study}
 \paragraph{}
-The outcome of the thesis is to design and implement a test-bed that is able to show the two-way communication in action. It will also have to show concepts of the \glsreset{iot}\gls{iot} which are that every node in the system can communicate autonomously and with any other node in the Internet. Another \gls{iot} concept is the ability of any node in the \gls{iot} to consume and produce information that is communicated through the network. The autonomous production of information is shown by the fact that every sensor node in the \gls{wsn} reads sensory data from its sensors that are attached to appliance in order to sense their consumption and this information is produced and transmitted periodically. The consumption of data by is shown by external nodes in the \gls{iot} sending request to the sensor node in the \gls{wsn} in order to control and appliance's status i.e. turn on the television. This will prove the consumption of information by the nodes in the \gls{iot}.
+The outcome of the thesis is to design and implement a test-bed that is able to show the two-way communication in action. It will also have to show concepts of the \glsreset{iot}\gls{iot} which are that every node in the system can communicate autonomously and with any other node in the Internet. Another \gls{iot} concept is the ability of any node in the \gls{iot} to consume and produce information that is communicated through the network.
+\paragraph{}
+The autonomous production of information is shown by the fact that every sensor node in the \gls{wsn} reads sensory data from its sensors that are attached to appliance in order to sense their consumption and this information is produced and transmitted periodically. The consumption of data by is shown by external nodes in the \gls{iot} sending request to the sensor node in the \gls{wsn} in order to control and appliance's status i.e. turn on the television. This will prove the consumption of information by the nodes in the \gls{iot}.
 \paragraph{}
 The test-bed should also show that communication between any two nodes in the \gls{iot} is successful, robust and reliable and that the heterogeneity of the system is made transparent to the nodes in the system by the creation of the software tool residing in the gateway which is between the \gls{iot} and the outside world. This software tool is seen as a heterogeneity handler and also a communication middleman that translates the communication to the appropriate technology needed by the recipient.
 \paragraph{}
@@ -125,20 +151,27 @@ The testbed will able to show the two-way communication in action and will also 
 
 \section{Outline of the Thesis}
 \paragraph{}
-The thesis is is divided into eight chapters. Each of the chapter approaches thesis from a different aspect. The first chapter is an introductory chapter that gives a flavor of the project that is to be studied in this thesis and also introduces the problem and the solution proposed in this topic. This chapter also puts the reader into perspective by introducing some of the main concepts related to the \glsreset{sg}\gls{sg} and the \glsreset{iot}\gls{iot}. 
-\paragraph{}
-The second chapter presents the background of the work by revising the literature related to the topics of \gls{iot} and \gls{sg}. It also discussed related work and how it was tackled in different research papers, how does it relate to the work done in this thesis and also how does it differ.
-\paragraph{}
-The third chapter is dedicated to the \glsreset{iot}\gls{iot}. It presents the topic, talks about the importance of \gls{iot}, its impact on the world, the actual Internet, the future of Internet and also how will \gls{sg} benefit from it.
-\paragraph{}
-The fourth chapter will present the architecture of the system and the test-bed. It will discuss the system from different aspects, and how were the two problems solved from the architectural aspect.
-\paragraph{}
-The fifth chapter will mostly discuss the implementation system. It will start by presenting the hardware used in this project, then move to the technology enablers. Each component of the system will be discussed extensively and move to the integration of the components to form the test-bed.
-\paragraph{}
-The sixth chapter will start first by presenting the findings then move to explain the experiment that was done to measure the performance of the system. The data gathering section will show how and what data was gathered and then move to analyzing and interpreting the data.
-\paragraph{}
-Chapter seven and eight are the last two chapters of the thesis that will conclude the thesis, provide directions about future work and recommendations to the reader what parts of the system could be ameliorated and how it can be achieved.
+The thesis is is divided into eight chapters. Each of the chapter approaches thesis from a different aspect. 
+\paragraph{Chapter 1}
+It is an introductory chapter that gives a flavor of the project that is to be studied in this thesis and also introduces the problem and the solution proposed in this topic. This chapter also puts the reader into perspective by introducing some of the main concepts related to the \glsreset{sg}\gls{sg} and the \glsreset{iot}\gls{iot}. 
+\paragraph{Chapter 2}
+It presents the background of the work by revising the literature related to the topics of \gls{iot} and \gls{sg}. It also discussed related work and how it was tackled in different research papers, how does it relate to the work done in this thesis and also how does it differ.
+\paragraph{Chapter 3}
+It is dedicated to the \glsreset{iot}\gls{iot}. It presents the topic, talks about the importance of \gls{iot}, its impact on the world, the actual Internet, the future of Internet and also how will \gls{sg} benefit from it.
+\paragraph{Chapter 4}
+It will present the architecture of the system and the test-bed. It will discuss the system from different aspects, and how were the two problems solved from the architectural aspect.
+\paragraph{Chapter 5}
+This chapter will mostly discuss the implementation system. It will start by presenting the hardware used in this project, then move to the technology enablers. Each component of the system will be discussed extensively and move to the integration of the components to form the test-bed.
+\paragraph{Chapter 6}
+It will start first by presenting the findings then move to explain the experiment that was done to measure the performance of the system. The data gathering section will show how and what data was gathered and then move to analyzing and interpreting the data.
+\paragraph{Chapter 7, 8}
+These are the last two chapters of the thesis that will conclude the thesis, provide directions about future work and recommendations to the reader what parts of the system could be ameliorated and how it can be achieved.
 \chapter{Literature review}
+\section{The need for smart grid}
+\paragraph{}
+The actual electrical grid is based on a technology that is at least one century old \cite{ref5}. As a result, there is a need to change as to meet to 21st century requirement such as having more green energy in order to reduce the pollution caused mainly by the use of fossil energy. As a result, research has introduced a new technology called \glsreset{sg}\gls{sg}. Although it is still a research project and numerous issues related to \gls{sg} are left unanswered, nations across the globe started to deploy \gls{sg} project. It is also noted that in order for the grid to become more reliable, secure and efficient, a bi-directional information and communication infrastructure should be embedded within the grid \cite{ref5}.
+\paragraph{}
+The smart grid brings around new concepts that will achieve efficiency, reliable and security to the power grid. The first one is the introduction of the \gls{dg} by exploiting \gls{res} \cite{ref6}
 
 \chapter{Internet Of Things}
 
@@ -175,4 +208,5 @@ Chapter seven and eight are the last two chapters of the thesis that will conclu
 \printglossaries
 \bibliographystyle{IEEEtran} 
 \bibliography{IEEEabrv,myrefs}
+
 \end{document}
