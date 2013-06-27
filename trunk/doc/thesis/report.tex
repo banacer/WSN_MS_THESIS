@@ -50,7 +50,7 @@ The information technology is advancing exponentially and is having bigger impac
 \paragraph{}
 The system is divided into three main components. Each of them is using different technologies such as \gls{tinyos}, \gls{nesc}, \gls{j2se}, \gls{http} and other technologies that will be discussed in the thesis report.
 \paragraph{}
-At this stage, the system allows monitoring, but turning on and off appliances is not yet there mainly because of the absence of the material but the communication for that purpose is there.
+At this stage, the system allows monitoring, but turning on and off appliances is not yet there mainly because of the absence of the equipment but the communication for that purpose is there.
 
 \chapter{Résumé}
 \paragraph{}
@@ -99,14 +99,55 @@ The goal of the study is to solve the problems introduced in the problem stateme
 \paragraph{}
 The first purpose of this study is to create a testbed having the two-way communication and also being able to make use of it in order to build richer applications based on this possibility. To do it, there was a need to first introduce \gls{6lowpan} within every device in the \gls{wsn}. This would make every sensor node also known as mote identified and ready to communicate and be part of the \gls{iot}. This communication will go in the two directions and based on that the two-way communication will have to be built.
 \paragraph{}
-The second purpose of this study is to solve the heterogeneity problem that arises with the integration of smart homes within the smart grid and also when making the whole system as part of the \glsreset{iot}\gls{iot}. 
-\section{scope of study}
-\section{Outcome of the study}
-\section{Outline of the Thesis}
+The second purpose of this study is to solve the heterogeneity problem that arises with the integration of smart homes within the smart grid and also when making the whole system as part of the \glsreset{iot}\gls{iot}. Solving such a problem means having an additional component that will track all communication packets and change them to fit the needs of the destination component. This will make of this additional component a middleman and therefore make the heterogeneity problem disappear.
 
+\section{scope of study}
+\paragraph{}
+The thesis aims to solves the two problems presented in section 1.3. To do so, a variety of tools and technologies were used for this purpose.The two problems were not solved one independently of the other but even though the problems seem separate one cannot solve without having to solve the other. In other words, after the creation of the two-way communication in the \glsreset{wsn}\gls{wsn} which supported \gls{ipv6} over \gls{6lowpan}, other network only supported \gls{ipv4} and therefore could not communicate, and this was due to the heterogeneity problem. This is why the two-way communication was created and then the heterogeneity problem had to be solved in order to see everything working.
+The system is divided into four components:
+\begin{itemize}
+\item The fully \gls{ipv6} supported \gls{wsn}
+\item The \gls{tinyos} program for sensor transmission and appliance request handler
+\item The heterogeneity handler and middleman gateway server
+\item The mobile client
+\end{itemize}
+\paragraph{}
+Each of these four component exist to solve part of the problem. Each of these components will be discussed extensively in the Chapter 4 from the architectural aspect of the component and in Chapter 5 from the implementation level of the system. 
+\paragraph{}
+It is to be noted that some of the concepts will be discussed from the architectural point in Chapter 4 but not from an implementation point in Chapter 5. The sole reason behind is the fact that some of the equipment required for this thesis did not arrive on time and therefore the parts in the implementation requiring such equipment was omitted to meet the deadlines.
+\section{Outcome of the study}
+\paragraph{}
+The outcome of the thesis is to design and implement a test-bed that is able to show the two-way communication in action. It will also have to show concepts of the \glsreset{iot}\gls{iot} which are that every node in the system can communicate autonomously and with any other node in the Internet. Another \gls{iot} concept is the ability of any node in the \gls{iot} to consume and produce information that is communicated through the network. The autonomous production of information is shown by the fact that every sensor node in the \gls{wsn} reads sensory data from its sensors that are attached to appliance in order to sense their consumption and this information is produced and transmitted periodically. The consumption of data by is shown by external nodes in the \gls{iot} sending request to the sensor node in the \gls{wsn} in order to control and appliance's status i.e. turn on the television. This will prove the consumption of information by the nodes in the \gls{iot}.
+\paragraph{}
+The test-bed should also show that communication between any two nodes in the \gls{iot} is successful, robust and reliable and that the heterogeneity of the system is made transparent to the nodes in the system by the creation of the software tool residing in the gateway which is between the \gls{iot} and the outside world. This software tool is seen as a heterogeneity handler and also a communication middleman that translates the communication to the appropriate technology needed by the recipient.
+\paragraph{}
+The testbed will able to show the two-way communication in action and will also show that the heterogeneity does not form a barrier by its successful handling.
+
+\section{Outline of the Thesis}
+\paragraph{}
+The thesis is is divided into eight chapters. Each of the chapter approaches thesis from a different aspect. The first chapter is an introductory chapter that gives a flavor of the project that is to be studied in this thesis and also introduces the problem and the solution proposed in this topic. This chapter also puts the reader into perspective by introducing some of the main concepts related to the \glsreset{sg}\gls{sg} and the \glsreset{iot}\gls{iot}. 
+\paragraph{}
+The second chapter presents the background of the work by revising the literature related to the topics of \gls{iot} and \gls{sg}. It also discussed related work and how it was tackled in different research papers, how does it relate to the work done in this thesis and also how does it differ.
+\paragraph{}
+The third chapter is dedicated to the \glsreset{iot}\gls{iot}. It presents the topic, talks about the importance of \gls{iot}, its impact on the world, the actual Internet, the future of Internet and also how will \gls{sg} benefit from it.
+\paragraph{}
+The fourth chapter will present the architecture of the system and the test-bed. It will discuss the system from different aspects, and how were the two problems solved from the architectural aspect.
+\paragraph{}
+The fifth chapter will mostly discuss the implementation system. It will start by presenting the hardware used in this project, then move to the technology enablers. Each component of the system will be discussed extensively and move to the integration of the components to form the test-bed.
+\paragraph{}
+The sixth chapter will start first by presenting the findings then move to explain the experiment that was done to measure the performance of the system. The data gathering section will show how and what data was gathered and then move to analyzing and interpreting the data.
+\paragraph{}
+Chapter seven and eight are the last two chapters of the thesis that will conclude the thesis, provide directions about future work and recommendations to the reader what parts of the system could be ameliorated and how it can be achieved.
 \chapter{Literature review}
 
 \chapter{Internet Of Things}
+
+\section{The actual Internet}
+\section{Introduction to \gls{iot}}
+\section{Importance of \gls{iot}}
+\section{The impact of \gls{iot}}
+\section{The benefits of \gls{iot}}
+\section{The future of Internet}
 
 
 \chapter{System Architecture}
