@@ -8,13 +8,12 @@
 \newcommand{\HRule}{\rule{\linewidth}{0.6mm}}
 %\usepackage{hyperref}
 \usepackage[acronym]{glossaries} 
-
+\makeglossaries
 \author{Nacer Khalil}
 \title{Internet of Things: a Real-World Deployment Towards Smart Grids Integration}
+\newenvironment{dedication}{\vspace{6ex}\begin{quotation}\begin{center}\begin{em}}{\par\end{em}\end{center}\end{quotation}}
 
-
-\makeglossaries
-
+    
 \begin{document}
 \doublespacing
 \input{acronym}
@@ -22,20 +21,27 @@
 
 %COVER PAGE
 \input{cover_page}
-
+\chapter{} % dedications chapter
+\begin{dedication}
+To my dear parents for their patience, love and support \\
+To my brothers Hossein, Omar and Saad \\
+To my cousin Sara and her family \\
+To my family \\
+To my friends
+\end{dedication}
 \chapter{Acknowledgements}
-I am deeply thankful to my supervisor Dr. Mohamed Riduan Abid for his very close supervision, guidance and for the advice he kept giving me during the lifetime of the project. Your advices whether they are computer science related, or even every day life related wise words things I will never forget. 
-\\
+\paragraph{}
+I am deeply thankful to my supervisor Dr. Mohamed Riduan Abid for his very close supervision, guidance and for the advice he kept giving me during the lifetime of the project. Your advices whether they are computer science related, or even every day life related wise words things I will never forget.
+\paragraph*{}
 I am also thankful for having Dr. Driss Benhaddou as a supervisor. His advice, insight, guidance and very enlightening ideas. I wouldn't have been so interested in smart grids without the discussions we had on the topic.
-\\
+\paragraph{}
 I would also like to thank Dr. Michael Gerndt for his guidance in this thesis and also for his help and advising throughout my masters degree in Technische Universät München.
-\\
+\paragraph{}
 I  also thank Dr. Hamid Harroud who suggested several directions to take throughout the course of this project.
-\\
-My special thanks to my close friends who helped relax in times that seemed very stressful.
-\\
-I also greatly thank all excellent professors of whom I had the chance to be a student.
-
+\paragraph{}
+My special thanks to my close friends who helped relax in times that seemed very stressful. I wouldn't have made it without their help.
+\paragraph{}
+I also greatly thank all excellent professors of whom I had the chance to be a student. I learned things in class  I would have never learnt elsewhere.
 
 
 \chapter{Abstract}
@@ -48,17 +54,18 @@ At this stage, the system allows monitoring, but turning on and off appliances i
 
 \chapter{Résumé}
 \paragraph{}
-La technologie de l'information progresse de façon exponentielle et son impact sur nos vies prend de l'importance plus le temps avance. La prochaine révolution de l'informatique est appelé \glsreset{iot} \gls{iot}. Il s'agit essentiellement de Internet tel que nous la connaissons aujourd'hui, sauf que les objets physiques (réfrigérateur, television, climatiseur...) seront les principaux acteurs de ce complexe système. Dans ce contexte, le projet s'appuie sur cette idée et présente un prototype qui a pour but l'optimisation intelligente de l'énergie dans les domiciles. Le projet permet aux utilisateurs de suivre de près leur consommation d'énergie via leur smartphone et permet de contrôler leurs appareils en allumant et éteignant les appareils à distance.
+La technologie de l'information progresse de façon exponentielle et son impact sur nos vies prend de l'importance plus le temps avance. La prochaine révolution de l'informatique est appelé \glsreset{iot} \gls{iot}. Il s'agit essentiellement de Internet tel que nous la connaissons aujourd'hui, sauf que les objets physiques  seront les principaux acteurs de ce système. Ainsi, le projet s'appuie sur cette idée et présente un prototype qui a pour but l'optimisation intelligente de l'énergie dans les domiciles. Le projet permet aux utilisateurs de suivre de près leur consommation d'énergie via leur smartphone et permet de contrôler leurs appareils en allumant et éteignant les appareils à distance.
 \paragraph {}
 Le système est divisé en trois composantes principales. Chacun d'entre eux  utilise différentes technologies telles que \gls{tinyos}, \gls{nesc}, \gls{j2se}, \gls{http} et d'autres technologies qui seront présentées dans le rapport de thèse.
 \paragraph{}
-A ce stade, le système permet de surveiller, mais allumer et éteindre les appareils n'est pas encore mise en place principalement en raison de l'absence de matériel, mais l'infrastructure de communication pour ce but là est en place.
+A ce stade, le système permet de surveiller, mais controler les appareils n'est pas encore mise en place principalement en raison de l'absence de matériel, mais l'infrastructure de communication pour ce but là est en place.
 %\chapter{ملخص}
 
 \singlespacing
 
-\printglossaries
 \tableofcontents
+\listoffigures
+\listoftables
 
 \mainmatter
 \doublespacing
@@ -78,14 +85,21 @@ Another revolution is about to begin and it is taking place in the information t
 \paragraph{}
 This project has been done in order to investigate ways the \gls{iot} can benefit the \gls{sg}. The smart grid as a set of philosophical ideas counts on a set of novel functionalities. Once of these ideas is the two-way communication that will make possible the utility to communicate with consumers and vice versa. This concept is possible with the Internet Of Things as devices in \gls{iot} communicate between them by producing and consuming information. Numerous ideas are based on this two-way communication such as the \gls{dr} which offers a set of services for both the power provider and the consumer.
 \paragraph{}
-The \glsreset{iot}\gls{iot} counts on different technologies such as \gls{wsn}, \gls{rfid}, \gls{ipv6} and other technologies which make the internet of things a very heterogeneous and complex system \cite{ref4}. One of the challenges in \gls{iot} is to deals with such heterogeneity and take the most out of it in order to make the communication as smooth and robust as possible. This heterogeneity should be made transparent to any two parties trying to communicate in \gls{iot}.
+The \glsreset{iot}\gls{iot} counts on different technologies such as \gls{wsn}, \gls{rfid}, \gls{ipv6} and other technologies which make the Internet of things a very heterogeneous and complex system \cite{ref4}. One of the challenges in \gls{iot} is to deals with such heterogeneity and take the most out of it in order to make the communication as smooth and robust as possible. This heterogeneity should be made transparent to any two parties trying to communicate in \gls{iot}.
 
 \section{Problem statement}
 \paragraph{}
-The \glsreset{sg} \gls{sg} counts on the two-way communication to build to a whole communication and protocol stack namely the \glsreset{dr}\gls{dr} and other services built on top of the \gls{dr}. From the consumer's side or more precisely the household's side, there are smart home energy management in the market nowadays but none of these products offers integration with \gls{sg}. To offer such an integration with \gls{sg}, there is a need to first build this two-way communication and make it possible for any appliance to report its real-time energy consumption and also to be able to be controlled remotely with this two-way communication. Such infrastructure is missing for the time being and therefore the integration of the smart home within the smart grid is not possible. Also, in order for \gls{sg} to be integrated into the \gls{iot}, all devices should be able to communicate in the two directions.
+The \glsreset{sg} \gls{sg} counts on the two-way communication to build to a whole communication and protocol stack namely the \glsreset{dr}\gls{dr} and other services built on top of the \gls{dr}. From the consumer's side or more precisely the household's side, there are smart home energy management software in the market nowadays but none of these products offers integration with \gls{sg}. To have such an integration with \gls{sg}, there is a need to first build this two-way communication and make it possible for any appliance to report its real-time energy consumption and also to be able to be controlled remotely with this two-way communication. Such infrastructure is missing for the time being and therefore the integration of the smart home within the smart grid is not possible. Also, in order for \gls{sg} to be integrated into the \gls{iot}, all devices should be able to communicate in the two directions.
 \paragraph{}
+As \gls{sg} counts on numerous technologies to achieve its main goals. This usage of different technologies imposes another problem which is the heterogeneity of the system. As numerous components count on different technologies, there is a need to interface them in order to make this heterogeneity transparent to the all components of the system. This means that there is a need to build a software within the whole system that would constitute an important part of it and will take care of making the communication and processes technology-transparent and give the possibility to all components of the system to work hand-in-hand in order their common goals independently of the data link layer technology (Ethernet, Wifi or Zigbee) they are counting on, the network layer technology (\gls{ipv4} or \gls{ipv6}).
 
 \section{Purpose of study}
+ \paragraph{}
+The goal of the study is to solve the problems introduced in the problem statement section. This means creating the two-way communication, and also solving the heterogeneity that arises from integrating smart homes with the smart grid and making each components in the smart home as part of the Internet of things by making it communicate with any device in the Internet and having an \gls{ipv6} address that is built by making use of \gls{6lowpan} whose goal is to provide the TCP/IP to the smallest devices and with the least computational and energy rich.
+\paragraph{}
+The first purpose of this study is to create a testbed having the two-way communication and also being able to make use of it in order to build richer applications based on this possibility. To do it, there was a need to first introduce \gls{6lowpan} within every device in the \gls{wsn}. This would make every sensor node also known as mote identified and ready to communicate and be part of the \gls{iot}. This communication will go in the two directions and based on that the two-way communication will have to be built.
+\paragraph{}
+The second purpose of this study is to solve the heterogeneity problem that arises with the integration of smart homes within the smart grid and also when making the whole system as part of the \glsreset{iot}\gls{iot}. 
 \section{scope of study}
 \section{Outcome of the study}
 \section{Outline of the Thesis}
@@ -115,12 +129,9 @@ The \glsreset{sg} \gls{sg} counts on the two-way communication to build to a who
 \chapter{6to4/4to6 packet transformation}
 
 \backmatter
-\singlespacing
 
+\singlespacing
+\printglossaries
 \bibliographystyle{IEEEtran} 
 \bibliography{IEEEabrv,myrefs}
-
-\listoffigures
-\listoftables
-
 \end{document}
