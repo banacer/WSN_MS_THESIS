@@ -380,9 +380,49 @@ Figure \ref{fig:gateway_transformation} depicts the architecture of this compone
 \caption{Gateway packet transformation subsystem data flow}
 \label{fig:gateway_transformation}
 \end{figure}
+\paragraph{}
+The subsections 4.8.1 - 4.8.3 will go more into details in explaining the three subcomponents of the system.
 
 \subsection{Packet sniffer}
+\paragraph{}
+The packet sniffer subcomponent is the one responsible for sniffing and forwarding the packets to the component. It does not forward all the packets that are not going to the gateway machine. In other words, all the packets that are not meant to be received by the gateway server are sniffed and forwarded to the packet transformer that will continue the work.
+\subsection{Packet transformer}
+\paragraph{}
+Once the packet is received, the first thing this subcomponent does is check from where did it come, was it from the \gls{wsn} or the outside world. If it came from the outside world, the packet will only be examined if it is meant to go the \gls{wsn}. But an important and crucial problem presents itself:
+\paragraph{Problem}
+\underline{The outside world mostly uses \gls{ipv4} whereas the \gls{wsn} uses exclusively \gls{ipv6}} \\
+Two networks using different network layer technology cannot communicate even though \gls{ipv6} is nothing more but a new version of the very known \gls{ipv4} and this is because \gls{ipv6} has no backward compatibility with \gls{ipv4}.
+\paragraph{Solution}
+To solve such a problem, we decide to provide all the nodes in the this system with both an \gls{ipv4} and \gls{ipv6} address. Some of the nodes have either \gls{ipv4} or \gls{ipv6} addresses, but for the technology missing we assign the missing one virtually. For example, a sensor node in the \gls{wsn} with a real \gls{ipv6} address equal to FEC0::1 will be assigned a virtual \gls{ipv4} address equal to 192.168.0.1 but he will not be aware of it. Only the Gateway packet transformation component will be aware of it and this is the mechanism used to transform the packets and hide the heterogeneity from the rest of the components of the system.
+\paragraph{}
+Now that a packet is received, it checks whether this component came from the \gls{wsn} or the outside world, depending on that, it extracts the data from the packet which can be a \gls{tcp} or \gls{udp} datagram. The source and destination addresses are extracted from the packet and translated to the other network technology. Afterwards, a new packet referring to the destination technology used is created by having as a source and destination addresses the translated addresses and as payload the the \gls{tcp} \gls{udp} datagram coming from the original packet. Finally, the packet is forwarded to the network.
+\subsection{Address translator}
+The address translator is a very specialized subcomponent whose sole goal is to translate addresses between \gls{ipv4} and \gls{ipv6}. That is said, this component receives the address to translate and returns the translated one. Its concern is that the translation algorithm yields a bijective function which means that for any \gls{ipv4} address there is one and only one \gls{ipv6} address resulting from that source and vice versa. This statement compresses a set of statements which are the following:
 
+\begin{itemize}
+\item Any address belonging to one technology can be translated to the other technology. This is known as surjectivity.
+\item Any address cannot be translated into more than one address from the other technology. This is known as injectivity.
+\end{itemize}
+\paragraph{}
+The gateway packet transformation process is an important component responsible for dealing with the heterogeneity problem. It hides most of the heterogeneity in the system and make communication go independently of the data link layer or network layer technologies used.
+
+\section{Sensor data storage process}
+\paragraph{}
+The sensor data storage process is a component small component within the system whose sole purpose is to store such data. It seen by the \gls{wsn} as a TCP server, where sensor nodes get connected to it as soon as they are turned ON. The sensor node starts sending packet periodically (depending on the sampling rate specified) and whenever the sensor data is received, it is stored into a \gls{rdbms} where the schema is created as shown in figure \ref{fig:erd}.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[scale=0.5]{img/smart_grid_db.jpg}
+\caption{Entity relationship diagram}
+\label{fig:erd}
+\end{figure}
+
+\section{HTTP sensor data sender} 
+The HTTP sensor data sender is TCP server to which sensor nodes get connected to and start sending their data periodically. Once the data is received they are able to send data to the outside world periodically depending on the needs of the clients outside the system. This system counts on the deployment of an HTTP server at the level of outside the system client and send an HTTP request containing the sensor data received from the \gls{wsn}. 
+\paragraph{}
+The sensor nodes are able to send this data by themselves directly to the outside as this is part of the two-way communication but for convenience, it was decided that the \gls{wsn} sends its data to the gateway and it is up to the gateway to send such data or store it in the \gls{rdbms}.
+\section{Mobile client}
+The mobile client is a component of the system but can be seen as an outside world client as it is here to receive sensor data and also send ON/OFF commands to the system.
 \chapter{Implementation}
 
 \chapter{Findings}
