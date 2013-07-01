@@ -33,7 +33,7 @@ To my family \\
 To my friends \\
 
 \end{dedication}
-\chapter{Acknowledgements}
+\chapter{Acknowledgments}
 \paragraph{}
 I am deeply thankful to my supervisor Dr. Mohamed Riduan Abid for his very close supervision, guidance and for the advice he kept giving me during the lifetime of the project. Your advices whether they are computer science related, or even every day life related wise words things I will never forget.
 \paragraph*{}
@@ -202,9 +202,135 @@ From the architectural point of view, integrating \gls{sg} within \gls{iot} mean
 
 
 \chapter{System Architecture}
+\paragraph{}
+The thesis is based on the study and creation of a test-bed system whose goal is to integrate smart home with the \glsreset{sg}\gls{sg} and all within the \glsreset{iot}\gls{iot}. To do so, we first define the system's objectives and goals which do align  with the thesis's problem statement and purpose of study. Then each part of the system is presented, and a section of this chapter is dedicated to each part explaining the architecture of each component and how it aligns and integrates with the whole system.
+\section{System objectives}
+\paragraph{Objective 1}
+The goal of the system is to present a working test-bed that is able to interact with any appliance in the smart home. The system makes this possible by making all appliances part of the \glsreset{wsn}\gls{wsn} where each sensor node is addressable and may be used to control the appliance.
+\paragraph{Objective 2}
+Another system objective is to be able to monitor in real-time the consumption of each appliance and send this to a central repository where this data is to be stored. This will enable the sensor node to keep track of the appliance it is controlling and monitoring and collect consumption data that is sent and stored in a \gls{rdbms}.
+\paragraph{Objective 3}
+The third objective is to make this system hide its heterogeneity from the outside world and also from different component belonging to it. This means that the system should be able to make any two components communicate independently of the technology they are using and also making each component think the other is using the same technology as his. 
+
+\section{Division of components}
+\paragraph{}
+The system is divided into nine components where every component is in charge of a part of the system's objectives. When these nine components work hand-in-hand, they achieve all the system's and project's objectives and goals. The components that are defined for this system are the following:
+
+\begin{itemize}
+\item Full \gls{ipv6} \glsreset{wsn}\gls{wsn}
+\item Mote sensor data collection TCP client
+\item Mote appliance control TCP server
+\item Gateway packet transformation process
+\item \gls{ipv6} over USB tunnel
+\item mote \gls{ipv6} backstation
+\item Sensor data storage process
+\item HTTP sensor data sender
+\item Mobile client
+\end{itemize}
+
+\section{General architecture of the system}
+\paragraph{}
+The general architecture is depicted in figure \ref{fig:gen_architecture}. This figure shows the different components of the system and their interactions. Each set of components is appearing within a box and that box is labeled. This label refers to the hardware deployment of the component within the whole system.
+\begin{figure}[htbp]
+\centering
+\includegraphics[scale=0.40]{img/general_architecture.jpg}
+\caption{General architecture depicting the main components of the system}
+\label{fig:gen_architecture}
+\end{figure}
+\paragraph{}
+Now that the general architecture has been defined, the question that should be asked is whether all these components reside in the same layer in the \gls{osi} model and if not, in which layer does each of these components reside in the \gls{osi} model. As an answer to such a question, figure \ref{fig:layered_view} is here to show on what layer does every component act on.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[scale=0.40]{img/layered_view.jpg}
+\caption{Layered view showing where every component appears in the \gls{osi} model}
+\label{fig:layered_view}
+\end{figure}
+\paragraph{}
+From figure \ref{fig:layered_view}, one can see that there are three components in performing in the data link layer and network layer. The first one is the packet transformation process whose goal is to hide the communication heterogeneity by sniffing incoming packets, transforming them, and forwarding them to the destination to meet the destination's communication technology and standards used. The second component performing in the data link layer and network is the \gls{ipv6} over USB tunnel. This component is in charge of getting raw \gls{ipv6} packets and encapsulate them through USB to reach the destination. The third component is deployed in the mote sink which is the entry and exit point of the \gls{wsn}. This special mote receives \gls{ipv6} packets encapsulated in USB frames that are forwarded to the destination mote using Zigbee.
+
+\paragraph{}
+There are four components that perform in the session layer, presentation layer and application layer and are existing in most of the devices needed in the system. The first one is the client mobile App. This component is mostly a TCP client and uses many of the services provided by the layers it is performing on. The second component is the sensor data storage which is a TCP server receiving data from the \gls{wsn} and sending storing it in a \gls{rdbms}. The third and fourth components are the Mote TCP client and Mote TCP server that send sensor data and through the TCP client and receive orders to control the appliance using the TCP server. 
+\paragraph{}
+The only component acting in the application layer exclusively is the HTTP sensor data sender which provides a gateway to other applications willing to use such data and later on make use of the system. This component receives data and sends to the destination by using HTTP protocol. The middleware application was using HTTP to get sensor data from this system.
+\paragraph{}
+Now that the general structure of the software system has been established, the hardware structure is to be presented and explained further. figure \ref{fig:network_diagram} is a network diagram that shows the of the hardware components that exist within this system. The \glsreset{wsn}\gls{wsn} appears on the right of the document. Attached to it a mote sink that exist both in the \gls{wsn} and outside it. This mote sink is attached to the gateway server through USB. The gateway has also a Wi-Fi interface card that enables it to communicate with the other parts of the system such as the middleware and the mobile client.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[scale=0.8]{img/network_diagram.jpg}
+\caption{Network diagram of the system}
+\label{fig:network_diagram}
+\end{figure}
+\paragraph{}
+Now that the network diagram has been established in \ref{fig:network_diagram} where the hardware component appears, the next thing is to show where each software component will be deployed. In other words, what are the software components that exist on which hardware machine. This is the goal of table \ref{table:soft_hard_deployment}. It clearly shows what software components exist in what hardware. From the table \ref{table:soft_hard_deployment}, it is clear that there are hardware machines that have more than one component deployed and this is also the case for small devices such as sensor nodes within the \gls{wsn}.
+
+\begin{table}
+    \begin{tabular}{lllll}
+    		  \hline
+    Software component - Hardware component & Mote & Mote sink & Gateway & Mobile \\ \hline
+    Mote sensor data collection TCP client  & X    & X         & ~       & ~      \\ 
+    Mote appliance control TCP server       & X    & X         & ~       & ~      \\
+    Gateway packet transformation process   & ~    & ~         & X       & ~      \\
+    IPv6 over USB tunnel                    & ~    & ~         & X       & ~      \\
+    Mote IPv6 backstation                   & ~    & X         & ~       & ~      \\
+    Sensor data storage process             & ~    & ~         & X       & ~      \\
+    HTTP sensor data sender                 & ~    & ~         & X       & ~      \\
+    Mobile client                           & ~    & ~         & ~       & X      \\
+    \end{tabular}
+    \caption{Software-hardware deployment table}
+    \label{table:soft_hard_deployment}
+\end{table}
+\paragraph{}
+In the following sections, each software component will be described in more details showing why such a component is crucial and what are the architectural decisions made to be what it is.
+
+\section{Mote sensor data collection TCP client}
+The mote sensor data collection TCP client is nothing mote but a \gls{tcp} client deployed in a mote that is attached to an appliance that reads sensor data periodically from the consumption sensor more known as the \gls{ct}  as showns in figure \ref{fig:current_transformer} that returns after a few transformations of the data the exact amount of power consumer in \gls{wh}. The original amount returned a voltage value in \gls{v} that is then transformed into the electric intensity in \gls{a}. To transform, the voltage into the actual current intensity we make use of the data provided by the \gls{ct} manufacturer. By making use of an experiment whose goals is to measure the slope and the constant of the voltage to intensity function. This function resulted in the following values:
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[scale=0.8]{img/ct.jpg}
+\caption{Current transformer}
+\label{fig:current_transformer}
+\end{figure}
+
+\begin{table}
+    \begin{tabular}{ll}
+    \hline
+    slope    & 66.7 \gls{a} \\ \hline
+    Constant & 0 \gls{a}    \\ \hline
+    \end{tabular}
+    \caption{Current Transformer values}
+        \label{table:CT_vals}
+\end{table}
+The transformation function is then: \\
+\boldmath{$I = 66.7U_0$} \\
+I: Intensity in \glsreset{a}\gls{a} \\
+$U_0$: The voltage read from the \gls{ct}
+
+\paragraph{}
+Afterwards, as the voltage in Moroccan households is 220 \gls{v} we get the power using the following function:
+\\
+\boldmath{$ P = U_1 I $} \\
+P: Power in \gls{w} \\
+I: Intensity in \glsreset{a}\gls{a} \\
+$U_1$: Electrical potential difference or Voltage in household in \glsreset{v}\gls{v}
+\paragraph{}
+P refers to the power, not the actual consumption of the appliance. To get the consumption we use an additional parameter which is the sampling rate. The sampling rate is defined as the number of sensor reading actions per hour. If one reads sensor data every second, then the sampling rate is 3600 samples per second.
+\paragraph{}
+To find the actual consumption, we need to consecutive sensor readings that we call $P_0$ and $P_1$ and use the following function:
+\\
+$ C = \cfrac{P_0 + \cfrac{P_1 - P_0}{2}}{S} $ \\
+C: Current Consumption in \glsreset{wh}\gls{wh} \\
+P: Power sample number 1 in \glsreset{w}\gls{w} \\
+P': Power sample number 2 in \glsreset{w}\gls{w} \\
+$U_1$: Electrical potential difference or Voltage in households in \glsreset{v}\gls{v} \\
+S: Sampling rate \\
+The assumption taken is that if the power varies between two consecutive samples, the change was made linear throughout the interval of time between the two.
+\paragraph{}
+Once the consumption data in hand after this series of transformation, the next thing left to do is to send this data. To send it, the mote make use of the \gls{tcp}  client built on top of \gls{blip} package that implements the TCP/IP protocol stack. The system is made in a way that all the sensor data is sent to the gateway services that will decide to store it in a data store or send it to another system outside of the scope of this project.
 
 \chapter{Implementation}
-
 
 \chapter{Findings}
 \section{Experiment}
@@ -217,6 +343,7 @@ From the architectural point of view, integrating \gls{sg} within \gls{iot} mean
 \chapter{Future Work}
 
 \appendix
+\chapter{How to install the system}
 \chapter{TinyOs program}
 \chapter{6to4/4to6 packet transformation}
 
