@@ -285,7 +285,7 @@ Now that the network diagram has been established in \ref{fig:network_diagram} w
 In the following sections, each software component will be described in more details showing why such a component is crucial and what are the architectural decisions made to be what it is.
 
 \section{Mote sensor data collection TCP client}
-The mote sensor data collection TCP client is nothing mote but a \gls{tcp} client deployed in a mote that is attached to an appliance that reads sensor data periodically from the consumption sensor more known as the \gls{ct}  as showns in figure \ref{fig:current_transformer} that returns after a few transformations of the data the exact amount of power consumer in \gls{wh}. The original amount returned a voltage value in \gls{v} that is then transformed into the electric intensity in \gls{a}. To transform, the voltage into the actual current intensity we make use of the data provided by the \gls{ct} manufacturer. By making use of an experiment whose goals is to measure the slope and the constant of the voltage to intensity function. This function resulted in the following values:
+The mote sensor data collection TCP client is nothing more but a \gls{tcp} client deployed in a mote that is attached to an appliance that reads sensor data periodically from the consumption sensor more known as the \gls{ct}  as showns in figure \ref{fig:current_transformer} that returns after a few transformations of the data the exact amount of power consumer in \gls{wh}. The original amount returned a voltage value in \gls{v} that is then transformed into the electric intensity in \gls{a}. To transform, the voltage into the actual current intensity we make use of the data provided by the \gls{ct} manufacturer. By making use of an experiment whose goals is to measure the slope and the constant of the voltage to intensity function. This function resulted in the following values:
 
 \begin{figure}[htbp]
 \centering
@@ -329,6 +329,43 @@ S: Sampling rate \\
 The assumption taken is that if the power varies between two consecutive samples, the change was made linear throughout the interval of time between the two.
 \paragraph{}
 Once the consumption data in hand after this series of transformation, the next thing left to do is to send this data. To send it, the mote make use of the \gls{tcp}  client built on top of \gls{blip} package that implements the TCP/IP protocol stack. The system is made in a way that all the sensor data is sent to the gateway services that will decide to store it in a data store or send it to another system outside of the scope of this project.
+\section{ Mote appliance control TCP server}
+\paragraph{}
+The mote appliance control \glsreset{tcp}\gls{tcp} server is a component that is deployed in the sensor nodes of the \gls{wsn} to get commands from the outside world or at least outside of the \gls{wsn} in order control the appliance attached it. To control an appliance, one has access to two commands which are the ability to turn on and off a device.
+\paragraph{}
+Figure \ref{fig:appliance_control} depicts the architecture as well as the data flow of the command to turn on/ off an appliance. The TCP server hosted in the mote receives on/off commands from and external TCP client. The command is then extracted from the protocol of communication, and based on that, the PIN is known. the PIN information as well as the functionality is called as it is implemented in the MDA320CA that applies it on the pin and opens or closes the circuit depending on the command specified by the external TCP client.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[scale=0.35]{img/appliance_control.jpg}
+\caption{TCP Server controling appliance}
+\label{fig:appliance_control}
+\end{figure}
+
+\paragraph{}
+The mote by itself does not have the necessary capabilities needed to control a mote. In order for a mote to have such capabilities, it needs to be equipped with an additional board, a Data Acquisition board also called a extension board that enable the mote to have more capabilities and therefore the ability to control the power flowing into the mote. The extension board used in the course of this project is the Crossbow MDA320CA as depicted in figure \ref{fig:mda320ca}. This board has pins which are electrical inputs and outputs that make it possible to have external analog sensors, digital sensors and also be able to power the appliance. But the powering of the appliances is not as straightforward as it seems especially that sensor nodes are very low-power devices that cannot provide enough energy to appliances such as a television or a fridge.
+\paragraph{}
+To make a mote control the appliance, the mote will control the power going in a very small circuit and this circuit is responsible for letting the power flow through the appliance from another source of energy which is naturally far more important than the one provided in the mote. In summary, the mote has a the extension board of type MDA320CA that has a small electric circuit attached to one of its digital pins that then controls the flow of electricity going to the appliance. By turning off a pin, the electricity stops flowing through the circuit and becomes open which stops the electricity to go to the appliance. 
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[scale=0.8]{img/mda320.jpg}
+\caption{Crossbow MDA320CA Data acquisition board}
+\label{fig:mda320ca}
+\end{figure}
+
+\section{Mote IPv6 backstation}
+\paragraph{} 
+This component that exist in one special mote in the \glsreset{wsn}\gls{wsn}. This mote is able to communicate with the rest of the \gls{wsn} using Zigbee and also with the external world using \gls{usb}. This make this mote a sink and a router because it has two interface cards. The software component deployed in this sink is a packet forwarder. This means that once it receives an \gls{ipv6} packet that is not in the \gls{wsn}, it is forwarded through \gls{usb}.
+\paragraph{}
+The mote's sole goal is forwarding packets in and outside of the \gls{wsn} while other sensor node do not need to worry about how the packet will arrive to its destination. This mote is part of the components aiming to solve the heterogeneity problem stated in the problem statement. By making the sensor nodes talk to any device as if it is part of the \gls{wsn}, they do not really have to worry about how it will arrive or even how did the packet get to them in the first place.
+
+\section{IPv6 over USB tunnel}
+\paragraph{}
+The gateway server machine is equipped with two interface cards: the Wi-Fi network interface card and the Zigbee network interface card. The Zigbee network interface card is the one on focus in this section. To have a device communicating using Zigbee, one sensor node within the \gls{wsn} was used for this purpose and the software component implemented in this sensor node is the one described in section 4.6. That said, the packet is received through \gls{usb} but not read and recognized as a packet by the TCP/IP protocol stack. To do so, a tunnel had to be created for the purpose of extracting packets from the \gls{usb} port. Another goal is to forward \gls{ipv6} packets through that same \gls{usb} and this can only be done by the use of an \gls{ipv6} over \gls{usb} tunnel. 
+
+\section{Gateway packet transformation process}
+The gateway packet transformation process is one of the main components that hides the heterogeneity from the rest of the system and the outside world. The 
 
 \chapter{Implementation}
 
@@ -344,8 +381,6 @@ Once the consumption data in hand after this series of transformation, the next 
 
 \appendix
 \chapter{How to install the system}
-\chapter{TinyOs program}
-\chapter{6to4/4to6 packet transformation}
 
 \backmatter
 
