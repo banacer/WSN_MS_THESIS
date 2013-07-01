@@ -365,7 +365,23 @@ The mote's sole goal is forwarding packets in and outside of the \gls{wsn} while
 The gateway server machine is equipped with two interface cards: the Wi-Fi network interface card and the Zigbee network interface card. The Zigbee network interface card is the one on focus in this section. To have a device communicating using Zigbee, one sensor node within the \gls{wsn} was used for this purpose and the software component implemented in this sensor node is the one described in section 4.6. That said, the packet is received through \gls{usb} but not read and recognized as a packet by the TCP/IP protocol stack. To do so, a tunnel had to be created for the purpose of extracting packets from the \gls{usb} port. Another goal is to forward \gls{ipv6} packets through that same \gls{usb} and this can only be done by the use of an \gls{ipv6} over \gls{usb} tunnel. 
 
 \section{Gateway packet transformation process}
-The gateway packet transformation process is one of the main components that hides the heterogeneity from the rest of the system and the outside world. The 
+The gateway packet transformation process is one of the main components that hide the heterogeneity from the rest of the system and the outside world. This component mainly deals with packet transformation which means that it extracts the data from the packet and create a completely new one that holds the data and forward it. This component is composed of three subcomponents:
+\begin{itemize}
+\item Packet sniffer
+\item Packet transformer
+\item Address translator
+\end{itemize}
+\paragraph{}
+Figure \ref{fig:gateway_transformation} depicts the architecture of this component by showing the the different subcomponents that reside in this component and their interaction. It also shows the data flow within this component and what are the inputs and outputs of the system.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[scale=0.6]{img/packet_transformation.jpg}
+\caption{Gateway packet transformation subsystem data flow}
+\label{fig:gateway_transformation}
+\end{figure}
+
+\subsection{Packet sniffer}
 
 \chapter{Implementation}
 
