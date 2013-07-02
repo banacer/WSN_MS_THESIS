@@ -91,12 +91,13 @@ A ce stade, le système permet de surveiller, mais controler les appareils n'est
 \tableofcontents
 \listoffigures
 \listoftables
+\printglossaries
 
 \mainmatter
 \doublespacing
 \chapter{Introduction}
 
-\section{Importance of study}
+\section{Importance of Study}
 \paragraph{}
 The global electrical grid one the bases that gives us this quality of life that most people around the world enjoy. The global electrical grid is sometimes called the largest machine ever made by man. \cite{ref1}. It a widespread machine, distributed but interconnected system that provides power to households, companies and other organizations and therefore the world's economy is counting on it. The electrical grid knows numerous problems such as blackouts, current instabilities that costs billions of dollars yearly to both the utilities, utilities and insurances. The grid suffers from the problem of peak hours where energy consumption where in many case the one single utility cannot provide such energy.
 \paragraph{}
@@ -106,19 +107,19 @@ Another revolution is about to begin and it is taking place in the information t
 \paragraph{}
 \glsreset{sg}\gls{sg} can and will benefit from the \gls{iot}. The integration of the \gls{sg} and and \gls{iot} makes this study and thesis of high importance in order to solve as much as possible the problems of the traditional grid but at the same bring a new dimension to the power grid by benefiting from the numerous possibilities offered by the \gls{iot}.
 
-\section{Rationale of study}
+\section{Rationale of Study}
 \paragraph{}
 This project has been done in order to investigate ways the \gls{iot} can benefit the \gls{sg}. The smart grid as a set of philosophical ideas counts on a set of novel functionalities. Once of these ideas is the two-way communication that will make possible the utility to communicate with consumers and vice versa. This concept is possible with the Internet Of Things as devices in \gls{iot} communicate between them by producing and consuming information. Numerous ideas are based on this two-way communication such as the \gls{dr} which offers a set of services for both the power provider and the consumer.
 \paragraph{}
 The \glsreset{iot}\gls{iot} counts on different technologies such as \gls{wsn}, \gls{rfid}, \gls{ipv6} and other technologies which make the Internet of things a very heterogeneous and complex system \cite{ref4}. One of the challenges in \gls{iot} is to deals with such heterogeneity and take the most out of it in order to make the communication as smooth and robust as possible. This heterogeneity should be made transparent to any two parties trying to communicate in \gls{iot}.
 
-\section{Problem statement}
+\section{Problem Statement}
 \paragraph{}
 The \glsreset{sg} \gls{sg} counts on the two-way communication to build to a whole communication and protocol stack namely the \glsreset{dr}\gls{dr} and other services built on top of the \gls{dr}. From the consumer's side or more precisely the household's side, there are smart home energy management software in the market nowadays but none of these products offers integration with \gls{sg}. To have such an integration with \gls{sg}, there is a need to first build this two-way communication and make it possible for any appliance to report its real-time energy consumption and also to be able to be controlled remotely with this two-way communication. Such infrastructure is missing for the time being and therefore the integration of the smart home within the smart grid is not possible. Also, in order for \gls{sg} to be integrated into the \gls{iot}, all devices should be able to communicate in the two directions.
 \paragraph{}
 As \gls{sg} counts on numerous technologies to achieve its main goals. This usage of different technologies imposes another problem which is the heterogeneity of the system. As numerous components count on different technologies, there is a need to interface them in order to make this heterogeneity transparent to the all components of the system. This means that there is a need to build a software within the whole system that would constitute an important part of it and will take care of making the communication and processes technology-transparent and give the possibility to all components of the system to work hand-in-hand in order their common goals independently of the data link layer technology (Ethernet, Wifi or Zigbee) they are counting on, the network layer technology (\gls{ipv4} or \gls{ipv6}).
 
-\section{Purpose of study}
+\section{Purpose of Study}
  \paragraph{}
 The goal of the study is to solve the problems introduced in the problem statement section. This means creating the two-way communication, and also solving the heterogeneity that arises from integrating smart homes with the smart grid and making each components in the smart home as part of the Internet of things by making it communicate with any device in the Internet and having an \gls{ipv6} address that is built by making use of \gls{6lowpan} whose goal is to provide the TCP/IP to the smallest devices and with the least computational and energy rich.
 \paragraph{}
@@ -126,7 +127,7 @@ The first purpose of this study is to create a testbed having the two-way commun
 \paragraph{}
 The second purpose of this study is to solve the heterogeneity problem that arises with the integration of smart homes within the smart grid and also when making the whole system as part of the \glsreset{iot}\gls{iot}. Solving such a problem means having an additional component that will track all communication packets and change them to fit the needs of the destination component. This will make of this additional component a middleman and therefore make the heterogeneity problem disappear.
 
-\section{scope of study}
+\section{Scope of Study}
 \paragraph{}
 The thesis aims to solves the two problems presented in section 1.3. To do so, a variety of tools and technologies were used for this purpose.The two problems were not solved one independently of the other but even though the problems seem separate one cannot solve without having to solve the other. In other words, after the creation of the two-way communication in the \glsreset{wsn}\gls{wsn} which supported \gls{ipv6} over \gls{6lowpan}, other network only supported \gls{ipv4} and therefore could not communicate, and this was due to the heterogeneity problem. This is why the two-way communication was created and then the heterogeneity problem had to be solved in order to see everything working.
 The system is divided into four components:
@@ -140,7 +141,7 @@ The system is divided into four components:
 Each of these four component exist to solve part of the problem. Each of these components will be discussed extensively in the Chapter 4 from the architectural aspect of the component and in Chapter 5 from the implementation level of the system. 
 \paragraph{}
 It is to be noted that some of the concepts will be discussed from the architectural point in Chapter 4 but not from an implementation point in Chapter 5. The sole reason behind is the fact that some of the equipment required for this thesis did not arrive on time and therefore the parts in the implementation requiring such equipment was omitted to meet the deadlines.
-\section{Outcome of the study}
+\section{Outcome of the Study}
 \paragraph{}
 The outcome of the thesis is to design and implement a test-bed that is able to show the two-way communication in action. It will also have to show concepts of the \glsreset{iot}\gls{iot} which are that every node in the system can communicate autonomously and with any other node in the Internet. Another \gls{iot} concept is the ability of any node in the \gls{iot} to consume and produce information that is communicated through the network.
 \paragraph{}
@@ -167,7 +168,7 @@ This chapter will mostly discuss the implementation system. It will start by pre
 It will start first by presenting the findings then move to explain the experiment that was done to measure the performance of the system. The data gathering section will show how and what data was gathered and then move to analyzing and interpreting the data.
 \paragraph{Chapter 7, 8}
 These are the last two chapters of the thesis that will conclude the thesis, provide directions about future work and recommendations to the reader what parts of the system could be ameliorated and how it can be achieved.
-\chapter{Literature review}
+\chapter{Literature Review}
 \section{The need for Smart Grid}
 \paragraph{}
 The actual electrical grid is based on a technology that is at least one century old \cite{ref5}. As a result, there is a need to change as to meet to 21st century requirement such as having more green energy in order to reduce the pollution caused mainly by the use of fossil energy. As a result, research has introduced a new technology called \glsreset{sg}\gls{sg}. Although it is still a research project and numerous issues related to \gls{sg} are left unanswered, nations across the globe started to deploy \gls{sg} project. It is also noted that in order for the grid to become more reliable, secure and efficient, a bi-directional information and communication infrastructure should be embedded within the grid \cite{ref5}.
@@ -187,7 +188,7 @@ The \glsreset{iot}\gls{iot} has known high acceptance by the players in the Inte
 Some of the research is discussing the need to replace Zigbee by Wi-Fi as the Wi-Fi offers higher bandwidth, non-line transmission ability, large-scale data collection and is highly cost-effective \cite{ref10} but still Zigbee has the sole advantage of very low energy consumption which is something required in \gls{sg} and \gls{iot}, because in systems that are installed far away from any maintenance team such as smart grid monitoring and self-healing devices, one cannot manage to move for the sole purpose of providing energy often. 
 \paragraph{}
 From the architectural point of view, integrating \gls{sg} within \gls{iot} means having to address heterogeneity issues. An \gls{iot} gateway system that is based on Zigbee and GPRS protocols \cite{ref11}. This enables then to deal partly with the heterogeneity problem and therefore enable the \gls{wsn} to communicate with the mobile telecommunication network. Another solution to the heterogeneity problem is proposed where the solution is to present a new, light-weight web service transport protocol called Lean Transport Protocol (LTP) that will allow transparent exchange of web service messages between all kinds of devices \cite{ref12}. This protocol is platform-independent, low energy consumer. Some researchers claim that the heterogeneity is mainly coming from the fact that there are different \gls{wsn} devices that do not necessarily use the same standards and protocols. They propose to move all the \glspl{wsn} to all-IP networks as this would remove most of the heterogeneity but there are already deployed legacy \glspl{wsn} \cite{ref13}. They sketch an architecture capable of converting all the \glspl{wsn}, new and legacy, to support \gls{ipv6}.\glsreset{sg}
-\section{The \gls{sg} two-way communication}
+\section{The \gls{sg} Two-Way Communication}
 \paragraph{}
 
 \chapter{Internet Of Things}
@@ -196,15 +197,15 @@ From the architectural point of view, integrating \gls{sg} within \gls{iot} mean
 \section{The actual Internet}
 \section{Introduction to \gls{iot}}
 \section{Importance of \gls{iot}}
-\section{The impact of \gls{iot}}
-\section{The benefits of \gls{iot}}
-\section{The future of Internet}
+\section{The Impact of \gls{iot}}
+\section{The Benefits of \gls{iot}}
+\section{The Future of Internet}
 
 
 \chapter{System Architecture}
 \paragraph{}
 The thesis is based on the study and creation of a test-bed system whose goal is to integrate smart home with the \glsreset{sg}\gls{sg} and all within the \glsreset{iot}\gls{iot}. To do so, we first define the system's objectives and goals which do align  with the thesis's problem statement and purpose of study. Then each part of the system is presented, and a section of this chapter is dedicated to each part explaining the architecture of each component and how it aligns and integrates with the whole system.
-\section{System objectives}
+\section{System Objectives}
 \paragraph{Objective 1}
 The goal of the system is to present a working test-bed that is able to interact with any appliance in the smart home. The system makes this possible by making all appliances part of the \glsreset{wsn}\gls{wsn} where each sensor node is addressable and may be used to control the appliance.
 \paragraph{Objective 2}
@@ -212,7 +213,7 @@ Another system objective is to be able to monitor in real-time the consumption o
 \paragraph{Objective 3}
 The third objective is to make this system hide its heterogeneity from the outside world and also from different component belonging to it. This means that the system should be able to make any two components communicate independently of the technology they are using and also making each component think the other is using the same technology as his. 
 
-\section{Division of components}
+\section{System Components}
 \paragraph{}
 The system is divided into nine components where every component is in charge of a part of the system's objectives. When these nine components work hand-in-hand, they achieve all the system's and project's objectives and goals. The components that are defined for this system are the following:
 
@@ -228,7 +229,7 @@ The system is divided into nine components where every component is in charge of
 \item Mobile client
 \end{itemize}
 
-\section{General architecture of the system}
+\section{General Architecture of the System}
 \paragraph{}
 The general architecture is depicted in figure \ref{fig:gen_architecture}. This figure shows the different components of the system and their interactions. Each set of components is appearing within a box and that box is labeled. This label refers to the hardware deployment of the component within the whole system.
 \begin{figure}[htbp]
@@ -284,7 +285,7 @@ Now that the network diagram has been established in \ref{fig:network_diagram} w
 \paragraph{}
 In the following sections, each software component will be described in more details showing why such a component is crucial and what are the architectural decisions made to be what it is.
 
-\section{Mote sensor data collection TCP client}
+\section{Mote Sensor Data Collection TCP Client}
 The mote sensor data collection TCP client is nothing more but a \gls{tcp} client deployed in a mote that is attached to an appliance that reads sensor data periodically from the consumption sensor more known as the \gls{ct}  as showns in figure \ref{fig:current_transformer} that returns after a few transformations of the data the exact amount of power consumer in \gls{wh}. The original amount returned a voltage value in \gls{v} that is then transformed into the electric intensity in \gls{a}. To transform, the voltage into the actual current intensity we make use of the data provided by the \gls{ct} manufacturer. By making use of an experiment whose goals is to measure the slope and the constant of the voltage to intensity function. This function resulted in the following values:
 
 \begin{figure}[htbp]
@@ -354,17 +355,17 @@ To make a mote control the appliance, the mote will control the power going in a
 \label{fig:mda320ca}
 \end{figure}
 
-\section{Mote IPv6 backstation}
+\section{Mote IPv6 Backstation}
 \paragraph{} 
 This component that exist in one special mote in the \glsreset{wsn}\gls{wsn}. This mote is able to communicate with the rest of the \gls{wsn} using Zigbee and also with the external world using \gls{usb}. This make this mote a sink and a router because it has two interface cards. The software component deployed in this sink is a packet forwarder. This means that once it receives an \gls{ipv6} packet that is not in the \gls{wsn}, it is forwarded through \gls{usb}.
 \paragraph{}
 The mote's sole goal is forwarding packets in and outside of the \gls{wsn} while other sensor node do not need to worry about how the packet will arrive to its destination. This mote is part of the components aiming to solve the heterogeneity problem stated in the problem statement. By making the sensor nodes talk to any device as if it is part of the \gls{wsn}, they do not really have to worry about how it will arrive or even how did the packet get to them in the first place.
 
-\section{IPv6 over USB tunnel}
+\section{IPv6 over USB Tunnel}
 \paragraph{}
 The gateway server machine is equipped with two interface cards: the Wi-Fi network interface card and the Zigbee network interface card. The Zigbee network interface card is the one on focus in this section. To have a device communicating using Zigbee, one sensor node within the \gls{wsn} was used for this purpose and the software component implemented in this sensor node is the one described in section 4.6. That said, the packet is received through \gls{usb} but not read and recognized as a packet by the TCP/IP protocol stack. To do so, a tunnel had to be created for the purpose of extracting packets from the \gls{usb} port. Another goal is to forward \gls{ipv6} packets through that same \gls{usb} and this can only be done by the use of an \gls{ipv6} over \gls{usb} tunnel. 
 
-\section{Gateway packet transformation process}
+\section{Gateway Packet Transformation Process}
 The gateway packet transformation process is one of the main components that hide the heterogeneity from the rest of the system and the outside world. This component mainly deals with packet transformation which means that it extracts the data from the packet and create a completely new one that holds the data and forward it. This component is composed of three subcomponents:
 \begin{itemize}
 \item Packet sniffer
@@ -383,10 +384,10 @@ Figure \ref{fig:gateway_transformation} depicts the architecture of this compone
 \paragraph{}
 The subsections 4.8.1 - 4.8.3 will go more into details in explaining the three subcomponents of the system.
 
-\subsection{Packet sniffer}
+\subsection{Packet Sniffer}
 \paragraph{}
 The packet sniffer subcomponent is the one responsible for sniffing and forwarding the packets to the component. It does not forward all the packets that are not going to the gateway machine. In other words, all the packets that are not meant to be received by the gateway server are sniffed and forwarded to the packet transformer that will continue the work.
-\subsection{Packet transformer}
+\subsection{Packet Transformer}
 \paragraph{}
 Once the packet is received, the first thing this subcomponent does is check from where did it come, was it from the \gls{wsn} or the outside world. If it came from the outside world, the packet will only be examined if it is meant to go the \gls{wsn}. But an important and crucial problem presents itself:
 \paragraph{Problem}
@@ -396,7 +397,7 @@ Two networks using different network layer technology cannot communicate even th
 To solve such a problem, we decide to provide all the nodes in the this system with both an \gls{ipv4} and \gls{ipv6} address. Some of the nodes have either \gls{ipv4} or \gls{ipv6} addresses, but for the technology missing we assign the missing one virtually. For example, a sensor node in the \gls{wsn} with a real \gls{ipv6} address equal to FEC0::1 will be assigned a virtual \gls{ipv4} address equal to 192.168.0.1 but he will not be aware of it. Only the Gateway packet transformation component will be aware of it and this is the mechanism used to transform the packets and hide the heterogeneity from the rest of the components of the system.
 \paragraph{}
 Now that a packet is received, it checks whether this component came from the \gls{wsn} or the outside world, depending on that, it extracts the data from the packet which can be a \gls{tcp} or \gls{udp} datagram. The source and destination addresses are extracted from the packet and translated to the other network technology. Afterwards, a new packet referring to the destination technology used is created by having as a source and destination addresses the translated addresses and as payload the the \gls{tcp} \gls{udp} datagram coming from the original packet. Finally, the packet is forwarded to the network.
-\subsection{Address translator}
+\subsection{Address Translator}
 The address translator is a very specialized subcomponent whose sole goal is to translate addresses between \gls{ipv4} and \gls{ipv6}. That is said, this component receives the address to translate and returns the translated one. Its concern is that the translation algorithm yields a bijective function which means that for any \gls{ipv4} address there is one and only one \gls{ipv6} address resulting from that source and vice versa. This statement compresses a set of statements which are the following:
 
 \begin{itemize}
@@ -406,7 +407,7 @@ The address translator is a very specialized subcomponent whose sole goal is to 
 \paragraph{}
 The gateway packet transformation process is an important component responsible for dealing with the heterogeneity problem. It hides most of the heterogeneity in the system and make communication go independently of the data link layer or network layer technologies used.
 
-\section{Sensor data storage process}
+\section{Sensor Data Storage Process}
 \paragraph{}
 The sensor data storage process is a component small component within the system whose sole purpose is to store such data. It seen by the \gls{wsn} as a TCP server, where sensor nodes get connected to it as soon as they are turned ON. The sensor node starts sending packet periodically (depending on the sampling rate specified) and whenever the sensor data is received, it is stored into a \gls{rdbms} where the schema is created as shown in figure \ref{fig:erd}.
 
@@ -417,19 +418,113 @@ The sensor data storage process is a component small component within the system
 \label{fig:erd}
 \end{figure}
 
-\section{HTTP sensor data sender} 
+\section{HTTP Sensor Data Sender} 
 The HTTP sensor data sender is TCP server to which sensor nodes get connected to and start sending their data periodically. Once the data is received they are able to send data to the outside world periodically depending on the needs of the clients outside the system. This system counts on the deployment of an HTTP server at the level of outside the system client and send an HTTP request containing the sensor data received from the \gls{wsn}. 
 \paragraph{}
 The sensor nodes are able to send this data by themselves directly to the outside as this is part of the two-way communication but for convenience, it was decided that the \gls{wsn} sends its data to the gateway and it is up to the gateway to send such data or store it in the \gls{rdbms}.
-\section{Mobile client}
+\section{Mobile Client}
 The mobile client is a component of the system but can be seen as an outside world client as it is here to receive sensor data and also send ON/OFF commands to the system.
-\chapter{Implementation}
+
+\chapter{Deployment}
+\paragraph{}
+In this chapter, the test-bed will be discussed from the implementation point of view. That is said, each component within the system will be given as much details as possible in order for the reader to open the code and understand what is going. Chapter 4 discussed the components from the architectural aspect but no implementation and technology decisions were discussed and the goal of this chapter is to explain these details.
+\section{Technology Enablers}
+The system's implementation was built using a set of software and hardware technologies and standards that were used throughout the course of this project to make the test-bed achieve its objectives.
+%\glsreset{wsn}
+\subsection{Technologies used in \gls{wsn}}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[scale=0.6]{img/crossbow.jpg}
+\caption{Crossbow Professional Kit}
+\label{fig:crossbow}
+\end{figure}
+
+The \gls{wsn} was built using Crossbow professional kit as shown in figure \ref{fig:crossbow} which counts 7 Micaz sensor nodes of type MPR2600 as shows in figure \ref{fig:micaz}.
+\begin{figure}[htbp]
+\centering
+\includegraphics[scale=0.8]{img/micaz.png}
+\caption{Crossbow MPR2600 Micaz Mote}
+\label{fig:micaz}
+\end{figure}
+
+In addition, each mote is supplied with a sensor board of type Crossbow MTS400CA which contains temperature, humidity, barometric pressure, ambient light and infrared light sensors that are used to send different types of sensor data to the gateway. This board is shown in figure \ref{fig:mts400}.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[scale=0.5]{img/mts400ca.jpg}
+\caption{Crossbow MTS400CA Sensor Board}
+\label{fig:mts400}
+\end{figure}
+\paragraph{}
+The WSN is run using \gls{tinyos} which is one of the most used opensource \gls{os} in \glspl{wsn}. Programs are implemented using \gls{nesc} which is the sole programming language used in the \gls{tinyos} environment. This programming language is event-oriented and its syntax is very influenced by C. In addition, C libraries can be used in \gls{nesc} programs.
+
+\subsection{Technologies used in the Gateway}
+\paragraph{}
+The gateway's hardware machine is Dell Optiplex 9010 running a Linux environment more specifically the Ubuntu 13.04 distribution. The gateway has a set of technologies used to provide numerous services the system counts on. The programming languages used in the components hosted in this machine are C and \gls{j2se}. Netfilter is also used to control incoming and outgoing packets. Concerning the storage of sensor data MySQl is the \gls{rdbms} used.
+
+\subsection{Technologies used in the Mobile Client}
+\paragraph{}
+The mobile used is an Android smart phone with Android 2.3. The application developed is using \gls{j2se}, PHP for database connectivity.
+
+\section{Mote TCP Client And TCP Server}
+\paragraph{}
+Section 4.4 and 4.5 were dedicated to explain the TCP Client and TCP server separately. In this section, one section will explain both of them because from the implementation point of view,  both of them are implemented in the \gls{tinyos} program.
+\paragraph{}
+A typical \gls{tinyos} program has two parts: the components definition part and the module part. In the components definition part, the main components that will be used. These components refer to already implemented modules whose functionalities will be used in the in-development module. In the module part, we provide define the interfaces we will be using and the interfaces we will be providing if any \cite{ref14}. Back to definition part, after defining components we will be using, we then link the interfaces needed in the module to the components providing that interface. This is known as wiring.
+\paragraph{}
+The components needed in this program are the following:
+\begin{itemize}
+\item MainC: provides the essential functionalities such as the initialization and closing of the program.
+\item LedsC: provides access to the leds existing in the mote
+\item Taos2550C: is a light sensor component that enable to read data
+\item TimerMillic: A Timer that will be used for sampling
+\item TCPSocket as client: Is the TCP client
+\item TCPSocket as Server: Is the TCP server
+\end{itemize}
+In the modules part we define the components that will be used which are the following:
+\begin{itemize}
+\item Boot: This is the interface that provides main functions of booting and closing
+\item TCP as server: The main interface for TCP
+\item TCP as client: The main interface for TCP
+\item Leds: The interface to access the leds
+\item timer as sensingTimer: The interface to program and use the timer
+\item Read as Sensor: The interface to talk with the sensor
+\end{itemize}
+Some of the interface do not have all the functions provided and the not implemented function are implemented in the module. The following part will talk about each function that is to be implemented
+\paragraph{After boot of the mote}
+The first thing done after the mote is booted is to initialize the TCP client and server. The Client is given a random port by using the rand function. The TCP server is binded to port 7. The client is set to connect to the Data store in the gateway by providing the \gls{ipv6} address of the gateway and port number of the server. Afterwards, the timer is set to be triggered every 10 seconds which means that the sampling rate will be 360 sensor readings per hour. 
+\paragraph{TCP Server data received}
+Once the data is received from a client, it assumes that there are two data items separated by a space. The first item refers to the led number(1,2,3) and the second refers to the command 0 meaning turn Off and 1 means turn On. The string is tokenized and the data items are extracted and the command is executed accordingly.
+\paragraph{Timer fired}
+Once the timer is fired, this means it is time to read sensor data from the sensor. The command to read from the sensor is called which goes and reads data and once the data is read the event "read done" is triggered.
+\paragraph{Read done}
+Once the data is read and ready, the next thing is to transform it and then send it. Concerning the transformation, a series of equations are applied as seen in section 4.4 which build the data value from the original value gotten and it is ready to be sent. A message is created containing two values: the mote NODE\_ID which is the identifier of the mote predefined in the installation of the program in the mote and the sensor data value. These two values are separated by a space, encapsulated within a \gls{tcp} datagram and sent.
+\paragraph{}
+During the installation of the software the \glsreset{blip}\gls{blip} package should specified as it is a dependency of the software system. \gls{blip} provides the TCP/IP protocol stack that implements \gls{6lowpan} standard by \gls{ietf}. In  the installation the NODE\_ID is specified. If NODE\_ID is 1, this will make the mote have an \gls{ipv6} of FEC0::1, as the NODE\_ID is appended to the predefined prefix of \gls{wsn} during the installation.
+\section{Mote IPv6 Backstation}
+\paragraph{}
+This component is provided as part of the \gls{blip} software package. It is \gls{tinyos} program whose goal is to forward packet back and forth between the \gls{wsn} and the outside. This mote is connected to the \gls{wsn} using Zigbee and to the outside world using \gls{usb}. This special mote has its \gls{ipv6} being FEC0::64. It receives \gls{ipv6} packets encapsulated in \gls{usb} frames, extracts them and encapsulates them in a Zigbee frame and vice versa.
+\paragraph{}
+During the installation of this \gls{tinyos} program into the mote sink, one should make sure that it is being installed in the mote sink as \gls{usb} is a necessity. The \gls{ipv6} address does not need to be provided as it is already predefined in the program.
+
+\section{IPv6 over USB Tunnel}
+\paragraph{}
+This is a program that is installed in the gateway server machine. As the mote sink is connected to the gateway using \gls{usb}, the gateway will recognize it as a network interface card using \gls{ipv6} as a network technology. That is said, this component is part of the \gls{blip} software package and creates the network interface card module and starts extracting incoming \gls{ipv6} packets from the \gls{usb} frames and encapsulates outgoing \gls{ipv6} into \gls{usb} frames.
+\paragraph{}
+The installation and initialization of this component will be given more details in appendix A.
+\section{Gateway Packet Transformation Process}
+\paragraph{}
+This component is in charge of hiding the heterogeneity of the system from the rest of the the components of the system and also the outside world. It does that by intercepting all the packet moving and transforms them according to the standards used by the recipient.
+\paragraph{}
+
+
 
 \chapter{Findings}
 \section{Experiment}
 %\subsection{Methodology}
-\section{Data gathering}
-\section{Interpretation of result}
+\section{Data Gathering}
+\section{Interpretation of Results}
 
 \chapter{Conclusion}
 
@@ -441,7 +536,6 @@ The mobile client is a component of the system but can be seen as an outside wor
 \backmatter
 
 \singlespacing
-\printglossaries
 \bibliographystyle{IEEEtran} 
 \bibliography{IEEEabrv,myrefs}
 
