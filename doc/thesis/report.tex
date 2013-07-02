@@ -9,6 +9,8 @@
 \usepackage{utf8}
 \newcommand{\HRule}{\rule{\linewidth}{0.6mm}}
 %\usepackage{hyperref}
+\usepackage{listings}
+\lstset{language=C}
 \usepackage[acronym]{glossaries} 
 \makeglossaries
 \author{Nacer Khalil}
@@ -517,10 +519,99 @@ The installation and initialization of this component will be given more details
 \paragraph{}
 This component is in charge of hiding the heterogeneity of the system from the rest of the the components of the system and also the outside world. It does that by intercepting all the packet moving and transforms them according to the standards used by the recipient.
 \paragraph{}
+The program works with Netfilter in parallel. This means that Netfilter should drop all incoming and this program will take care of dealing with incoming packets separately. 
+\paragraph{}
+To make use of this process, there is an initial configuration that should be done to all the components of the system in order for the system to work. The gateway has two network interface cards: the Wi-Fi interface and the Zigbee interface provided through the tunnel. The first one is using \gls{ipv4} and the second is using \gls{ipv6}.
+\paragraph{}
+The program has three subcomponents as seen in section 4.8. The three components are the following:
+\begin{itemize}
+\item Packet sniffer
+\item Packet transformer
+\item Address translator
+\end{itemize}
+The following subsections will discuss each of these subcomponent separately from the implementation point of view.
 
+\subsection{Packet sniffer}
+\paragraph{}
+The packet sniffer is the one in charge of sniffing packet from both network interface card, as Raw Frames. The code snippet shows the functions called to sniff the packets. We make use of the raw socket library that enables us to sniff data link layer frames before being dropped by Netfilter.
+The main reason of dropping the packets by Netfilter is that the packets will not addressed to the computer and therefore the computer make send ICMP messages to the sender saying that the route is not the best and therefore the sender will never send packets again which is something we need to avoid to have.
+
+\begin{lstlisting}
+sockfd = socket( PF_PACKET, SOCK_PACKET , htons(ETH_P_ALL));
+if (sockfd < 0)
+	exit(1);
+	
+while(1)
+{
+	data_size = recvfrom(sockfd,buf,10000,0
+		,(struct sockaddr *)&cliaddr,&clilen);
+}
+
+\end{lstlisting}
+\paragraph{}
+The first line of code is the initialization of the raw socket, we define the type, scope and name space of the packets to be sniffed. This will return a file descriptor that will allow us to call the socket. Afterwards, we start reading packets in an infinite loop.
+
+\paragraph{}
+After sniffing a packet, we must check if it is an \gls{ipv4} or \gls{ipv6} packet. The problem is that when reading from the Wi-Fi interface card, we get the whole frame where the network packet is encapsulated, but the Zigbee Tunnel only gives the raw \gls{ipv6} packet. Once a packet is read by the frame, from which interface card came is a problem and therefore a partial solution is found. We cast the packet to Wi-Fi frame and whenever we check for the network protocol, we get two solutions, 0 referring to \gls{ipv6} and 8 referring to \gls{ipv4}.
+If we get zero, the whole data should be casted to the \gls{ipv6} data structure whereas if it is 8, we should move the pointer forward to drop the Wi-Fi header and cast the following part to the \gls{ipv4} data structure.
+\paragraph{}
+In each of those conditions we only select the TCP datagrams and this is why we check if the next header in the IP structure is equal to 6. After that we move the pointer to drop the IP header and only keep the TCP datagram that will have to be sent in a the newly transformed packet. Depending on the network technology of the sniffed packet, we should build a new packet with the technology that is recognized by the recipient.
+
+\begin{lstlisting}
+if(header->h_proto == 0) 
+{
+	if(ip6_hdr->ip6_nxt == 6)
+	{
+			buf += IP6_HDRLEN;
+			... 			
+			sendIPV4Packet(..)
+	}
+}
+else if(header->h_proto == 8)
+{
+	if(ip_hdr->protocol == 6)
+	{
+		buf += (sizeof(struct ethhdr)+ IP4_HDRLEN);		
+		...
+		sendIPV6Packet(...)
+	}
+}
+\end{lstlisting}
+
+\subsection{Packet transformer}
+\paragraph{}
+The packet tranformer subcomponent is in charge of building two types of packets: \gls{ipv4} and \gls{ipv6} packets. As stated in section 4.8, all devices in this system have an \gls{ipv4} and \gls{ipv6} address where one of them is not recognized only at the gateway. As the \gls{wsn} excelusively supports \gls{ipv6} and they cannot be addressed without using their \gls{ipv6} address and any other device not using \gls{ipv6} may communicate with them by using their virtual \gls{ipv4} address at once the packets reach the gateway, it transform so that the data carried will be delivered and the packet will have instead of \gls{ipv4} source and destination addresses, \gls{ipv6} addresses that will be translated using the Address translator subcomponent.
+\paragraph{}
+This subcomponent is based on two important functions:
+\begin{itemize}
+\item sendIPv6Packet(..)
+\item sendIPv4Packet(..)
+\end{itemize}
+\paragraph{}
+The idea is the same for except that each technology has its own details such as filling different fields and computing the checksum. Another difference is when creating the \gls{ipv4} one should also create the Wi-Fi frame otherwise it won't be able to be sent through the corresponding network interface card whereas when building \gls{ipv6} packet one should just send the packet and the tunnel will take care of encapsulating it into a \gls{usb} frame.
+The function receives the data to be sent which is in all cases a \gls{tcp} datagram along with the size of the datagram, the source and destination addresses that are already translated. Afterwards, the transformator creates the packet appends the datagram, fills the source and destination address and create a socket attached to the corresponding interface card and send the packet.
+\begin{lstlisting}
+int sendIPV6Packet(char* buffer,int size,char *src ,char *dest)
+{
+	//CREATE PACKET WITH ALL ITS DETAILS
+	...
+	memcpy (frame + IP6_HDRLEN, buffer, size);
+	sd = socket (PF_PACKET, SOCK_RAW, htons (ETH_P_ALL))) < 0);
+	sendto (sd, rame, length...);
+}
+\end{lstlisting}
+
+\subsection{Address translator}
+\paragraph{}
+The address translator is the subcomponent that assigns \gls{ipv4} and \gls{ipv6} to all devices in this system. For instance, sensor nodes in the \gls{wsn} have \gls{ipv6} addresses but this subcomponent assigns to them \gls{ipv4} addresses.
+\paragraph{}
+To do so, the translation algorithm is purely bijective. That is said, any \gls{ipv4} is translated to one and only one \gls{ipv6} and vice versa. For a mobile client with \gls{ipv4} address of 10.50.1.50 to talk with a mote whose \gls{ipv6} address is FEC0::1, the mobile client should be aware of its translated to \gls{ipv4} address which is 192.168.0.1. Once the packet is received and knowing it is not addressed to it. The source and destination \gls{ipv4} addresses are translated to \gls{ipv6} making the source address equal to 0A32::0132 and the destination FEC0::1. The \gls{ipv6} packet is created and reaches the destination which is the sensor node. Once the response is going back the scenario is the same.
+\paragraph{}
+The translation algorithm has been tested extensively to make sure it is bijective and that any address can be translated to one and no more and than one address. When configuring the system, one should make sure that there is no two devices that have the same address real or virtual. Any \gls{ipv6} and \gls{ipv4} should be unique throughout the whole system. The \gls{wsn} should be granted an interval of \gls{ipv4} address so that no one will be able to have them besides the \gls{wsn} that uses them virtually.
 
 
 \chapter{Findings}
+
 \section{Experiment}
 %\subsection{Methodology}
 \section{Data Gathering}
@@ -529,11 +620,136 @@ This component is in charge of hiding the heterogeneity of the system from the r
 \chapter{Conclusion}
 
 \chapter{Future Work}
+\paragraph{}
+This thesis project's was to establish the infrastructure for integrating smart home within \glsreset{sg}\gls{sg} and make it part of the \glsreset{iot}\gls{iot}. This project enabled the deployment of the two-way communication as an infrastructure that can be used to build the \glsreset{dr}\gls{dr}. \gls{dr} is one of the most important topics in smart grids. It enables the utility and households to communicate with a set of services that any of them may request from the other. The current state of the art does not incorporate this communication as part of the smart home systems \cite{ref15}. But as there is a need for this communication, \gls{dr} will have to be implementation as part of the
+
+\backmatter
 
 \appendix
 \chapter{How to install the system}
+\section{Hardware needed}
+In order for the user to install the system, one should make sure he/she is having a computer that will be used for the sole purpose of hosting different services. The crossbow professional kit is a necessity and a router must be available to connect the different components through Wi-Fi. A smartphone or a separate computer with Android emulator may de used.
 
-\backmatter
+\section{Software installation}
+
+\subsection{Operating system}
+The machine should run Linux Ubuntu distribution (11.10 or more recent). You way use Windows as long as you Install a Virtual machine using Cygwin or other tools
+\subsection{TinyOs Installation}
+\begin{enumerate}
+\item Execute: sudo gedit /etc/apt/source.list
+\item Add to the opened file: deb http://hinrg.cs.jhu.edu/tinyos hardy main
+\item sudo apt-get update 
+\item sudo apt-get install tinyos-2.1.1
+\item sudo gedit ~/.bashrc
+\item add the following line: \\
+export TOSDIR=\$TOSROOT/tos \\
+export CLASSPATH=\$TOSROOT/support/sdk/java/tinyos.jar:.\$CLASSPATH \\
+export MAKERULES=\$TOSROOT/support/make/Makerules \\
+export PATH=/opt/msp430/bin:\$PATH \\
+source /opt/tinyos-2.1.1/tinyos.sh \\
+
+\item sudo chmod 777 \$TOSROOT
+\end{enumerate}
+
+\subsection{Configuring \gls{blip}}
+\glsreset{blip}\gls{blip} should be compiled before being used. To do so, follow these instructions:
+\begin{enumerate}
+\item cd \$TOSROOT/support/sdk/c/sf \\
+./bootstrap \\
+./configure \\
+make 
+\item cd \$TOSROOT/support/sdk/c/blip \\
+./bootstrap.sh \\
+./configure \\
+make 
+\end{enumerate}
+
+\subsection{Install Software in Motes}
+The first thing to do is to install the backstation within the Mote sink (the mote with the \gls{usb} IO) To install it we do the following:
+\begin{enumerate}
+\item Plug the mote and type the command dmesg to see what \gls{usb} ID was assigned to it. It will generally be USB0.
+\item cd \$TOSROOT/apps/IPBaseStation
+\item make micaz blip install  mib520, /dev/ttyUSB0
+\end{enumerate}
+The backstation is now installed. We will now install the Mote TCP Client and Server in each sensor node. To do it, we should first download the code from the SVN repository.
+\begin{enumerate}
+\item Make sure you have SVN by typing svn --version
+\item If you do not have SVN type sudo apt-get install subversion
+\item download the file:
+\item cd
+\item svn checkout http://grid-aui-tinyos.googlecode.com/svn/trunk/ grid-aui-tinyos
+\item cd grid-aui-tinyos//programming/TCPEcho
+\end{enumerate}
+Now take the MIB520 programming card, plug it and type dmesg to see where it plugged. lets call the location *USB. Now plug each mote in the MIB520 card and for each plugged mote do the following:
+
+\begin{enumerate}
+\item  make micaz blip install.*NUM mib520,/dev/tty*USB
+\item make clean
+\end{enumerate}
+Note that *NUM refers to the NODE\_ID. For the first mote choose 1, for the second choose 2...
+
+\subsection{Install Packet Transformation process}
+To install this component, you must do the following:
+\begin{enumerate}
+\item Make sure you have CMake, type sudo apt-get install cmake
+\item cd
+\item grid-aui-tinyos//programming/netfiltering
+\item cmake CMakeLists.txt
+\item make
+\end{enumerate}
+
+\subsection{Install Gateway Sensor Data TCP Server}
+To install the server you must do the following:
+\begin{enumerate}
+\item cd
+\item grid-aui-tinyos//programming/GatewayServer/src
+\item make
+\end{enumerate}
+
+\chapter{Run the System}
+There is a set of instructions to follow in order as some of the components must be alive only when others are already alive. To run the system, do the following:
+\begin{enumerate}
+\item To turn on the Tunnel do the following
+\subitem cd \$TOSROOT/support/sdk/c/blip/ 
+\subitem sudo driver/ip-driver /dev/ttyUSB0 micaz. \\
+ You must check that the mote sink is attached to USB0 by using dmesg, if not change it accordingly. After that, you should have an output that looks similar to the figure \ref{fig:tunnel_output}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[scale=0.9]{img/tunnel_output.jpg}
+\caption{IPv6 over USB tunnel execution output}
+\label{fig:tunnel_output}
+\end{figure}
+
+\item To Run the Gateway Sensor Data TCP server do the following:
+\subitem cd
+\subitem cd grid-aui-tinyos/programming/GatewayServer/src
+\subitem java Server
+
+\item To Enable IP forwarding do the following:
+\subitem sudo bash
+\subitem echo 1 \textgreater /proc/sys/net/ipv4/ip\_forward
+\subitem exit
+
+\item  To drop all incoming packets: sudo iptables -P INPUT DROP
+\item To disable ICPMP REDIRECT TO HOST:
+\subitem sudo bash
+\subitem /sbin/sysctl -w net.ipv4.conf.all.accept\_redirects=0
+\subitem /sbin/sysctl -w net.ipv4.conf.all.send\_redirects=0
+\subitem /sbin/sysctl -w net.ipv6.conf.all.accept\_redirects=0
+\subitem /sbin/sysctl -w net.ipv6.conf.all.send\_redirects=0
+\subitem exit
+
+\item Run the Packet transformation process
+\subitem cd
+\subitem cd grid-aui-tinyos/programming/netfiltering
+\subitem sudo my\_sniffer
+
+\item Turn on the wireless sensor nodes one by one
+\end{enumerate}
+
+\paragraph{}
+You should be able to get sensor data periodically. The mobile client access for turning On and Off will be explained in the Appendix C.
 
 \singlespacing
 \bibliographystyle{IEEEtran} 
