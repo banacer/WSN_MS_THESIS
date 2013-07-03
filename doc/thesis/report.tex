@@ -53,19 +53,25 @@ I also greatly thank all excellent professors of whom I had the chance to be a s
 
 \chapter{Abstract}
 \paragraph{}
-The information technology is advancing exponentially and is having bigger impact on our lives as time advances. The next revolution in computing is called the \gls{iot}. It is basically the internet we know nowadays except that physical objects (fridge, television, air conditioning...) will be the major players in this complex system. In this context, the project builds on this idea a test bed for smart home energy optimization. The project allows users to monitor their energy consumption via their smart phone and also the users can control their appliances by turning on and off appliances remotely.
+The Information Technology is advancing exponentially and largely bigger impacting our daily lives. The current evolution in computing is called the \gls{iot}. It is smoothly evolving from an Internet of people to and Internet of Things. By 2020, it is expected to have 50 billion "Things" connected to the Internet. 
 \paragraph{}
-The system is divided into three main components. Each of them is using different technologies such as \gls{tinyos}, \gls{nesc}, \gls{j2se}, \gls{http} and other technologies that will be discussed in the thesis report.
+However such a migration induces a strong level of complexity when handling interoperability between heterogeneous things, i.e. Wireless Sensors, RFID, and mobile computing.
 \paragraph{}
-At this stage, the system allows monitoring, but turning on and off appliances is not yet there mainly because of the absence of the equipment but the communication for that purpose is there.
+In this thesis, we focus on the  integration of wireless sensors into \gls{iot}. This prologues for a future integration of \gls{sg}\glsreset{sg} into \gls{iot}. In this work, we deployed a smart building testbed for energy optimization.
+\paragraph{}
+The system is using different technologies such as \gls{tinyos}, \gls{nesc}, \gls{j2se} and  \gls{http}.
 
 \chapter{Résumé}
 \paragraph{}
-La technologie de l'information progresse de façon exponentielle et son impact sur nos vies prend de l'importance plus le temps avance. La prochaine révolution de l'informatique est appelé \glsreset{iot} \gls{iot}. Il s'agit essentiellement de Internet tel que nous la connaissons aujourd'hui, sauf que les objets physiques  seront les principaux acteurs de ce système. Ainsi, le projet s'appuie sur cette idée et présente un prototype qui a pour but l'optimisation intelligente de l'énergie dans les domiciles. Le projet permet aux utilisateurs de suivre de près leur consommation d'énergie via leur smartphone et permet de contrôler leurs appareils en allumant et éteignant les appareils à distance.
-\paragraph {}
-Le système est divisé en trois composantes principales. Chacun d'entre eux  utilise différentes technologies telles que \gls{tinyos}, \gls{nesc}, \gls{j2se}, \gls{http} et d'autres technologies qui seront présentées dans le rapport de thèse.
+La technologie de l'information progresse de façon exponentielle et prend largement plus impact sur nos vies quotidiennes. L'évolution actuelle de l'informatique est appelé \glsreset{iot}\gls{iot}. il est prévu d'avoir en 2020 50 milliards "choses" connecté à l'Internet.
 \paragraph{}
-A ce stade, le système permet de surveiller, mais controler les appareils n'est pas encore mise en place principalement en raison de l'absence de matériel, mais l'infrastructure de communication pour ce but là est en place.
+Cependant, une telle migration induit un fort niveau de complexité lorsque l'interopérabilité entre en jeu entre differentes choses hétérogènes, à savoir capteurs sans fil, RFID et l'informatique mobile.
+\paragraph{}
+Dans cette thèse, nous nous concentrons sur l'intégration de capteurs sans fil dans \gls{iot}. Cela conduit vers une future intégration de Smart Grid (SG) dans \gls{iot}. Au cours de ce projet, nous avons déployé un banc d'essai intelligente du bâtiment pour l'optimisation de l'énergie.
+\paragraph{}
+Ce système d'information utilise différentes technologies  telles que TinyOS (TinyOS), \glsreset{nesc}\gls{nesc}, Java Standard Edition (J2SE), HTTP.
+
+
 \setcode{utf8}
 
 %\chapter{ملخص}
@@ -191,19 +197,44 @@ The \glsreset{iot}\gls{iot} has known high acceptance by the players in the Inte
 Some of the research is discussing the need to replace Zigbee by Wi-Fi as the Wi-Fi offers higher bandwidth, non-line transmission ability, large-scale data collection and is highly cost-effective \cite{ref10} but still Zigbee has the sole advantage of very low energy consumption which is something required in \gls{sg} and \gls{iot}, because in systems that are installed far away from any maintenance team such as smart grid monitoring and self-healing devices, one cannot manage to move for the sole purpose of providing energy often. 
 \paragraph{}
 From the architectural point of view, integrating \gls{sg} within \gls{iot} means having to address heterogeneity issues. An \gls{iot} gateway system that is based on Zigbee and GPRS protocols \cite{ref11}. This enables then to deal partly with the heterogeneity problem and therefore enable the \gls{wsn} to communicate with the mobile telecommunication network. Another solution to the heterogeneity problem is proposed where the solution is to present a new, light-weight web service transport protocol called Lean Transport Protocol (LTP) that will allow transparent exchange of web service messages between all kinds of devices \cite{ref12}. This protocol is platform-independent, low energy consumer. Some researchers claim that the heterogeneity is mainly coming from the fact that there are different \gls{wsn} devices that do not necessarily use the same standards and protocols. They propose to move all the \glspl{wsn} to all-IP networks as this would remove most of the heterogeneity but there are already deployed legacy \glspl{wsn} \cite{ref13}. They sketch an architecture capable of converting all the \glspl{wsn}, new and legacy, to support \gls{ipv6}.\glsreset{sg}
-\section{The \gls{sg} Two-Way Communication}
-\paragraph{}
+
 
 \chapter{Internet Of Things}
-
-
 \section{The actual Internet}
+\paragraph{}
+The \glsreset{iot}\gls{iot} refers to the evolution of the actual Internet.The term \gls{iot} was used for the first time by Kevin Ashton in 1999 \cite{ref17}. The human beings will represent a minority in this network. \gls{iot} will become the biggest machine ever created by human beings. In the actual internet nowadays
 \section{Introduction to \gls{iot}}
-\section{Importance of \gls{iot}}
-\section{The Impact of \gls{iot}}
-\section{The Benefits of \gls{iot}}
-\section{The Future of Internet}
+\paragraph{}
+The \glsreset{iot}\gls{iot} is a network mostly ruled my machines, from the most powerful supercomputer and mainframes to the smallest devices such as sensor nodes. All will have one common point, being all connected to the same network and able to communicate, produce and consume information. The \gls{iot} is changing the world of computing. New paradigms, architectures, frameworks and prototypes are being built everyday to support it \cite{ref15}. New technologies such as \glsreset{rfid}\gls{rfid}, \glsreset{m2m}\gls{m2m}, \glsreset{ipv6}\gls{ipv6}, \glsreset{6lowpan}\gls{6lowpan} and \gls{ims} have come to place to support the \gls{iot}. The whole world is now being connected including humans and objects \cite{ref18}.
+\paragraph{}
+The \glsreset{iot}\gls{iot} brings numerous advantages but numerous issues will have to solved before this network explodes to trillions of devices connected to it. The first issue is the interconnection of all the devices into the \gls{iot}. What hardware will support such an ultra high traffic network with an ultra high performance and availability requirements. Will ubiquitous computing or pervasive computing have architectures that deal with such infrastructure which will clearly form a bottleneck in this whole complex system.
+\paragraph{}
+There are three steps in the flow of event in the \gls{iot} \cite{ref17}.
+\begin{enumerate}
+\item The object must by identified. \gls{rfid} is used for this purpose in addition to the feature of the objects should be recognized and converted to electronic format
+\item  The information must be transported to the information consumer.
+\item The information should be processed intelligently.
+\end{enumerate}
 
+\section{Importance of \gls{iot}}
+\paragraph{}
+The actual Internet is evolving into the \glsreset{iot}\gls{iot} because it allows things that are not possible in the Internet we all know. Autonomy of devices, production and consumption by things other than humans is a need. New high level communication language such as \gls{owl} are being created and studied extensively to enable objects to communicate freely without the need to interact with humans to get directives and configurations.
+\paragraph{}
+The world economy is having more and more requirements from the Internet. Requirements such as the identification of every device in the world and its interconnection to the Internet. The ability to get real-time information from devices throughout the globe.
+\paragraph{}
+
+\section{The Benefits of \gls{iot}}
+\paragraph{}
+\gls{iot} brings numerous solutions to the new requirements. In the Internet of Things, objects will work and communicate freely. Any device will be able to send its sensory information and consume data according to its needs. From this simple idea arise a whole new set of applications that will benefit the world. Smart grids exploit this idea and make it part of its requirement \cite{ref8}. More and more applications are now being developed. Ideas such as smart farming, smart transportation, smart homes, smart health, smart postal and smart refrigerator are only a small set of applications that count on the evolution of Internet towards the Internet of Things \cite{ref19}.
+\paragraph{}
+The Internet of Things will be able to help the world community solve and minimize the impact of numerous problems it faces. With the deployment of applications as part of \gls{iot}, we can predict natural disasters by sending real-time sensory data about geological, volcanic, seismic, meteorological and spacial variables and help communities avoid loosing their lives and being affected by these natural disasters. We can monitor water scarcity on a real-time basis. We can monitor in real-time our health by incorporating microscopic sensors that will be part of the Internet of Things.
+
+
+\section{The Future of Internet}
+\paragraph{}
+The Internet's counts billions of connected devices nowadays. This number is evolving exponentially and is not going to stop in the coming decades. It is estimated that there will be trillions of objects connected by the end of the century \cite{ref3}. In the next decade, we will watch a major change in this network. The network architectures we know nowadays will changes radically. The hardware architectures used now to evolve to meet the expectations of \gls{iot}. Applications based on \gls{iot} will explode and new possibilities will be open to world community.
+\paragraph{}
+Privacy of information is going to be a serious issue in \gls{iot}. As everything is monitored and controlled, privacy becomes an issue. The question is how will the Internet of Things evolved without having to be affected by privacy and security issues \cite{ref20}.
 
 \chapter{System Architecture}
 \paragraph{}
@@ -695,14 +726,13 @@ Before building new services on top of this system, one should test different as
 The system provides different services, but there is not authentication or authorization involved. This means that any users knowing the mote connected to the appliance he/she is interested in, he/she can control it and there is no existing party or component that will control such a communication. As a future work, the control of the system's access should be monitored in order for the system to be more secure and robust to external attacks.
 
 \backmatter
-\singlespacing
+
 
 \addcontentsline{toc}{chapter}{Bibliography}
 \renewcommand{\bibname}{References}
-\bibliographystyle{plain} 
-\bibliography{myrefs}
+\bibliographystyle{IEEEtran} 
+\bibliography{IEEEabrv,myrefs}
 
-\doublespacing
 \appendix
 \chapter{How to install the system}
 \section{Hardware needed}
