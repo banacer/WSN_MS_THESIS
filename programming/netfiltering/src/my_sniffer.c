@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 #include "my_sniffer.h"
 
 int main()
@@ -10,7 +11,8 @@ int main()
 	char *addr;
 	char *src_addr;
 	char *dest_addr;
-
+	struct timespec start, stop;
+	double accum;
 	socklen_t clilen;
 	struct sockaddr_in cliaddr;
 	struct sockaddr_in *in;
@@ -30,8 +32,8 @@ int main()
 	clilen = sizeof(struct sockaddr_in);
 	while(1)
 	{
-		header = (struct ethhdr* ) buf;
 
+		header = (struct ethhdr* ) buf;
 		data_size = recvfrom(sockfd,buf,10000,0,(struct sockaddr *)&cliaddr,&clilen);
 
 		if(header->h_proto == 0) // MOST PROBABLY IPV6 WE SHOULD MAKE SURE IT IS
@@ -109,7 +111,6 @@ int main()
 
 			}
 		}
-
 	}
 }
 int sendIPV6Packet(char* buffer,int size,char *src ,char *dest)
