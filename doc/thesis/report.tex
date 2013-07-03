@@ -625,7 +625,8 @@ We believe that there will be an additional delay to the communication but we ar
 \section{Data Gathering}
 \paragraph{}
 After both experiments were conducted, we collected a significant amount of data that was used to measure the performance and an interpretation was done in section 6.3 to have an idea about the performance of the system.
-\paragraph{Experiment 1}
+\subsection{Experiment 1}
+\paragraph{}
 In the first experiment, the same mote was pinged once every second and we added new motes to the system every two minutes. The experiment as a whole took 12 minutes and 720 pings we done. Table \ref{table:exp1} shows the result of the experiment.
 
 \begin{table}[htbp]
@@ -642,9 +643,11 @@ In the first experiment, the same mote was pinged once every second and we added
     \caption{Experiment 1 delay and jitter}
     \label{table:exp1}
 \end{table}
+\paragraph{}
 For each row in the table, the average delay is computed using the pings that were performed in the 2 minutes interval which means 120 pings per row. The jitter is also computed in a similar as the average variation from the mean delay in that 2 minutes interval. The result is displayed in the table \ref{table:exp1}. 
 
-\paragraph{Experiment 2}
+\subsection{Experiment 2}
+\paragraph{}
 The second experiment's goal is to measure the additional delay coming from the Gateway Packet transformation process whose goal to handle and hide the heterogeneity of the system. The result gathered reflects the average delay and jitter computed over elapsed time from the sniffing of the packet to the transformation and sending to the recipient. Table \ref{table:exp2} shows the result that was collected from this experiment as it was done on 200 packets that were sniffed and transformed by the system.
 
 \begin{table}[htbp]
@@ -656,11 +659,18 @@ The second experiment's goal is to measure the additional delay coming from the 
     \caption{Experiment 2 delay and jitter}
         \label{table:exp2}
 \end{table}
-The transformation process's elapsed time is counted in nanoseconds and from \ref{table:exp2}, we can see that the average delay is on average 0.1 milliseconds whereas the jitter is 0 milliseconds meaning that the process's time varies between a few nanoseconds to at most 150 nano seconds. Depending on the machine's load.
+\paragraph{}
+The transformation process's elapsed time is counted in nanoseconds and from \ref{table:exp2}, we can see that the average delay is on average 0.1 milliseconds whereas the jitter is 0 milliseconds meaning that the process's time varies between a few nanoseconds to at most 150 nanoseconds. Depending on the machine's load.
 \section{Interpretation of Results}
+\subsection{Experiment 1}
 \paragraph{}
 The data collected in section 6.2 shows that the performance of the system is very good. Even though the delay in the \gls{wsn} is high, 
- nothing can be done about that as even though the traffic in the \gls{wsn} is low, the delay is still high and this has to do with the computational time taken by the TCP/IP protocol protocol stack provided by the 
+ nothing can be done about that as even though the traffic in the \gls{wsn} is low, the delay is still high and this has to do with the computational time taken by the TCP/IP protocol protocol stack provided implemented by \glsreset{blip}\gls{blip} using \glsreset{6lowpan}\gls{6lowpan}. To reduce the delay, one should probably rethink the design of the \gls{blip} or find a way to omit it, but that is not a good idea since we want the \gls{wsn} to be part of \gls{iot}. 
+ \paragraph{}
+ The good news in experiment 1 is that the privatization of packets brings benefit to the network. Even though the traffic grows exponentially, the delay does not grow much and the even if the jitter follows to some extent the traffic's trend but still the average delay shows good result. 
+ \subsection{Experiment 2}
+ \paragraph{}
+ The Packet transformation process is a component that shows excellent results. Before conducting experiment 2, we were persuaded that there will be additional delay originating from this process and it could be responsible for the high delay seen in experiment 2 but the results shows otherwise and that the component is not to be put responsible for such important delay seen in experiment 1.
 \chapter{Conclusion}
 \paragraph{}
 This project enabled us to establish an infrastructure as part of the \glsreset{iot}\gls{iot} and move towards having the smart home system's integrated within the smart. At this stage and counting solely on this work, one cannot clearly see the integration of smart home systems within the \gls{iot}, but this is an infrastructure that provides two main services which are the establishment of the two-way communication between the smart home devices and the outside world which may be the utility for instance. This two-way communication enables the \glsreset{wsn}\gls{wsn} to monitor home appliances and send sensor data to a repository which monitors the home's consumption and this device can be used for simulating a real world \gls{ami}. The other part of the communication is the ability of clients to control appliances status by turning them On and Off.
@@ -686,9 +696,11 @@ The system provides different services, but there is not authentication or autho
 
 \backmatter
 \singlespacing
-\addcontentsline{toc}{section}{References}
-\bibliographystyle{IEEEtran} 
-\bibliography{IEEEabrv,myrefs}
+
+\addcontentsline{toc}{chapter}{Bibliography}
+\renewcommand{\bibname}{References}
+\bibliographystyle{plain} 
+\bibliography{myrefs}
 
 \doublespacing
 \appendix
