@@ -83,7 +83,7 @@ Ce système d'information utilise différentes technologies  telles que TinyOS (
 
 \setcode{utf8}
 
-%\chapter{ملخص}
+%\chapter{RL{ملخص}}
 
 \chapter{Arabic}
 \paragraph{}
@@ -279,18 +279,18 @@ The system is divided into nine components, as depicted in figure \ref{fig:gen_a
 The general architecture is depicted in figure \ref{fig:gen_architecture}. This figure shows the existing components and their interactions. Each set of components appear within a box as this last refers to what hardware are the components deployed in as it is labeled in the box.
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=17cm,height=17cm,keepaspectratio]{img/general_architecture.jpg}
+\includegraphics[width=17cm,height=20cm,keepaspectratio]{img/general_architecture.jpg}
 \caption{General architecture depicting the main components of the system}
 \label{fig:gen_architecture}
 \end{figure}
 %\clearpage
 \paragraph{}
-Now that the general architecture has been defined, the question that should be asked is whether all these components operate in the same layer in the \gls{osi} model and if not, in which layer does each of these components reside. As an answer to such a question, figure \ref{fig:layered_view} is here to show on what layer does every component act on.
+Now that the general architecture has been defined, the question that should be asked is whether all these components operate in the same layer in the \gls{osi} model and if not, in which layer does each of these components reside. As an answer to such a question, figure \ref{fig:layered_view} is here to show in what layer does every component operates.
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[scale=0.40]{img/layered_view.jpg}
-\caption{Layered view showing where every component appears in the \gls{osi} model}
+\caption{Layered view showing where every component operates in the \gls{osi} model}
 \label{fig:layered_view}
 \end{figure}
 
@@ -340,7 +340,7 @@ The mote sensor data collection TCP client is a simple \gls{tcp} client deployed
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[scale=0.8]{img/ct.jpg}
+\includegraphics[scale=0.7]{img/ct.jpg}
 \caption{Current transformer}
 \label{fig:current_transformer}
 \end{figure}
@@ -420,7 +420,7 @@ The component's goal is to forward packets in and out of the \gls{wsn} while oth
 \paragraph{}
 The gateway server machine is equipped with two interface cards: the Wi-Fi and the Zigbee network interface cards. The Zigbee network interface card is of interest in this section. To have a device communicating using Zigbee, one sensor node within the \gls{wsn} was used for this purpose, and the software component implemented in this sensor node is the one described in section 4.6. Indeed, the packet is received through \gls{usb} but not read and recognized as a packet belonging to the TCP/IP protocol stack. To do so, a tunnel was used for the purpose of extracting packets from the \gls{usb} port. In addition, the tunnel was used to forward \gls{ipv6} packets through \gls{usb}.
 
-\section{\gls{ipv4}/\gls{ipv6} Gatewaying Process}
+\section{IPv4/IPv6 Gatewaying Process}
 The \gls{ipv4}/\gls{ipv6} Gatewaying Process is one of the components that hides the heterogeneity that exist in the system. This component mainly deals with transforming packets since it extracts the datagram from the packet and create a completely new one that holds the datagram originating from the first one and communicates it. This component is composed of three subcomponents:
 \begin{itemize}
 \item Packet sniffer
@@ -570,7 +570,7 @@ During the installation of this \gls{tinyos} program into the sink, one should m
 This program is installed in the gateway server machine. The sink gets connected to the gateway using \gls{usb}, the gateway will recognize it as a network interface card that uses \gls{ipv6} as a network technology. Moreover, this component is part of the \gls{blip} software package which the network interface card module and starts extracting incoming \gls{ipv6} packets from the \gls{usb} frames and encapsulates outgoing \gls{ipv6} into \gls{usb} frames.
 \paragraph{}
 The installation and initialization of this component will be detailed in appendix A.
-\section{\gls{ipv4}/\gls{ipv6} Gatewaying Process}
+\section{IPv4/IPv6 Gatewaying Process}
 \paragraph{}
 This component is in charge of hiding the heterogeneity of the system from the rest of the components of the system and also the outside world. It does so by intercepting all the packets and transforms the ones of interest to meet the standards used by the recipient.
 \paragraph{}
@@ -725,7 +725,13 @@ The second experiment's goal is to measure the contribution of the Gateway Packe
         \label{table:exp2}
 \end{table}
 \paragraph{}
-The transformation process's elapsed time is measured in milliseconds and from table \ref{table:exp2}, one can see that the average delay is on average 0.1 milliseconds whereas the jitter is around 0 milliseconds meaning that the process's time varies between a few nanoseconds to at most 150 nanoseconds. Depending on the machine's load.
+The transformation process's elapsed time is measured in milliseconds and from table \ref{table:exp2}, one can see that the average delay is on average 0.1 milliseconds whereas the jitter is around 0 milliseconds meaning that the process's time varies between a few nanoseconds to at most 150 nanoseconds. Depending on the machine's load. The distribution of the delay frequency is shown the histogram depicted in figure \ref{fig:histogram}. From this figure one can conclude that the delay is normally distributed
+\begin{figure}[htbp]
+ \centering
+ \includegraphics[scale=0.9]{img/histogram.JPG}
+ \caption{Delay frequency histogram}
+ \label{fig:histogram}
+ \end{figure}
 \paragraph{}
  The Packet transformation process is a component that shows excellent results. Before conducting experiment 2, we were persuaded that there will be additional delay originating from this process and it could be responsible for the high delay seen in experiment 1. However, the results show otherwise and that the component is not to be put responsible for such an important delay seen in experiment 1.
 
