@@ -24,7 +24,7 @@
 \makeatletter
 \patchcmd{\thebibliography}{%
   \chapter*{\bibname}\@mkboth{\MakeUppercase\bibname}{\MakeUppercase\bibname}}{%
-  \chapter{Index}}{}{}
+  \chapter{References}}{}{}
 \makeatother
     
 \begin{document}
@@ -60,25 +60,25 @@ I also greatly thank all excellent professors of whom I had the chance to be a s
 
 \chapter{Abstract}
 \paragraph{}
-Information Technology is growing exponentially and largely impacting our daily lives. The current evolution in computing is the \gls{iot}. The Internet is smoothly evolving from an Internet of People to and Internet of \textit{Things}. By 2020, it is expected to have 50 billion \textit{Things} connected to the Internet. 
+Information Technology is growing exponentially and largely impacting our daily lives. The current evolution in computing is the \gls{iot}. It is smoothly evolving from an Internet of People to and Internet of \textit{Things}. By 2020, the Internet is expected to have 50 billion \textit{Things} connected to it. 
 \paragraph{}
 However, such a migration induces a strong level of complexity when handling interoperability between heterogeneous \textit{Things}, e.g. Wireless Sensors, RFID, and mobile devices.
 \paragraph{}
-Another migration is taking place in the power grid that is evolving towards the \gls{sg}. In fact, the Information Technology will play a key role in implementing needed functions such as \gls{dr}\glsreset{dr} and integrating Distributed and Renewable Energy Sources into \gls{sg}. The \gls{iot} is expected to enable a smooth integration of Distributed Renewable Energies within the electric grid.
+Another migration is taking place in the power grid that is evolving towards the \gls{sg}. In fact, Information Technology will play a key role in implementing needed functions such as \gls{dr}\glsreset{dr} and integrating Distributed and Renewable Energy Sources into \gls{sg}. The \gls{iot} is expected to enable a smooth integration of Distributed Renewable Energies within the electric grid.
 \paragraph{}
-This thesis focuses on the development of an \gls{iot} test-bed, using wireless sensors, that will be used for smart grid applications. The test-bed built provides IPv6 gatewaying, remote control of wireless sensor nodes which is built on top of \gls{6lowpan}\glsreset{6lowpan}, and mobile access to the system.
+This thesis focuses on the development of an \gls{iot} test-bed, using wireless sensors, that will be used for Smart Grid applications. The test-bed built provides an IPv6 gateway, remote control of wireless sensor nodes which is built on top of \gls{6lowpan}\glsreset{6lowpan}, and mobile access to the system.
 \paragraph{}
-This study results in the creation of a test-bed that provides an infrastructure for integrating \gls{sg} into \gls{iot} and build the overlying services such as \gls{dr}. Therefore, the system's performance was put to test by conducting two experiments where in each the delay and jitter were measured to make sure the system can handle overlying services in future projects.
+This study results in the creation of a test-bed that provides an infrastructure for integrating \gls{sg} into \gls{iot} and building overlying services such as \gls{dr}. Therefore, the system's performance was put to test by conducting two experiments where the delay and jitter were measured to make sure the system can handle overlying services in future projects.
 
 \chapter*{Résumé}
 \paragraph{}
-Les nouvelles technologies de l'information connaissent une croissance exponentielle et prennent de plus en plus d'impact sur nos vies. L'évolution en cours de l'informatique est \glsreset{iot}\gls{iot}. L'Internet est discrètement en train de transitioner d'un réseau pour les personnes vers un reseau pour les \textit{Choses}. En 2020, il est prévu d'avoir 50 milliards \textit{Choses} connectées à Internet.
+Les nouvelles technologies de l'information connaissent une croissance exponentielle et prennent de plus en plus d'impact sur nos vies. L'évolution en cours de l'informatique est \glsreset{iot}\gls{iot}. L'Internet est discrètement en train de transitioner d'un réseau pour les personnes vers un réseau pour les \textit{Choses}. En 2020, il est prévu d'avoir 50 milliards \textit{Choses} connectées à Internet.
 \paragraph{}
 Cependant, une telle migration induit un niveau élevé de complexité lors de la manipulation de l'interopérabilité entre \textit{Choses} hétérogènes, par exemple, Capteurs sans fil, RFID, et appareils mobiles.
 \paragraph{}
 Une autre migration commence dans le réseau électrique qui est entrain de se transformer en un nouveau réseau appelé \glsreset{sg}\gls{sg}. Ce nouveau réseau compte principalement sur les avantages des technologies de l'information qui lui permettra d'intégrer de nouvelles fonctionnalités telle que \glsreset{dr}\gls{dr} et la l'exploitation décentralisée des énergies renouvelables. Pour cela, \gls{iot} va permettre une douce intégration des énergies renouvelables dans le réseau électrique.
 \paragraph{} 
-Cette thèse porte à développer un \gls{iot} prototype qui utilise des capteurs sans fil pouvant être utilisés dans le Smart Grid. Ce prototype fournit des services tels qu'une passerelle IPv6, le control à distance des capteurs sans fil, et un accès mobile au système.
+Cette thèse porte à développer un \gls{iot} prototype qui utilise des capteurs sans fil pouvant être utilisés dans le Smart Grid. Ce prototype fournit des services tels qu'une passerelle IPv6, le contrôle à distance des capteurs sans fil, et un accès mobile au système.
 \paragraph{}
 Cette étude conduit à la création d'un prototype qui propose une infrastructure for intégrer \gls{sg} au sein de \gls{iot} et donc permettre de développer des services tel que \gls{dr}. Pour cela, les performances du système doivent être mises en test pour s'assurer de la possibilités de compter sur ce prototype. Dans ce contexte, deux expériences ont été menées mesurant le retard et le gigue pour savoir si le système peut supporter d'autres applications.
 \setcode{utf8}
@@ -119,15 +119,15 @@ Cette étude conduit à la création d'un prototype qui propose une infrastructu
 
 \section{Importance of Study}
 \paragraph{}
-The global electrical grid is the basis that gives us this quality of life that most people around the world enjoy. The global electrical grid is sometimes called the largest machine ever made by man \cite{ref1}. It is a widespread and distributed machine that provides power to households, companies and organizations. Therefore the whole world's economy depends on it. The electrical grid knows numerous problems such as blackouts, and current instabilities that cost billions of dollars yearly to both the utilities and insurances.
+The global electrical grid is the basis that gives us this quality of life that most people around the world enjoy. The global electrical grid is sometimes called the largest machine ever made by man \cite{ref1}. It is a widespread and distributed machine that provides electricity to households, companies and organizations. Therefore the whole world's economy depends on it. The electrical grid knows numerous problems such as blackouts, and current instabilities that cost billions of dollars yearly to both the utilities and insurances.
 \paragraph{}
-The global energy demand is significantly growing and the sources of energy such as fossil energies is becoming more scarce. Therefore, there is a need to move from depending on fossil energy sources to renewable energies such as Solar energy, wind energy and thermal energy. In addition, these renewable energies should be distributed throughout the power grid and permit to have less energy transmission costs.
+The global energy demand is significantly growing and the sources of energy such as fossil energies are becoming scarce. Therefore, there is a need to move from exploiting fossil energy sources to using renewable energies such as Solar energy, wind energy and thermal energy. In addition, these renewable energies should be distributed throughout the power grid and permit to have less energy transportation losses.
 \paragraph{}
-The \glsreset{sg}\gls{sg} comes as a solution to the weaknesses of the traditional electrical grid. \gls{sg} is an intelligent, auto-balancing, self-monitoring, and self-healing electrical grid \cite{ref2} and whose energy sources are distributed between utilities and consumers. The nature of the \gls{sg} as having distributed energy sources, reduces numerous losses that arise from the long distance transmission lines, and also from the stress and the overload of the electrical lines.
+The \glsreset{sg}\gls{sg} comes as a solution to the weaknesses of the traditional electrical grid. \gls{sg} is an intelligent, auto-balancing, self-monitoring, and self-healing electrical grid \cite{ref2} whose energy sources are distributed between utilities and consumers. The nature of the \gls{sg} as having distributed energy sources, reduces numerous losses that arise from the long distance transmission lines, and also from the stress and the overload of the electrical lines.
 \paragraph{}
-Another revolution began, and it is taking place in the Information Technology. It is called the \glsreset{iot}\gls{iot}. \gls{iot} is the era of autonomous machine being able to produce and consume information, and being able to act autonomously without the guidance of humans, to perform their tasks. Cisco predicts that the number of devices to be connected to the Internet in 2020 will break the 50 billions devices from 500 million in 2003. That would make 6.58 devices connected for each person in the world whereas that same ratio was 0.07 17 years earlier \cite{ref3}. This clearly shows that the shift to the \gls{iot} will be exponential.
+Another revolution began, and it is taking place in Information Technology. It is called the \glsreset{iot}\gls{iot}. \gls{iot} is the era of autonomous machine being able to produce and consume information, and being able to act autonomously without the guidance of humans, to perform their tasks. Cisco predicts that the number of devices to be connected to the Internet in 2020 will break the 50 billions devices from 500 million in 2003. That would make 6.58 devices connected for each person in the world whereas that same ratio was 0.07 17 years earlier \cite{ref3}. This clearly shows that the shift to the \gls{iot} will be exponential.
 \paragraph{}
-\glsreset{sg}\gls{sg} should benefit from the \gls{iot}. This integration should constitute the main topic of this study and goes along with increasing interest recently raised in both academia and industry, on the inherent correspondence between \gls{sg} and \gls{iot}. This  correspondence stems mainly from the need to disseminate information between the \gls{sg} components in order to make optimal decisions about energy use. This information dissemination could only be optimal when deploying ubiquitous sensoring and metering, and using the available network infrastructure, i.e. the Internet.   
+\glsreset{sg}\gls{sg} should benefit from the \gls{iot}. This integration constitutes the main topic of this study and goes along with increasing interest recently raised in both academia and industry, on the inherent correspondence between \gls{sg} and \gls{iot}. This  correspondence stems mainly from the need to disseminate information between the \gls{sg} components in order to make optimal decisions about energy use. This information dissemination could only be optimal when deploying ubiquitous sensors and meters, and using the available network infrastructure, i.e. the Internet.   
 
 
 \section{Rationale of Study}
@@ -564,7 +564,7 @@ The interfaces one uses have some functions that are not implemented and should 
 \paragraph{After boot of the mote}
 The first thing that is done after the mote is booted is to initialize the TCP client and server. The Client is binded to a random port. The TCP server is binded to port 7. The client gets connected to the Data store in the gateway by providing the \gls{ipv6} address of the gateway and port number of the server. Afterwards, the timer is set to be triggered every 10 seconds which means that the sampling rate will be 360 sensor readings per hour. 
 \paragraph{TCP Server data received}
-Once the data is received from a client, it assumes that there are two data items separated by a space. The first item refers to the led number(1,2,3) and the second refers to the command 0 meaning turn Off and 1 means turn On. The string is tokenized and the data items are extracted and the command is executed accordingly.
+Once the data is received from a client, it assumes that there are two data items separated by a space. The first item refers to the led number(1,2,3) and the second refers to the command 0 meaning turn Off and 1 means turn On. The string is tokenised and the data items are extracted and the command is executed accordingly.
 \paragraph{Timer fired}
 Once the timer is fired, it is time to read sensor data from the sensor. The command to read from the sensor is called reads data and once the data is read the event "read done" is triggered.
 \paragraph{Read done}
@@ -680,7 +680,7 @@ The translation algorithm has been tested extensively to make sure it is bijecti
 The system was built to monitor and control home appliances, and to also provide an infrastructure for future platforms to be integrated in this system. An example of infrastructures that can be the integrated is the \glsreset{dr}\gls{dr}. To build overlying system's, one should make sure that the system achieves a performance level that one can count on. The purpose of this chapter is to measure the performance of the system. It is done by conducting two experiments which will help us gather data, and based on that, an interpretation of this data will be done to verify if the system shows an acceptable level of performance.
 \section{Experimentations}
 \paragraph{}
-To measure the performance of the system, two experiment were conducted where the goal is to quantify the performance of the system. There is an architectural decision madein \gls{6lowpan}, and we would like to see if it add more performance to the system. The architectural decision is the following: There is more priority given to routed packet that the processed ones. As a result, this clearly pushes us to think that the delay of the system will not follow the same growth trend as the network traffic.
+To measure the performance of the system, two experiment were conducted where the goal is to quantify the performance of the system. There is an architectural decision made in \gls{6lowpan}, and we would like to see if it add more performance to the system. The architectural decision is the following: There is more priority given to routed packet that the processed ones. As a result, this clearly pushes us to think that the delay of the system will not follow the same growth trend as the network traffic.
 \paragraph{Experiment 1:}
 We start with one mote in the \gls{wsn} that will be interacting with the outside world. We then start sending ping command periodically (once every 1 second) and record the delay and the jitter. Once every two minutes, we will add another mote to the \gls{wsn} and continue pinging the same mote. We keep adding motes every 2 minutes until we reach 6 motes which is the maximum number of motes available. This will enable us to collect data about the mote delay and jitter as we add more traffic to the system.
 \paragraph{Experiment 2: }
@@ -751,7 +751,7 @@ The transformation process's elapsed time is measured in microseconds and from t
 
 \chapter{Conclusion}
 \paragraph{}
-This project enabled us to create an infrastructure that would be part of the \glsreset{iot}\gls{iot} and move towards having the smart home system's integrated within the Smart Grid. At this stage and counting solely on this work, one cannot clearly see the integration of smart home systems within the \gls{iot}, but this is an infrastructure that provides two main services which are the establishment of the two-way communication between the smart home devices and the outside world, and the heterogeneity handler. The two-way communication enables the \glsreset{wsn}\gls{wsn} to monitor home appliances and send sensor data to a repository and this last can be used to simulate a real world \gls{ami}. The second direction in this communication gives the ability for clients to control appliances by turning them On or Off.
+This project enabled us to create an infrastructure that would integrated into \glsreset{iot}\gls{iot} and move towards having the Smart Home systems' integrated within the Smart Grid. At this stage and counting solely on this work, one cannot clearly see the integration of smart home systems within the \gls{iot}, but this is an infrastructure that provides two main services which are the establishment of the two-way communication between the smart home devices and the outside world, and the heterogeneity handler. The two-way communication enables the \glsreset{wsn}\gls{wsn} to monitor home appliances and send sensor data to a repository and this last can be used to simulate a real world \gls{ami}. The second direction in this communication gives the ability for clients to control appliances by turning them On or Off.
 \paragraph{}
 The second contribution of this work is the smart management of the heterogeneity. The communication from the mote to the mobile client uses a set of technologies and the journey of a simple \gls{tcp} datagram goes through many different Data Link Layer standards and different Network technologies. Starting from the mote sending sensor data, The TCP data is encapsulated into an \gls{ipv6} packet that is encapsulated into a Zigbee frame. Afterward, the packet is extracted from the Zigbee frame and encapsulated into a \gls{usb} frame. Once it arrives to the gateway, the \gls{tcp} datagram is extracted from the \gls{ipv6} which is extracted from the \gls{usb} frame and encapsulated in an \gls{ipv4} packet that is encapsulated into a Wi-Fi frame and sent until it reaches the mobile. That is said, it clear that the system is heterogeneous and making this heterogeneity transparent was a contribution of this work.
 \paragraph{}
@@ -818,7 +818,7 @@ make
 \end{enumerate}
 
 \subsection{Install Software in Motes}
-The first thing to do is to install the backstation within the Mote sink (the mote with the \gls{usb} IO) To install it we do the following:
+The first thing to do is to install the back station within the Mote sink (the mote with the \gls{usb} IO) To install it we do the following:
 \begin{enumerate}
 \item Plug the mote and type the command dmesg to see what \gls{usb} ID was assigned to it. It will generally be USB0.
 \item cd \$TOSROOT/apps/IPBaseStation
