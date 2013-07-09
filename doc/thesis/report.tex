@@ -46,7 +46,7 @@ To my friends \\
 \chapter{Acknowledgments}
 \paragraph{}
 I am deeply thankful to my supervisor Dr. Mohamed Riduan Abid for his very close supervision, guidance and for the advice he kept giving me during the lifetime of the project. Your advices whether they are computer science related, or even every day life related wise words things I will never forget.
-\paragraph*{}
+\paragraph{}
 I am also thankful for having Dr. Driss Benhaddou as a supervisor. His advice, insight, guidance and very enlightening ideas. I wouldn't have been so interested in smart grids without the discussions we had on the topic.
 \paragraph{}
 I would also like to thank Dr. Michael Gerndt for his guidance in this thesis and also for his help and advising throughout my masters degree in Technische Universät München.
@@ -60,50 +60,52 @@ I also greatly thank all excellent professors of whom I had the chance to be a s
 
 \chapter{Abstract}
 \paragraph{}
-Information Technology is growing exponentially and largely impacting our daily lives. The current evolution in computing is the \gls{iot}. The Internet is smoothly evolving from an Internet of people to and Internet of \textit{Things}. By 2020, it is expected to have 50 billion \textit{Things} connected to the Internet. 
+Information Technology is growing exponentially and largely impacting our daily lives. The current evolution in computing is the \gls{iot}. The Internet is smoothly evolving from an Internet of People to and Internet of \textit{Things}. By 2020, it is expected to have 50 billion \textit{Things} connected to the Internet. 
 \paragraph{}
 However, such a migration induces a strong level of complexity when handling interoperability between heterogeneous \textit{Things}, e.g. Wireless Sensors, RFID, and mobile devices.
 \paragraph{}
-This thesis focuses on the development of an \gls{iot} test-bed, using wireless sensors, that will be used for smart grid applications.
+Another migration is taking place in the power grid that is evolving towards the \gls{sg}. In fact, the Information Technology will play a key role in implementing needed functions such as \gls{dr}\glsreset{dr} and integrating Distributed and Renewable Energy Sources into \gls{sg}. The \gls{iot} is expected to enable a smooth integration of Distributed Renewable Energies within the electric grid.
 \paragraph{}
-The test-bed built provides IPv6 gatewaying, remote control of wireless sensor nodes which is built on top of \gls{6lowpan}\glsreset{6lowpan}, and mobile access to the system.
+This thesis focuses on the development of an \gls{iot} test-bed, using wireless sensors, that will be used for smart grid applications. The test-bed built provides IPv6 gatewaying, remote control of wireless sensor nodes which is built on top of \gls{6lowpan}\glsreset{6lowpan}, and mobile access to the system.
 \paragraph{}
-The system is using different technologies such as \gls{tinyos}, \gls{nesc}, \gls{j2se} and  \gls{http}.
+This study results in the creation of a test-bed that provides an infrastructure for integrating \gls{sg} into \gls{iot} and build the overlying services such as \gls{dr}. Therefore, the system's performance was put to test by conducting two experiments where in each the delay and jitter were measured to make sure the system can handle overlying services in future projects.
 
-\chapter{Résumé}
+\chapter*{Résumé}
 \paragraph{}
-La technologie de l'information progresse de façon exponentielle et prend largement plus impact sur nos vies quotidiennes. L'évolution actuelle de l'informatique est appelé \glsreset{iot}\gls{iot}. il est prévu d'avoir en 2020 50 milliards "choses" connecté à l'Internet.
+Les nouvelles technologies de l'information connaissent une croissance exponentielle et prennent de plus en plus d'impact sur nos vies. L'évolution en cours de l'informatique est \glsreset{iot}\gls{iot}. L'Internet est discrètement en train de transitioner d'un réseau pour les personnes vers un reseau pour les \textit{Choses}. En 2020, il est prévu d'avoir 50 milliards \textit{Choses} connectées à Internet.
 \paragraph{}
-Cependant, une telle migration induit un fort niveau de complexité lorsque l'interopérabilité entre en jeu entre differentes choses hétérogènes, à savoir capteurs sans fil, RFID et l'informatique mobile.
+Cependant, une telle migration induit un niveau élevé de complexité lors de la manipulation de l'interopérabilité entre \textit{Choses} hétérogènes, par exemple, Capteurs sans fil, RFID, et appareils mobiles.
 \paragraph{}
-Dans cette thèse, nous nous concentrons sur l'intégration de capteurs sans fil dans \gls{iot}. Cela conduit vers une future intégration de Smart Grid (SG) dans \gls{iot}. Au cours de ce projet, nous avons déployé un banc d'essai intelligente du bâtiment pour l'optimisation de l'énergie.
+Une autre migration commence dans le réseau électrique qui est entrain de se transformer en un nouveau réseau appelé \glsreset{sg}\gls{sg}. Ce nouveau réseau compte principalement sur les avantages des technologies de l'information qui lui permettra d'intégrer de nouvelles fonctionnalités telle que \glsreset{dr}\gls{dr} et la l'exploitation décentralisée des énergies renouvelables. Pour cela, \gls{iot} va permettre une douce intégration des énergies renouvelables dans le réseau électrique.
+\paragraph{} 
+Cette thèse porte à développer un \gls{iot} prototype qui utilise des capteurs sans fil pouvant être utilisés dans le Smart Grid. Ce prototype fournit des services tels qu'une passerelle IPv6, le control à distance des capteurs sans fil, et un accès mobile au système.
 \paragraph{}
-Ce système d'information utilise différentes technologies  telles que TinyOS (TinyOS), \glsreset{nesc}\gls{nesc}, Java Standard Edition (J2SE), HTTP.
-
-
+Cette étude conduit à la création d'un prototype qui propose une infrastructure for intégrer \gls{sg} au sein de \gls{iot} et donc permettre de développer des services tel que \gls{dr}. Pour cela, les performances du système doivent être mises en test pour s'assurer de la possibilités de compter sur ce prototype. Dans ce contexte, deux expériences ont été menées mesurant le retard et le gigue pour savoir si le système peut supporter d'autres applications.
 \setcode{utf8}
 
-%\chapter{RL{ملخص}}
 
-\chapter{Arabic}
+\chapter*{\RL{ملخص}}
+%\chapter{Arabic}
 \paragraph{}
 \begin{arabtex}
-تكنولوجيا المعلومات تتقدم باطراد وجود أكبر تأثير على حياتنا كما تقدم الوقت. الثورة القادمة في مجال الحوسبة يسمى إنترنت الأشياء (قام المحفل). انها اساسا شبكة الانترنت ونحن نعلم في الوقت الحاضر إلا أن الأشياء المادية (ثلاجة، تلفزيون، تكييف هواء ...) وسوف تكون القوى الفاعلة الرئيسية في هذا النظام المعقد. وفي هذا السياق، فإن المشروع يبني على هذه الفكرة على سرير اختبار لترشيد استهلاك الطاقة الذكية الرئيسية. ال يسمح المشروع للمستخدمين لرصد استهلاك الطاقة لديها عبر الذكية الخاصة بهم الهاتف وأيضا يمكن للمستخدمين التحكم في الأجهزة عن طريق تشغيل وإيقاف الأجهزة عن بعد.
+تكنولوجيا المعلومات تنمو بشكل كبير وتؤثر إلى حد كبير على حياتنا اليومية. التطور الحالي في مجال الحاسوب هو  .ان الإنترنت تتطور من إنترنت لناس إلى الإنترنت  للأشياء. بحلول عام 2020, نتوقع أن يكون لديها 50 مليار شيء يتصل في شبكة الإنترنت.
 \end{arabtex}
 \paragraph{}
 \begin{arabtex}
-وينقسم النظام إلى ثلاثة عناصر رئيسية. كل واحد منهم يستخدم
-التكنولوجيات المختلفة، مث لTinyOS، NESC، ومعيار جافا
-طبعة J2SE، بروتوكول نقل النص التشعبي HTTP وغيرها من التكنولوجيات
-التي سيتم مناقشتها في التقرير أطروحة.
+ومع ذلك، فإن هذه الهجرة تحث على مستوى قوي من التعقيد في التعامل مع وجود التوافق بين أشياء غير متجانسة،و على سبيل المثال أجهزة الاستشعار اللاسلكية, والأجهزة النقالة.
 \end{arabtex}
 \paragraph{}
 \begin{arabtex}
-
-في هذه المرحلة، ونظام مراقبة يسمح، ولكن تشغيل وإيقاف تطبيق صحيفة-
- ليس هناك حتى الآن وذلك أساسا بسبب غياب المعدات ولكن البلاغ لهذا الغرض هناك.
+هجرة أخرى تقع في شبكة الكهرباء التي تتطور نحو الشبكة الكهربائية الذكية. في الواقع، فإن تقنيات الحاسوب تلعب دورا رئيسيا في تنفيذ الوظائف المطلوبة مثل دمج مصادر الطاقة المتجددة والموزعة في الشبكة الكهربائية الذكية. ومن المتوقع للإنترنت أن تمكن الإندماج الضريف للطاقات المتجددة الموزعة في الشبكة الكهربائية الحالية.
 \end{arabtex}
-
+\paragraph{}
+\begin{arabtex}
+ويركز هذi العمل على إنجاز سريراً للاختبار، وذلك بإستخدام أجهزة الاستشعار اللاسلكية، التي سيتم استخدامها لتكبصها في الشبكة الذكية. في هذا الاختبار، تم بناء عبارة شبكية، جهاز التحكم عن بعد في عقد الاستشعار اللاسلكية، والدخول المتحرك إلى النظام.
+\end{arabtex}
+\paragraph{}
+\begin{arabtex}
+وصلت هذه الدراسة إلى سنع سرير الاختبار الذي يوفر بنية تحتية لدمج الشبكة الذكية إلى شبكة الانترنت وبناء العديد من الخدمات الفوقية. ولذلك، وضع هذا النظام إلى الاختبار عن طريق تقويم تجربتين حيث في كل تجربة، قيس التأخير والغضب للتأكد من إمكانية النظام للتعامل مع الخدمات في بنيات فوقية التي تغمر في المشاريع المستقبلية.
+\end{arabtex}
 \singlespacing
 
 \tableofcontents
