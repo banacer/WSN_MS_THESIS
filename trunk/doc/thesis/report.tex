@@ -119,38 +119,40 @@ Cette étude conduit à la création d'un prototype qui propose une infrastructu
 
 \section{Importance of Study}
 \paragraph{}
-The global electrical grid is the basis that gives us this quality of life that most people around the world enjoy. The global electrical grid is sometimes called the largest machine ever made by man \cite{ref1}. It is a widespread and distributed machine that provides power to households, companies and organizations. Therefore the whole world's economy depends on it. The electrical grid knows numerous problems such as blackouts, and current instabilities that cost billions of dollars yearly to both the utilities and insurances. The grid suffers from the problem of peak hours where energy consumption is at its highest level and that one single utility cannot provide.
+The global electrical grid is the basis that gives us this quality of life that most people around the world enjoy. The global electrical grid is sometimes called the largest machine ever made by man \cite{ref1}. It is a widespread and distributed machine that provides power to households, companies and organizations. Therefore the whole world's economy depends on it. The electrical grid knows numerous problems such as blackouts, and current instabilities that cost billions of dollars yearly to both the utilities and insurances.
 \paragraph{}
-The \glsreset{sg}\gls{sg} comes as a solution to the problems of the traditional electrical grid. \gls{sg} is an intelligent, auto-balancing, self-monitoring, and self-healing electrical grid \cite{ref2} and whose energy sources are distributed between utilities and consumers. The nature of the \gls{sg} as having distributed energy sources, reduces numerous losses that arise from the long distance transmission lines, and also from the stress and the overload of the electrical lines.
+The global energy demand is significantly growing and the sources of energy such as fossil energies is becoming more scarce. Therefore, there is a need to move from depending on fossil energy sources to renewable energies such as Solar energy, wind energy and thermal energy. In addition, these renewable energies should be distributed throughout the power grid and permit to have less energy transmission costs.
+\paragraph{}
+The \glsreset{sg}\gls{sg} comes as a solution to the weaknesses of the traditional electrical grid. \gls{sg} is an intelligent, auto-balancing, self-monitoring, and self-healing electrical grid \cite{ref2} and whose energy sources are distributed between utilities and consumers. The nature of the \gls{sg} as having distributed energy sources, reduces numerous losses that arise from the long distance transmission lines, and also from the stress and the overload of the electrical lines.
 \paragraph{}
 Another revolution began, and it is taking place in the Information Technology. It is called the \glsreset{iot}\gls{iot}. \gls{iot} is the era of autonomous machine being able to produce and consume information, and being able to act autonomously without the guidance of humans, to perform their tasks. Cisco predicts that the number of devices to be connected to the Internet in 2020 will break the 50 billions devices from 500 million in 2003. That would make 6.58 devices connected for each person in the world whereas that same ratio was 0.07 17 years earlier \cite{ref3}. This clearly shows that the shift to the \gls{iot} will be exponential.
 \paragraph{}
-\glsreset{sg}\gls{sg} should benefit from the \gls{iot}. The integration of the \gls{sg} into the \gls{iot} constitutes the main topic of this study and goes along with increasing interest recently raised in both academia and industry, on the inherent correspondence between \gls{sg} and \gls{iot}. This  correspondence stems mainly from the need to disseminate information between the \gls{sg} components in order to make optimal decisions about energy use. This information dissemination could only be optimal when deploying ubiquitous sensoring and metering, and using the available network infrastructure, i.e. the Internet.   
+\glsreset{sg}\gls{sg} should benefit from the \gls{iot}. This integration should constitute the main topic of this study and goes along with increasing interest recently raised in both academia and industry, on the inherent correspondence between \gls{sg} and \gls{iot}. This  correspondence stems mainly from the need to disseminate information between the \gls{sg} components in order to make optimal decisions about energy use. This information dissemination could only be optimal when deploying ubiquitous sensoring and metering, and using the available network infrastructure, i.e. the Internet.   
 
 
 \section{Rationale of Study}
 \paragraph{}
-This project has been done in order to investigate ways the \gls{iot} can benefit the \gls{sg}. The Smart Grid needs a set of novel functionalities. One of these ideas is the two-way communication that will make it possible for the utility to communicate with consumers and vice versa. This is possible in the Internet Of Things as devices in \gls{iot} communicate by producing and consuming information. Numerous ideas assume the existence of the two-way communication such as the \gls{dr} which offers a set of services for both the power provider and the consumer.
+This project has been done in order to investigate ways the \gls{iot} can benefit the \gls{sg}. The Smart Grid needs a set of novel functionalities. One of these is the two-way communication that will make it possible for the utility to communicate with consumers and vice versa. This is possible in the Internet Of Things as devices in \gls{iot} communicate by producing and consuming information. Numerous ideas assume the existence of the two-way communication such as the \gls{dr} which offers a set of services for both the power provider and the consumer.
 \paragraph{}
-The \glsreset{iot}\gls{iot} uses different technologies such as \gls{wsn}, \gls{rfid}, \gls{ipv6} and \gls{6lowpan}\glsreset{6lowpan} which makes the Internet of Things a very heterogeneous and complex system \cite{ref4}. One of the challenges in \gls{iot} is to deal with this heterogeneity in order to make the communication smooth and transparent to the parties involved. This heterogeneity should become invisible to any two devices willing to communicate in the \gls{iot}.
+The \glsreset{iot}\gls{iot} uses different technologies such as \gls{wsn}, \gls{rfid}, \gls{ipv6} and \gls{6lowpan}\glsreset{6lowpan} which makes the Internet of Things a very heterogeneous and complex system \cite{ref4}. One of the challenges is to deal with this heterogeneity in order to make the communication smooth and transparent to the parties involved. This heterogeneity should become invisible to any two devices willing to communicate in the \gls{iot}.
 
 \section{Problem Statement}
 \paragraph{}
-The \glsreset{sg} \gls{sg} relies on the two-way communication to build a whole communication framework and a protocol stack namely the \glsreset{dr}\gls{dr} and other services built on top of this last. From the consumer's/household's perspective or more precisely the household's side,there are smart home energy management systems in the market nowadays, but none of them offers an integration with \gls{sg}. To have such an integration with \gls{sg}, there is a need for the two-way communication, in order to make it possible for any appliance to report its real-time energy consumption, and to be able to be controlled remotely. Such pillar is missing for the time being, and therefore the integration of the smart home within the smart grid is not possible. Also, in order for \gls{sg} to be integrated into the \gls{iot}, all devices should be able to communicate in the two ways.
+The \glsreset{sg} \gls{sg} relies on the two-way communication to build a whole communication framework and a protocol stack namely the \glsreset{dr}\gls{dr} and other services built on top of this last. From the consumer's/household's perspective or more precisely the household's side,there are smart energy management systems in the market nowadays, but none of them offers an integration with \gls{sg}. Such an integration through the two-way communication will to make it possible for any appliance to report its real-time energy consumption, and to be controlled remotely. Such pillar is missing for the time being, and therefore the integration of the smart home within the smart grid is not doable. Also, in order for \gls{sg} to be integrated into the \gls{iot}, all devices should be able to communicate in the two ways.
 \paragraph{}
-\gls{sg} counts on various technologies to achieve its main goals. This use of different technologies comes with a problem which is the heterogeneous nature of the system. As numerous components count on different technologies, there is a need to interface them in order to make this heterogeneity transparent to the all components of the system. As a matter of fact, a software should be built within the system whose main goal is to take care of making the communication technology-transparent. This component will give the possibility to all components of the system to work hand-in-hand in order to achieve their goals independently of the data link layer (Ethernet, Wifi or Zigbee) or the network layer technology (\gls{ipv4} or \gls{ipv6}) they are using.
+\gls{sg} counts on various technologies to achieve its main goals. The use of different technologies comes at a cost which is the heterogeneous nature of the system. As numerous components count on different technologies, there is a need to interface them in order to make this heterogeneity transparent to the all components of the system. As a matter of fact, a software should be built within the system whose main goal is to take care of making the communication technology-transparent. This component will give the possibility to all components of the system to work hand-in-hand in order to achieve their goals independently of the data link layer (Ethernet, Wifi or Zigbee) or the network layer technology (\gls{ipv4} or \gls{ipv6}) they are using.
 
 \section{Purpose of Study}
  \paragraph{}
-The goal of the study is to solve the problems introduced in the problem statement section. This means creating the two-way communication, and solving the heterogeneity that arises from integrating smart homes with the smart grid. In fact, each components in the smart home will become part of the Internet of Things by making it communicate with any device in the Internet by having an \gls{ipv6} address using \gls{6lowpan} whose goal is to provide the TCP/IP to the smallest devices and also those with the least computational resources.
+The goal of the study is create the two-way communication, and solve the heterogeneity that arises from integrating smart homes with the smart grid. In fact, each components in the smart home will become part of the Internet of Things by making it communicate with any device in the Internet by having an \gls{ipv6} address using \gls{6lowpan} whose goal is to provide the TCP/IP to the smallest devices and also those with the least computational resources.
 \paragraph{}
-The first purpose of this study is to create a testbed having the two-way communication and also being able to make use of it in order to build richer applications based on it. To do so, \gls{6lowpan} would had to be integrated within every device in the \gls{wsn}. This would make every sensor node (mote) identifiable in the network, ready to communicate and be part of the \gls{iot}. This communication will go in both directions and based on \gls{6lowpan}; the two-way communication will be built.
+The first purpose of this study is to create a testbed with the two-way communication. To do so, \gls{6lowpan} would had to be integrated within every device in the \gls{wsn}. This would make every sensor node (mote) identifiable in the network, ready to communicate and be part of the \gls{iot}. This communication will go in both directions and based on \gls{6lowpan}; the two-way communication will be built.
 \paragraph{}
-The second purpose of this study is to solve the heterogeneity problem that arises from the integration of smart homes into the grid and also when making the whole system part of the \glsreset{iot}\gls{iot}. Solving such a problem means having an extra component that will track all  packets and change them to fit the standards of the targeted component. This will make of this additional component a middleman and that would make the heterogeneity problem disappear.
+The second purpose of this study is to hide the heterogeneity that arises from the integration of smart homes into the grid and also when making the whole system part of the \glsreset{iot}\gls{iot}. To solve such a problem, we add an extra component that will track all  packets and change them to fit the standards of the targeted component.
 
 \section{Scope of Study}
 \paragraph{}
-This study aims at solving the two problems presented in section 1.3. To do so, a variety of tools and technologies were used for this purpose.The two problems could not be solved one independently of the other. Even though the problems seems to be separate, one cannot solve  the first problem without having to solve the second. In other words, after the creation of the two-way communication in the \glsreset{wsn}\gls{wsn} which adopts \gls{ipv6} over \gls{6lowpan}, other networks can only support \gls{ipv4} and therefore the communication would not be possible, and this is due to the heterogeneous nature of the system. This is why the two-way communication was created, but only after solving the heterogeneity problem, everything worked.
+A variety of tools and technologies were used for this study.The two problems could not be solved one independently of the other. Even though the problems seems to be separate, one cannot solve  the first problem without having to solve the second. In other words, after the creation of the two-way communication in the \glsreset{wsn}\gls{wsn} which adopts \gls{ipv6} over \gls{6lowpan}, other networks can only support \gls{ipv4} and therefore the communication would not be possible, and this is due to the heterogeneous nature of the system. This is why the two-way communication was created, but only after solving the heterogeneity problem, everything worked.
 The system is divided into four subsystems:
 \begin{itemize}
 \item The fully \gls{ipv6} supported \gls{wsn}
@@ -164,7 +166,7 @@ Each of these four components is there to solve part of the problem. Each of the
 It is important to note that some of the components will be discussed from the architectural point in Chapter 4 but not from an implementation aspect in Chapter 5. The sole reason behind this is the fact that some of the equipment required for this thesis were not on time and therefore the parts in the implementation requiring such equipment were omitted in order to meet the deadlines.
 \section{Outcome of the Study}
 \paragraph{}
-The outcome of the thesis is to design and implement a test-bed that is able to show the two-way communication in action. It will also have to show its integration into the \glsreset{iot}\gls{iot} by showing that every node in the system can communicate autonomously and with any other node in the Internet. Another \gls{iot} concept is the ability of any node in the \gls{wsn} to consume and produce information that is communicated through the network.
+The outcome of the thesis is to design and implement a test-bed that will be integrated into the \glsreset{iot}\gls{iot} by showing that every node in the system can communicate autonomously and with any other node in the Internet. Another \gls{iot} concept is the ability of any node in the \gls{wsn} to consume and produce information that is communicated through the network.
 \paragraph{}
 The autonomous production of information is shown by the fact that every sensor node in the \gls{wsn} reads sensory data from its sensors, that are attached to appliance, in order to sense their consumption. This information about consumption is produced and communicated periodically. The consumption of data is proved by showing the execution of the commands communicated through the network by external nodes in the \gls{iot}. These commands request the sensor node to turn On or Off an appliance.
 \paragraph{}
@@ -278,16 +280,24 @@ The system is divided into nine components, as depicted in figure \ref{fig:gen_a
 
 \section{General Architecture of the System}
 \paragraph{}
-The general architecture is depicted in figure \ref{fig:gen_architecture}. This figure shows the existing components and their interactions. Each set of components appear within a box as this last refers to what hardware are the components deployed in as it is labeled in the box.
+The general architecture is depicted in figure \ref{fig:gen_architecture}. This figure shows the existing components and their interactions. Each set of components appear within a box as this last refers to what hardware are the components deployed in as it is labeled in the box. There are are five hardware components:
+\begin{itemize}
+\item Sensor Node
+\item Mote Sink
+\item Gateway
+\item Middle-ware
+\item Smart phone
+\end{itemize}
+Each hardware component hosts a set of software subsystems that will be explained more clearly in the sections 4.4 to 4.11.
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=17cm,height=20cm,keepaspectratio]{img/general_architecture.jpg}
-\caption{General architecture depicting the main components of the system}
+\caption{General architecture depicting the main components of the system and the information flow}
 \label{fig:gen_architecture}
 \end{figure}
 %\clearpage
 \paragraph{}
-Now that the general architecture has been defined, the question that should be asked is whether all these components operate in the same layer in the \gls{osi} model and if not, in which layer does each of these components reside. As an answer to such a question, figure \ref{fig:layered_view} is here to show in what layer does every component operates.
+Now that the general architecture has been established, the question that should be asked is whether all these components operate in the same layer in the \gls{osi} model and if not, in which layer does each of these components reside. As an answer to such a question, figure \ref{fig:layered_view} is here to show in what layer does every component operates.
 
 \begin{figure}[htbp]
 \centering
@@ -396,7 +406,7 @@ Figure \ref{fig:appliance_control} depicts the architecture as well as the data 
 \begin{figure}[htbp]
 \centering
 \includegraphics[scale=0.35]{img/appliance_control.jpg}
-\caption{TCP Server controlling appliance}
+\caption{TCP Server controlling appliance information flow}
 \label{fig:appliance_control}
 \end{figure}
 
@@ -712,6 +722,8 @@ The data collected shows even though the delay in the \gls{wsn} is high,
  
  \paragraph{}
  The good news in experiment 1 is that the priority of packets brings benefit to the network. Even though the traffic grows exponentially, the average delay stays constant. However, the jitter follows the traffic's trend, but still the average delay shows good results. 
+ \paragraph{}
+ It is to be noted that this experiment did not get to the point where the network was saturated. In fact, Zigbee has a bandwidth of 250 Kbps. However, experiment one attained less than 1 Kbps which does not reflect clearly how the network would react to such a high bandwidth utilization. The point is that even though the delay seems constant in experiment 1, that does not give any indications about how the delay and jitter varies as a function of the percentage of the bandwidth used.
  
 \subsection{Experiment 2}
 \paragraph{}
@@ -720,14 +732,14 @@ The second experiment's goal is to measure the contribution of the Gateway Packe
 \begin{table}[htbp]
     \begin{tabular}{ll}
     \hline
-    Delay (ms) & Jitter (ms) \\ \hline
-    0.1        & 0.0         \\ 
+    Delay ($\mu s$) & Jitter ($\mu s$) \\ \hline
+    0.1        & 0.03         \\ 
     \end{tabular}
     \caption{Experiment 2 delay and jitter}
         \label{table:exp2}
 \end{table}
 \paragraph{}
-The transformation process's elapsed time is measured in milliseconds and from table \ref{table:exp2}, one can see that the average delay is on average 0.1 milliseconds whereas the jitter is around 0 milliseconds meaning that the process's time varies between a few nanoseconds to at most 150 nanoseconds. Depending on the machine's load. The distribution of the delay frequency is shown the histogram depicted in figure \ref{fig:histogram}. From this figure one can conclude that the delay is normally distributed
+The transformation process's elapsed time is measured in microseconds and from table \ref{table:exp2}, one can see that the average delay is on average 0.1 milliseconds whereas the jitter is around 0.03 milliseconds meaning that the process's time varies between a few microseconds to at most 150 microseconds. In addition, depending on the machine's load, the distribution of the delay frequency is shown the histogram depicted in figure \ref{fig:histogram}. From this figure one can conclude that the delay is normally distributed
 \begin{figure}[htbp]
  \centering
  \includegraphics[scale=0.9]{img/histogram.JPG}
@@ -889,8 +901,6 @@ There is a set of instructions to follow in order as some of the components must
 \item Turn on the wireless sensor nodes one by one
 \end{enumerate}
 
-\paragraph{}
-You should be able to get sensor data periodically. The mobile client access for turning On and Off will be explained in the Appendix C.
 \end{appendices}
 
 \end{document}
