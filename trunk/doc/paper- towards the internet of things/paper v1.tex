@@ -4,7 +4,7 @@
 
 \begin{document}
 
-\title{Towards the Internet of Things: A Real-World Testbed}
+\title{Towards the Internet of Things: A Real-World Test-bed}
 \author{\IEEEauthorblockN{Nacer Khalil}
 \IEEEauthorblockA{School of Electrical and Engineering\\
 Al Akhawayn University In Ifrane\\
@@ -21,29 +21,38 @@ University of Houston\\
 Email: dbenhaddou@uh.edu}}
 \maketitle
 \begin{abstract}
-The internet has seen its importance grow exponentially throughout the previous two decades. It has started as a set of computers sharing static information written by human beings and accessed by other human beings. It followed mainly the publisher subscriber model. Later on, with the arrival of internet 2.0, the subscriber had now the ability to affect the content at the publisher's level and this basic idea gave rise to a whole new world of applications such as wikis, blogs, social networks and other applications. The next revolution in the internet is the introduction of machines as players within the internet. This will allow the machines to intercommunicate between them or what is known as machine-to-machine communication. More and more devices will be able to communicate and thus be part of the internet. This will give rise to a whole new dimension of possibilities as the focus of the internet will not only be human interactions but also machine interactions. As an example of autonomous machines communicating through, the components of smart grids will be part of the internet of things. Devices such as AMI, smart homes, wireless sensor networks will all be part of the internet of things. Any device within the smart grid will be uniquely identified through the network and therefore will be able to communicate. In this paper, we present a real-world testbed for integrating wireless sensors into the internet. The solution uses 6lowPAN, and addresses relevant issues at the level of the gateway. we used legacy hardware and proved communication.
+The Internet is smoothly migrating from an Internet of people to an Internet of Things. By 2050, it is expected to have 50 billions “Things” connected to the Internet. However, such a migration induces a strong level of complexity when handling interoperability between the heterogeneous things, e.g., Wireless sensor networks, RFID, and mobile computing. In this context, a couple of standards have been already set, and they are currently reached the mature stage, e.g., IPv6, 6loWPAN, M2M, and IMS. In this paper, we focus on the integration of wireless sensor networks to the Internet. We shed further on the subtleties of such integration, and we deployed a real-world testbed where wireless sensors are used to control electrical appliances in a smart building. 
 \end{abstract}
 
 \begin{IEEEkeywords}
-WSN, 6lowPAN, TinyOS, IOT, cyber physical systems
+WSN, 6LoWPAN, TinyOS, IoT, Cyber Physical System
 \end{IEEEkeywords}
 
 \section{Introduction}
-The direction that is taken by the global society is a direction leading to what is known by "always connected" model. People are eager to receive the information as fast as possible and whenever available. They also want to send information as fast as possible and whenever wanted. Also, these requests and responses that are dictated by the human are not all the time directed towards humans , but can be sent also to devices and machines but that is not always possible at this time being. The future  of internet goes into this direction: being able to connect human beings as well as machine in order to provide robust and flexible communication for all. The machines on the other hand need an interface to be able to communicate on the internet.There will be millions of devices in the internet both producing and consuming information \cite{ref8}. In this paper, we create a small network where a machine-to-machine communication is possible. This can be part of what is known as internet of things \cite{ref6}. The testbed created is composed of a wireless sensor network(WSN), a middleware station and a mobile client within the field of smart grids where data is collected from the motes within the WSN and sent to the middleware. The mobile client accesses this data and the mobile client can send messages directly to any mote within the WSN network in order to turn on or off any appliance. The issues that were handled are the following:
+The Internet of Things is the future of internet. It is an Internet where physical devices communicate by producing and consuming information. This makes these devices more intelligent as they will be able to provide services but at the same time use others. These physical devices will be uniquely identified in the internet by making use of technologies such as IPv6 and RFID. There will be millions of devices in the Internet both producing and consuming information \cite{ref8}. To build the internet of things, there are numerous points that should be added to the actual internet to make all this possible. The first thing is to make the TCP/IP protocol stack based on 6LoWPAN adopted by all physical devices and wireless sensor networks. The identification of each physical object is possible by using technologies such as RFID which is a low power identification chip that allows one to identify each object uniquely. Concerning communication between physical objects, M2M provides standards to make the communication possible and robust. 
+\\
+To make these physical devices cyber physical systems, they will not only need to communicate but also to sense the environment and this is possible when making use of the WSN that allow physical devices to sense the environment based on their requirements.
+\\
+In this paper, we create a small network where a machine-to-machine communication is possible. This can be part of what is known as Internet of things \cite{ref1}. The deployed tested  is composed of a wireless sensor network(WSN), a middleware station and a mobile client within the field of smart grids where data is collected from the motes within the WSN and sent to the middleware. The mobile client accesses this data and the mobile client can send messages directly to any mote within the WSN network in order to turn on or off any appliance. The contributions of this paper are:
 \begin{itemize}
 \item The system is developed using heterogeneous networks, different data link layer technologies
 \item The WSN uses IPV6 over 6lowPAN whereas other components of the system use IPV4
 \end{itemize}
-To solve these issues, different programs have been used to deal with these issues. 
+To solve these issues, different programs have been used to deal with these issues.  \\
+The Rest of the paper is organized as follows: Section II presents related work. In Section III, we provide a review of the internet of things concepts and issues. Section IV presents 6LoWPAN technology for low power devices such as wireless sensor networks that is used in this paper. Section V presents the system architecture of the testbed. In section VI the implementation of the system is discussed more into details and section VII presents the the measurements that are done on the testbed.
  
 \section{Literature review}
-Smart grid as being one of the most important applications of the internet of things makes use of different technologies such as Zigbee in the WSN \cite{ref1}.  \cite{ref2} discusses the need to introduce IPV6 within the wireless sensor networks and discusses the the existing approaches as well as the issues related to introducing IPV6 on top of Zigbee. Such issues are fragmentation, frame size, addressing, and security issues. This paper introduces a real testbed that includes the whole TCP/IP protocol provided by the BLIP project that takes into consideration most of those issues and implement the two-way communication as needed by smart grids and measures the performance of such a system. El Kouche also investigates on the widely used architectures and technologies and explains which architecture is the most suitable for a WSN within the internet of things \cite{ref3}. \cite{ref4} discusses the requirement of the IOT gateway as well as a proposed architecture for the system to be deployed in the gateway. A rather similar architecture to what is done in this paper is proposed by Yerra, Bharathi, Rajalakshmi and Desai \cite{ref7}. They also use GSM technology to transmit information whereas in our case, internet is used for this purpose.
-\
+Smart grid as being one of the most important applications of the internet of things makes use of different technologies such as Zigbee in the WSN \cite{ref1}.  \cite{ref2} discusses the need to introduce IPV6 within the wireless sensor networks and discusses the the existing approaches as well as the issues related to introducing IPV6 on top of Zigbee. Such issues are fragmentation, frame size, addressing, and security issues. This paper introduces a real testbed that includes the whole TCP/IP protocol provided by the BLIP project that takes into consideration most of those issues and implement the two-way communication as needed by smart grids and measures the performance of such a system. El Kouche also investigates on the widely used architectures and technologies and explains which architecture is the most suitable for a WSN within the internet of things \cite{ref3}. \cite{ref4} discusses the requirement of the IOT gateway as well as a proposed architecture for the system to be deployed in the gateway. A rather similar architecture to what is done in this paper is proposed by Yerra, Bharathi, Rajalakshmi and Desai \cite{ref7}. They also use GSM technology to transmit information whereas in our case, internet is used for this purpose. \\
+Research discusses the benefits to replace Zigbee by Wi-Fi as this last offers higher bandwidth, non-line transmission ability, large-scale data collection and is highly cost-effective \cite{ref11}. Still, Zigbee has the exclusive advantage of consuming the least energy of the communication technologies that exist nowadays which is something required in SG and IoT, especially for systems that are installed far away from any maintenance team such as smart grid monitoring and self-healing devices where one cannot manage to move for the sole purpose of charging these devices.  \\
+From the architectural point of view, integrating SG within IoT means having to address heterogeneity issues. An IoT gateway system based on Zigbee and GPRS protocols helps to deal partly with the heterogeneity problem and therefore enable the WSN to communicate with the mobile telecommunication network \cite{ref11}. Another solution to the heterogeneity problem is proposed with a new, light-weight web service transport protocol called Lean Transport Protocol (LTP) that will allow transparent exchange of web service messages between all kinds of devices. This protocol is platform-independent, low energy communication \cite{ref12}. Some researchers claim that the major source of heterogeneity the fact that there are different types of WSN devices (Micaz, Mica2, Telosb...) that do not use the same standards and protocols. They propose to move the communication in WSNs to an "all-IP" as this would remove most of the heterogeneity but as there are already deployed legacy WSNs, the task is complicated to conduct. Fortunately, the researchers sketch an architecture capable of converting all the \glspl{wsn}, new and legacy, to support IPv6 \cite{ref13}.
 
 \section{Internet of things}
-The internet of things is a new concept based on the idea that there will be much more users that are computers, machine than human beings. This means that machines will play an important role in the internet and they will be able to communicate autonomously without the interaction of human beings. Wireless sensor network will be part of the internet of things and therefore will be actively communicating in the internet by sending sensor data. Nowadays, the internet is mainly based on a human-to-human. In the future of internet called the internet of things, we will have in addition to human-to-human communication, human-to-machine communication and machine-to-machine communication. An example of human-to-machine communication is when the human will be able to control the wireless sensor network's sampling time. An example of machine-to-machine communication which will be discussed in this paper is the middleware being able to turn off the light because no one is in the room. The middleware by making use of the sensor data will communicate with motes to turn on or off the light bulb.
+The internet of things is a new concept based on the idea that there will be much more users that are computers, machine than human beings. This means that machines will play an important role in the internet and they will be able to communicate autonomously without the interaction of human beings. Wireless sensor network will be part of the internet of things and therefore will be actively communicating in the internet by sending sensor data. Nowadays, the internet is mainly based on a human-to-human. In the future of internet called the internet of things, we will have in addition to human-to-human communication, human-to-machine communication and machine-to-machine communication. An example of human-to-machine communication is when the human will be able to control the wireless sensor network's sampling time. An example of machine-to-machine communication which will be discussed in this paper is the middleware being able to turn off the light because no one is in the room. The middleware by making use of the sensor data will communicate with motes to turn on or off the light bulb. \\
+Ubiquitous computing and pervasive computing is an important component of the Internet of things. Physical objects will be able to communicate in the Internet by producing information as well as consuming information \cite{ref9}. The main technological components needed in the Internet of things are the Radio Frequency identification (RFID) and is a technology that enables physical devices to identify themselves through this low power technology. Another important technological component is the wireless sensor network (WSN) and it is a technology that gives the physical objects to sense the environment and communicate such information. Mobile computing and cloud computing are important components as most of the storage and processing power will come from the cloud that will provide such services to the different physical devices in the internet of things. \\
+The internet of things has a great impact on the every day life of people as it will affect our lives inside our homes where all physical devices will be able to communicate information by providing services and consuming others. More tasks will be automated, as most of the physical devices will communicate their needs to each other. Smart grid is another important technology made possible with the Internet of Things. The US national intelligence listed the Internet of things as being on six disruptive civil technologies with potential impact on the US national power \cite{ref10}. \\
 \section{6lowpan}
 6loWPAN stands for  "IPv6 over Low power Wireless Personal Area Networks". It stands for the name of the working group within IETF. It is based on the idea that all the devices independently of their processing power or energy resources should be able to have the TCP/IP protocol stack and be part of the internet of things. In order to be able to build the TCP/IP protocol stack in low-power devices, there have been multiple aspects of the protocol stack that has to be optimized. As an example, the IP MTU(maximum transmission unit) is fixed at 1280 bytes whereas the Zigbee MTU is only 127 bytes. This means that not every IPV6 packet can be inserted within a Zigbee frame. Another issue is related to the addressing with the 128 bits address. in 6lowpan, the addressing via the IPV6 address is performed hierarchically to first identify is the packet is sent to a device within that network but afterwards, addressing is done by counting mainly on the 16 last bits of the IPV6 address. These were just two of a large set of issues that 6lowpan tries to solve in order to enable even the low-power devices to join the internet of things. TinyOS as being one of the most used operating system comes with its implementation of 6lowpan through a project called BLIP (Berkeley Low-power IP stack) that provides a lightweight implementation of the 6lowpan and that can be installed and used with a variety of motes as long as they support IPV6. This project makes use of BLIP to provide the TCP/IP protocol stack to the devices within the wireless sensor network.
+
 \section{Architecture}
 The project is composed of three building blocks. 
 \begin{itemize}
@@ -56,7 +65,7 @@ The WSN communicates using zigbee as well as with the gateway server using IPV6 
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[scale=0.5]{images/network_diagram.jpg}
+\includegraphics[scale=0.48]{images/network_diagram.jpg}
 \caption{Network diagram}
 \label{fig:network}
 \end{figure}
@@ -97,11 +106,9 @@ As a second part of the two-way communication, the mote sends periodically senso
 \linebreak 
 The mote reads periodically sends sensor data from the sensor, transforms the data and sends it. To send it the mote client connects to a TCP server hosted at the gateway. The IPV6 packet is encapsulated in a Zigbee frame that is forwarded to the mote  sink that extracts the IPV6 packet and  encapsulates it into a USB frame and forwarded to the gateway that reads the TCP datagram. Once the sensor data is at the gateway, the gateway forwards the sensor data to the middleware and if the link is down, the sensor data is temporarily stored in a database hosted in the gateway and once the link is up, all the stored data is sent to the middleware and cleared from the database.
 
-
-
 \begin{figure}[htbp]
 \centering
-\includegraphics[height=110mm,width=90mm]{images/send_sensor_data_data_flow.jpg}
+\includegraphics[scale=3.0]{images/send_sensor_data_data_flow.jpg}
 \caption{Data flow diagram for the mobile client sending on/off commands}
 \label{fig:control_appliance}
 \end{figure}
@@ -134,10 +141,34 @@ This is a very important component in the system. The issue is the following. Th
 \\
 To solve such a problem, an algorithm has been created whose sole role is to mechanically compute the IPV6 address of the host based on its IPV4 and vice versa. This algorithm is based on function whose primary quality is the fact that it is bijective which means any IPV4 address is mapped to one and only one IPV6 function and vice versa. So whenever a request is coming, the source and destination address will be converted using this algorithm and this will make avoid the whole request response tracking part.
 \section{Measurements}
+The goal of this part is to measure to what extent is the system able to operate reliable and offering some acceptable level of performance. As this system is to be deployed in a small environment such as an apartment or a house where each mote will be connected to one or more appliances, and motes will be closely positioned and this positioning will make it possible to make use of the multi-hop routing and therefore placing no more than one sink in each house. In this experiment, we try to simulate the normal work of this system where each sensor is read once every second generating traffic in the Zigbee network. Our goal is to measure the delay and see how does it vary in this system with the amount of traffic generated. As the multi-hop routing protocol gives more priority to packets to be routed than those addressed to that mote, we would like to see if this prioritization reduces the delay when having more and more motes sending packets through the network. TABLE \ref{table:exp1} illustrates how the delay and jitter varies as we add more and more nearby motes to the network.
+\begin{table}[htbp]
+    \begin{tabular}{lll}
+    \hline
+    number of motes & Delay (ms) & Jitter (ms) \\\hline
+    1               & 87.5         & 1.2         \\ 
+    2               & 88.1         & 2.0         \\
+    3               & 88.3        & 2.7         \\
+    4               & 88.8         & 3.1         \\
+    5               & 90.0         & 3.3         \\
+    6               & 89.5         & 3.5         \\
+    \end{tabular}
+    \caption{Experiment 1 delay and jitter}
+    \label{table:exp1}
+\end{table}
+It is clear that the average delay is not much affected by the number of motes in the network, but the jitter on the other hand is clearly affected by the number of motes in the network. This is mainly due to the fact that there are timeframes where the network is less busy and other timeframes where the network becomes busier. This is why the jitter grows as the number of motes in the network grows with it.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[scale=0.6]{images/delay_jitter.JPG}
+\caption{Delay and jitter evolution by Traffic}
+\label{fig:delay_jitter}
+\end{figure}
 
 \section{Conclusion}
-The conclusion goes here.
-
+The Internet of things is the next revolution in computing. The testbed presented in this paper illustrates how can smart grid by making use of numerous technologies such as TinyOs based WSN, 6lowPan can integrate within the Internet of things and benefit from it. The test bed presents the 2-way communication as needed by smart grids and also discusses the architecture of the system and the issues that were handled to make the communication possible and smooth. \\
+The issues that were handled are mainly related to making the communication possible even if it is on a homogeneous system where the data link layer is not the same and the network layer is not the same. The packet is transmitted from the an IPV4 network based on the Wifi network and moves to an IPV6 network based on USB then to Zigbee. These were one of the numerous issues handled in this paper. \\
+Smart grids can and will benefit from the internet of things and making it as one of the most important applications of the internet of things and therefore enable more efficiency in the generation and consumption of data.
 
 %Bibliography
 \mbox{}
