@@ -1,9 +1,11 @@
 \documentclass[conference]{IEEEtran}
 \usepackage{graphicx}
 \usepackage[noadjust]{cite}
+\usepackage[acronym]{glossaries} 
+\makeglossaries
 
 \begin{document}
-
+\input{acronyms}
 \title{Towards the Internet of Things: A Real-World Test-bed}
 \author{\IEEEauthorblockN{Nacer Khalil}
 \IEEEauthorblockA{School of Electrical and Engineering\\
@@ -21,7 +23,8 @@ University of Houston\\
 Email: dbenhaddou@uh.edu}}
 \maketitle
 \begin{abstract}
-The Internet is smoothly migrating from an Internet of people to an Internet of Things. By 2050, it is expected to have 50 billions “Things” connected to the Internet. However, such a migration induces a strong level of complexity when handling interoperability between the heterogeneous things, e.g., Wireless sensor networks, RFID, and mobile computing. In this context, a couple of standards have been already set, and they are currently reached the mature stage, e.g., IPv6, 6loWPAN, M2M, and IMS. In this paper, we focus on the integration of wireless sensor networks to the Internet. We shed further on the subtleties of such integration, and we deployed a real-world testbed where wireless sensors are used to control electrical appliances in a smart building. 
+The Internet is smoothly migrating from an Internet of people to an Internet of Things. By 2050, it is expected to have 50 billions “Things” connected to the Internet. 
+However, such a migration induces a strong level of complexity when handling interoperability between the heterogeneous things, e.g., Wireless sensor networks, \gls{rfid}\glsreset{rfid}, and mobile computing. In this context, a couple of standards have been already set, and they are currently reached the mature stage, e.g., \gls{ipv6}\glsreset{ipv6}, \gls{6lowpan}\glsreset{6lowpan}, \gls{m2m}\glsreset{m2m}, and \gls{ims}\glsreset{ims}. In this paper, we focus on the integration of wireless sensor networks to the Internet. We shed further on the subtleties of such integration, and we deployed a real-world testbed where wireless sensors are used to control electrical appliances in a smart building. 
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -29,39 +32,49 @@ WSN, 6LoWPAN, TinyOS, IoT, Cyber Physical System
 \end{IEEEkeywords}
 
 \section{Introduction}
-The Internet of Things is the future of internet. It is an Internet where physical devices communicate by producing and consuming information. This makes these devices more intelligent as they will be able to provide services but at the same time use others. These physical devices will be uniquely identified in the internet by making use of technologies such as IPv6 and RFID. There will be millions of devices in the Internet both producing and consuming information \cite{ref8}. To build the internet of things, there are numerous points that should be added to the actual internet to make all this possible. The first thing is to make the TCP/IP protocol stack based on 6LoWPAN adopted by all physical devices and wireless sensor networks. The identification of each physical object is possible by using technologies such as RFID which is a low power identification chip that allows one to identify each object uniquely. Concerning communication between physical objects, M2M provides standards to make the communication possible and robust. 
-\\
-To make these physical devices cyber physical systems, they will not only need to communicate but also to sense the environment and this is possible when making use of the WSN that allow physical devices to sense the environment based on their requirements.
-\\
-In this paper, we create a small network where a machine-to-machine communication is possible. This can be part of what is known as Internet of things \cite{ref1}. The deployed tested  is composed of a wireless sensor network(WSN), a middleware station and a mobile client within the field of smart grids where data is collected from the motes within the WSN and sent to the middleware. The mobile client accesses this data and the mobile client can send messages directly to any mote within the WSN network in order to turn on or off any appliance. The contributions of this paper are:
+The \gls{iot} is the future of Internet. It is an Internet where \textit{Things} communicate by producing and consuming information. This makes these \textit{Things} more intelligent as they are able to provide services but at the same time use others. These physical devices are uniquely identified in the Internet by making use of technologies such as \gls{ipv6} and \gls{rfid}. There will be millions of devices in the Internet both producing and consuming information \cite{ref8}. To build the \gls{iot}, there are key points that should be added to the actual Internet to make all this possible. The first point is to make the TCP/IP protocol stack based on \gls{6lowpan} adopted by all physical devices and \glspl{wsn}. The identification of each \textit{Thing} is possible by using \gls{rfid} which is a low power identification chip that allows one to identify objects uniquely. The second point is to standardize the communication and \gls{m2m} is adopted for this purpose.
+
+\
+To make of these \textit{Things} \glspl{cps}, they must have three main functionalities: sensing, computation and communication.Sensing is made possible using \glspl{wsn} that provide a basis to sense the environment. In addition, each mote is equipped with processing power that provides the computation functionality. Finally, communication is made using \gls{ipv6} as a network technology.
+
+\
+In this paper, we create a small network where a \gls{m2m} is possible. This network can be part of what is known as Internet of things \cite{ref1}. The deployed tested  is composed of a \gls{wsn}, a middle-ware, and a mobile client for smart home energy monitoring and control where data is collected from the motes within the \gls{wsn} and communicated to the middle-ware. The mobile client is able to monitor and visualize this data and control appliances remotely. The contributions of this paper are:
 \begin{itemize}
-\item The system is developed using heterogeneous networks, different data link layer technologies
-\item The WSN uses IPV6 over 6lowPAN whereas other components of the system use IPV4
+\item The system is developed in a heterogeneous system,and makes it transparent
+\item The \gls{wsn} uses \gls{ipv6} over \gls{6lowpan} and is able to communicate in the Internet
+\item The Two-Way communication is built in the system 
 \end{itemize}
-To solve these issues, different programs have been used to deal with these issues.  \\
-The Rest of the paper is organized as follows: Section II presents related work. In Section III, we provide a review of the internet of things concepts and issues. Section IV presents 6LoWPAN technology for low power devices such as wireless sensor networks that is used in this paper. Section V presents the system architecture of the testbed. In section VI the implementation of the system is discussed more into details and section VII presents the the measurements that are done on the testbed.
+The Rest of the paper is organized as follows: Section II presents related work. In Section III, a review of \gls{iot} concepts and issues are presented. Section IV introduces \gls{6lowpan} standard. Section V describes the system architecture. In section VI, the deployment of the system is discussed in details and section VII presents the experiments conducted to measure the system's performance and the findings of the system.
  
 \section{Literature review}
-Smart grid as being one of the most important applications of the internet of things makes use of different technologies such as Zigbee in the WSN \cite{ref1}.  \cite{ref2} discusses the need to introduce IPV6 within the wireless sensor networks and discusses the the existing approaches as well as the issues related to introducing IPV6 on top of Zigbee. Such issues are fragmentation, frame size, addressing, and security issues. This paper introduces a real testbed that includes the whole TCP/IP protocol provided by the BLIP project that takes into consideration most of those issues and implement the two-way communication as needed by smart grids and measures the performance of such a system. El Kouche also investigates on the widely used architectures and technologies and explains which architecture is the most suitable for a WSN within the internet of things \cite{ref3}. \cite{ref4} discusses the requirement of the IOT gateway as well as a proposed architecture for the system to be deployed in the gateway. A rather similar architecture to what is done in this paper is proposed by Yerra, Bharathi, Rajalakshmi and Desai \cite{ref7}. They also use GSM technology to transmit information whereas in our case, internet is used for this purpose. \\
-Research discusses the benefits to replace Zigbee by Wi-Fi as this last offers higher bandwidth, non-line transmission ability, large-scale data collection and is highly cost-effective \cite{ref11}. Still, Zigbee has the exclusive advantage of consuming the least energy of the communication technologies that exist nowadays which is something required in SG and IoT, especially for systems that are installed far away from any maintenance team such as smart grid monitoring and self-healing devices where one cannot manage to move for the sole purpose of charging these devices.  \\
-From the architectural point of view, integrating SG within IoT means having to address heterogeneity issues. An IoT gateway system based on Zigbee and GPRS protocols helps to deal partly with the heterogeneity problem and therefore enable the WSN to communicate with the mobile telecommunication network \cite{ref11}. Another solution to the heterogeneity problem is proposed with a new, light-weight web service transport protocol called Lean Transport Protocol (LTP) that will allow transparent exchange of web service messages between all kinds of devices. This protocol is platform-independent, low energy communication \cite{ref12}. Some researchers claim that the major source of heterogeneity the fact that there are different types of WSN devices (Micaz, Mica2, Telosb...) that do not use the same standards and protocols. They propose to move the communication in WSNs to an "all-IP" as this would remove most of the heterogeneity but as there are already deployed legacy WSNs, the task is complicated to conduct. Fortunately, the researchers sketch an architecture capable of converting all the WSN, new and legacy, to support IPv6 \cite{ref13}.
+\gls{sg} is perceived as one of the key applications based on \gls{iot}. It uses different technologies such as Zigbee, \gls{6lowpan}, \gls{m2m} and \gls{ims} \cite{ref1}.  The need to introduce \gls{ipv6} within the wireless sensor networks is discussed as well as the existing approaches and issues related to introducing IPV6 on top of Zigbee. Such issues are fragmentation, frame size, addressing, and security issues \cite{ref2}. This paper introduces a real testbed that includes the whole TCP/IP protocol implemented by \gls{blip} that takes into consideration most of those issues and implements the two-way communication as needed by smart grids and measures the performance of such a system. In addition, El Kouche investigates on the widely used architectures and technologies and explains which architecture is the most suitable for a WSN within the \gls{iot} \cite{ref3}. \cite{ref4} discusses the requirement of an \gls{iot} gateway and propose an architecture for the system to be deployed in the gateway. A rather similar architecture to what is done in this paper is proposed by Yerra, Bharathi, Rajalakshmi and Desai \cite{ref7}. They use \gls{gsm} to communicate information whereas in our case, Internet is used for this purpose. 
+
+\
+Research discusses the benefits of replacing Zigbee by Wi-Fi as this last offers higher bandwidth, non-line transmission ability, large-scale data collection, and is highly cost-effective. Still, Zigbee has the exclusive advantage of consuming the least energy of existing communication technologies which is something required in \gls{sg} and \gls{iot}, especially for systems deployed in difficult-to-access environments \cite{ref11}. 
+
+\
+From the architectural point of view, integrating \glspl{sg} within \gls{iot} imposes the need to address heterogeneity. An \gls{iot} gateway system based on Zigbee and GPRS protocols helps partly in dealing with the heterogeneity problem and therefore enable the \glspl{wsn} communicate with the mobile telecommunication network \cite{ref11}. Another solution to the heterogeneity problem is proposed with a new, light-weight web service transport protocol called Lean Transport Protocol (LTP) that will allow transparent exchange of web service messages between all kinds of devices. This protocol is platform-independent, low-energy communication \cite{ref12}. Other researchers claim that the major source of heterogeneity arises from the fact that there are different types of WSN devices e.g. Micaz, Mica2, and Telosb that do not use the same standards. They propose to move the communication in \glspl{wsn} to "all-IP" as this would remove most of the heterogeneity. However, there are already deployed legacy \glspl{wsn} which makes the task is complicated. Fortunately, an architecture is sketched that is capable of converting all the \glspl{wsn}, new and legacy, to support IPv6 \cite{ref13}.
 
 \section{Internet of things}
-The internet of things is a new concept based on the idea that there will be much more users that are computers, machine than human beings. This means that machines will play an important role in the internet and they will be able to communicate autonomously without the interaction of human beings. Wireless sensor network will be part of the internet of things and therefore will be actively communicating in the internet by sending sensor data. Nowadays, the internet is mainly based on a human-to-human. In the future of internet called the internet of things, we will have in addition to human-to-human communication, human-to-machine communication and machine-to-machine communication. An example of human-to-machine communication is when the human will be able to control the wireless sensor network's sampling time. An example of machine-to-machine communication which will be discussed in this paper is the middleware being able to turn off the light because no one is in the room. The middleware by making use of the sensor data will communicate with motes to turn on or off the light bulb. \\
-Ubiquitous computing and pervasive computing is an important component of the Internet of things. Physical objects will be able to communicate in the Internet by producing information as well as consuming information \cite{ref9}. The main technological components needed in the Internet of things are the Radio Frequency identification (RFID) and is a technology that enables physical devices to identify themselves through this low power technology. Another important technological component is the wireless sensor network (WSN) and it is a technology that gives the physical objects to sense the environment and communicate such information. Mobile computing and cloud computing are important components as most of the storage and processing power will come from the cloud that will provide such services to the different physical devices in the internet of things. \\
-The internet of things has a great impact on the every day life of people as it will affect our lives inside our homes where all physical devices will be able to communicate information by providing services and consuming others. More tasks will be automated, as most of the physical devices will communicate their needs to each other. Smart grid is another important technology made possible with the Internet of Things. The US national intelligence listed the Internet of things as being on six disruptive civil technologies with potential impact on the US national power \cite{ref10}. \\
-\section{6lowpan}
-6loWPAN stands for  "IPv6 over Low power Wireless Personal Area Networks". It stands for the name of the working group within IETF. It is based on the idea that all the devices independently of their processing power or energy resources should be able to have the TCP/IP protocol stack and be part of the internet of things. In order to be able to build the TCP/IP protocol stack in low-power devices, there have been multiple aspects of the protocol stack that has to be optimized. As an example, the IP MTU(maximum transmission unit) is fixed at 1280 bytes whereas the Zigbee MTU is only 127 bytes. This means that not every IPV6 packet can be inserted within a Zigbee frame. Another issue is related to the addressing with the 128 bits address. in 6lowpan, the addressing via the IPV6 address is performed hierarchically to first identify is the packet is sent to a device within that network but afterwards, addressing is done by counting mainly on the 16 last bits of the IPV6 address. These were just two of a large set of issues that 6lowpan tries to solve in order to enable even the low-power devices to join the internet of things. TinyOS as being one of the most used operating system comes with its implementation of 6lowpan through a project called BLIP (Berkeley Low-power IP stack) that provides a lightweight implementation of the 6lowpan and that can be installed and used with a variety of motes as long as they support IPV6. This project makes use of BLIP to provide the TCP/IP protocol stack to the devices within the wireless sensor network.
+\gls{iot} is new concept based on the idea that there will more \textit{Things} than humans connected to the Internet. This means that machines will play a major role in the Internet. The \textit{Things} will be able to communicate autonomously without the need to interact with human beings. \glspl{wsn} will be included in most \textit{Things} and therefore the sensory data will make a significant portion of the information flowing in the Internet. Nowadays, humans are the major players in the Internet but this trend is changing as there are over 12.5 billion devices connected nowadays in the Internet \cite{ref14}. In \gls{iot}, \gls{m2m} will be the main communication standard between different \textit{Things}. \gls{m2m} is used in this project between the middle-ware and the \gls{wsn} when monitoring and controlling an appliance. 
 
-\section{Architecture}
-The project is composed of three building blocks. 
+\
+Ubiquitous computing and pervasive computing are key paradigms in \gls{iot}. Physical objects will be able to communicate in the Internet by producing and consuming information \cite{ref9}. \gls{rfid} is a technology that identifies physical devices while consuming very little energy. Another important technological component is \gls{wsn} that gives the physical objects the ability to sense the environment and communicate such information. Mobile computing and cloud computing are important components as most of the storage and processing power will come from the cloud. 
+
+\
+\gls{iot} will have a major impact on the every day life of people as it will affect our lives inside and outside our homes. The physical devices will be able to communicate and consume different types of information. More and more applications based on \gls{iot} are now being developed. Ideas such as smart farming, smart transportation, smart homes, smart health, smart postal and smart refrigerators are only a small subset of a myriad of applications that will come to life with \gls{iot} \cite{ref15}. Smart grid is another key application that benefits from \gls{iot}. The US national intelligence listed the Internet of things as being on six disruptive civil technologies with potential impact on the US national power \cite{ref10}.
+\section{6LoWPAN}
+\gls{6lowpan} stands for  "IPv6 over Low power Wireless Personal Area Networks". It stands for the name of the working group within the \gls{ietf}. It is based on the idea that all the \textit{Things} should be able to have the TCP/IP protocol stack and join the \gls{iot}. In order to be able to build the TCP/IP protocol stack in all devices, there have been multiple aspects of IP that have been modified. the IP maximum transmission unit(MTU) is fixed at 1280 Bytes, but the Zigbee MTU is only 127 Bytes. This means that not every \gls{ipv6} packets can be encapsulated within the Zigbee frame, and such issue has been addressed by \gls{6lowpan}. Another issue is related to the addressing with the 128 bits address; In \gls{6lowpan}, addressing via the \gls{ipv6} is performed hierarchically. The main purpose behind is to  identify the packet's destination network Id before forwarding it to the network. These were just two of a large set of issues that \gls{6lowpan} solves in order to enable even the low-power devices to join \gls{iot}. \gls{tinyos} as being one of the most used operating system in \glspl{wsn} comes with an implementation of \gls{6lowpan} through \gls{blip} that provides a lightweight implementation of the \gls{6lowpan}. This project makes use of \gls{blip} to provide the TCP/IP protocol stack to the \gls{wsn}.
+
+\section{System Deployment}
+The system is composed of four building blocks. 
 \begin{itemize}
-\item Wireless sensor network (WSN)
-\item Gateway server
-\item Middleware
-\item Mobile client
+\item Wireless Sensor Network (WSN)
+\item Gateway Server
+\item Middle-ware
+\item Mobile Client
 \end{itemize}
-The WSN communicates using zigbee as well as with the gateway server using IPV6 technology whereas whereas the communication between the gateway server, the middleware and the mobile client is done via Wifi using IPV4 technology. The architecture enables any component within this system to communicate with any other system independently of the communication medium used (Zigbee or Wifi) or the network technology used (IPV4 or IPV6). Figure 1 is a network diagram that depicts the different components of the system as well as the routes that exist for any component to communicate with another.
+The WSN uses Zigbee as the communication medium and uses \gls{ipv6} in the network layer. However, the communication between the gateway server, the middle-ware and the mobile client is done via Wi-Fi and \gls{ipv4} technology. This architecture enables any device within the system to communicate with any other device independently of the communication medium used (Zigbee or Wi-Fi) or the network technology used (\gls{ipv4} or \gls{ipv6}). Figure 1 is a network diagram that depicts the different components of the system as well as the interconnections that exist between the different components of the system.
 
 \begin{figure}[htbp]
 \centering
@@ -70,8 +83,8 @@ The WSN communicates using zigbee as well as with the gateway server using IPV6 
 \label{fig:network}
 \end{figure}
 
-\subsection{Wireless sensor network}
-The hardware is composed of motes of type crossbow MPR2600 that are used to build the wireless sensor network as shown in figure 2.From the network aspect, the wireless sensor network is based on the mesh topology. It is also designed in order to be an ad-hoc network. This means that you can place the mote any where as long as there is one link it can attain to communicate with. The routing is multi-hop and links are created dynamically between different motes of the WSN provided that there frames can reach the destination.
+\subsection{Wireless Sensor Network}
+The test-bed's \gls{wsn} is composed of seven motes of type Crossbow MPR2600 as shown in figure 2.From the network topology perspective, the \gls{wsn} is a multi-hop mesh network that uses \gls{aodv} for routing. It is an ad-hoc network which means that one can place the mote anywhere as long as there is one link it can attain to communicate with. The communication links are created and refreshed dynamically between different motes of the WSN provided that there frames can reach the destination. In addition to the seven motes in the test-bed, there is an additional mote that plays the role of a sink because it connects the \gls{wsn} to the gateway server machine. The connection between the sink and the gateway is based on \gls{usb}.
 
 \begin{figure}[htbp]
 \centering
@@ -80,16 +93,16 @@ The hardware is composed of motes of type crossbow MPR2600 that are used to buil
 \label{fig:micaz}
 \end{figure}
 
-\subsection{Gateway server}
-The gateway server is a crucial component within the system. It is responsible for extracting Wifi frames and forwarding them as Zigbee frames and vice versa. It is also responsible for receiving IPV4 packet and transforming them into IPV6 and vice versa. The gateway server has other functionalities which are the ability to receive sensor data from all the motes in the wireless sensor network and forwarding them to the middleware. In case the link between the gateway server and the middleware is lost, the gateway server stores the received data and sends them when the link is up again. This feature serves as a way to avoid losing data.
+\subsection{Gateway Server}
+The gateway server is a key component in the system. It is responsible for extracting Wi-Fi frames and forwarding them as Zigbee frames and vice versa. It is also responsible for receiving IPV4 packets and transforming them into IPV6 and vice versa. The gateway server has other functionalities such as the ability to receive sensor data from \gls{wsn} and forward them to the middle-ware. In case the link between the gateway server and the middle-ware is lost, the gateway server stores the received data in a temporary data store and communicate this data once the link is up again. This feature serves as a way to avoid losing sensory data.
 
-\subsection{Middleware}
-The middleware is a special program that is used to hide the heterogeneity of the system from external users. The middleware also provides automation mechanisms to control and reduce the energy consumption, but the main features are the ability to receive data, filter it, transform it and store it in a coherent fashion in order to make the most of this data and use it smartly to reduce consumption. Concerning the client access, the middleware provides a set of web services that enable the clients to access all sorts of information such as the real-time consumption, daily consumption and other information inferred from the sensor data coming from the wireless sensor network.
+\subsection{Middle-ware}
+The middle-ware is a software component that is used to hide the heterogeneity of the system from external users. The middle-ware also provides automation mechanisms in order to control and reduce the energy consumption, but the main features are the ability to receive data, filter it, transform it and store it in a coherent fashion in order to use it smartly to reduce consumption. In addition, the middle-ware provides a set of web services that enable the clients to access all sorts of information such as the real-time consumption, daily, weekly and monthly consumption information inferred from the sensory data coming from the \gls{wsn}.
 
-\subsection{Mobile client}
-The mobile client application is an interactive application for android phones that enable users to get access to the real-time consumption of their homes and also to remotely control their appliance by turning on and off any appliance linked to some mote in the wireless sensor network. The mobile client when wanting to turn on or off some appliance sends a request directly towards the mote responsible for that action and designate the mote using its "virtual" IPV4 address that it does not own in really since it has an IPV6 address but that virtual IPV4 address is reserved for that mote and the translation is dealt with at the level of the gateway.
+\subsection{Mobile Client}
+The mobile client application is an application for Android phones that enable users to access the real-time consumption of their homes, and also to remotely control their appliance by turning On and Off any appliance linked to a mote in the \gls{wsn}. The mobile client when wanting to turn on or off some appliance sends a command directly to the mote responsible for controlling the mote and addresses the mote using its "virtual" \gls{ipv4} address that it does not own in really since it has an \gls{ipv6} address. This virtual \gls{ipv4} address is reserved for that mote and the translation is made at the gateway level.
 
-\ Now that all components have been explained, the data flow of the information is to be explained. As it was stated before, the any component of the system can communicate with any other independently of the data link layer technology or network layer technology.
+\ Now that all components have been introduced, the data flow of the information is to be explained. As it was stated, any component in the system can communicate with any other independently of the data link layer technology or network layer technology.
 
 \begin{figure}[htbp]
 \centering
@@ -99,23 +112,24 @@ The mobile client application is an interactive application for android phones t
 \end{figure}
 
 \
-As one of the main goals of this project is to provide a two-way communication between the client and sensor, we will explain both way's flow of information. Figure 3 depicts the flow of information going from the client to the appliance. As the mobile client in the system is connected to a Wifi network that uses IPV4 and the mote is a network that uses a IPV6, then there should be a process that does some transformation to incoming and outgoing packets. So the client sends the packet to the virtual IPV4 address of the mote. The gateway receives it translates the virtual IPV4 address into the real IPV6 address of the mote and sets as source address the virtual IPV6 address of the mobile client. The new IPV6 packet is created holding the same payload as the original IPV4 packet. This new IPV6 packet is to be forwarded to the wireless sensor network. To do so, it is passed to the tunnel that encapsulates the packet into a USB frame and sends it to the mote sink that extracts the IPV6 packet from the USB frame and encapsulates it into a Zigbee frame. Once the Zigbee frame arrives to the destination mote, the TCP datagram is extracted from the IPV6 packet and passed to the TCP server of the mote that reads the message and executes it by turning on/off the appliance using I2C protocol.
+One of the main goals of this project is to build the two-way communication between the client and sensor nodes. To do so, the flow of data in both directions is depicted in figure \ref{fig:control_appliance} and figure \ref{fig:send_data}. The mobile client is connected to a Wi-Fi network that uses \gls{ipv4} whereas the \gls{wsn} uses \gls{ipv6}. Therefore, there should be a process that control and transforms the incoming and outgoing packets. The client starts by sending packet to the virtual \gls{ipv4} address of the mote. Afterwards, the gateway receives it, translates the virtual \gls{ipv4} address into the real \gls{ipv6} address of the mote by setting as source address the virtual \gls{ipv6} address of the mobile client. The new \gls{ipv6} packet is created carrying the payload coming from the original packet. This new \gls{ipv6} packet is forwarded to the wireless sensor network using an \gls{ipv6}-over-\gls{usb} tunnel that encapsulates the packet into a \gls{usb} frame and communicates it to the mote sink that extracts the \gls{ipv6} packet from the frame and encapsulates it into a Zigbee frame. Once the Zigbee frame arrives to the destination mote, the TCP datagram is extracted from the packet and passed to the TCP server of the mote that reads the message and executes it by turning on/off the appliance using I2C. 
 
 \
-As a second part of the two-way communication, the mote sends periodically sensor data to the middleware but again the communication is goes through several steps as depicted in figure 4.
-\linebreak 
-The mote reads periodically sends sensor data from the sensor, transforms the data and sends it. To send it the mote client connects to a TCP server hosted at the gateway. The IPV6 packet is encapsulated in a Zigbee frame that is forwarded to the mote  sink that extracts the IPV6 packet and  encapsulates it into a USB frame and forwarded to the gateway that reads the TCP datagram. Once the sensor data is at the gateway, the gateway forwards the sensor data to the middleware and if the link is down, the sensor data is temporarily stored in a database hosted in the gateway and once the link is up, all the stored data is sent to the middleware and cleared from the database.
+The mote on the other hand sends periodically sensory data to the middle-ware, but again the communication passes through several steps which are depicted in figure 4.
+
+\
+The mote reads periodically sensory data from the sensor, transforms the data and communicates it. To send it, the mote client connects to a TCP server hosted at the gateway server. An \gls{ipv6} packet is encapsulated in a Zigbee frame that is forwarded to the mote sink that extracts the IPV6 packet, encapsulates it into a \gls{usb} frame and forwards it to the gateway that reads the TCP datagram. Once the sensory data is in the gateway, it communicates it to the middle-ware, and if the link is down, the sensory data is temporarily stored in a database hosted in the gateway. Once the link is up, all the stored data is sent to the middle-ware and cleared from the database.
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[scale=3.0]{images/send_sensor_data_data_flow.jpg}
-\caption{Data flow diagram for the mobile client sending on/off commands}
-\label{fig:control_appliance}
+\includegraphics[scale=2.6]{images/send_sensor_data_data_flow.jpg}
+\caption{Data flow diagram depicting the sending of the data}
+\label{fig:send_data}
 \end{figure}
 
 
-\section{Implementation}
-To have a system that is capable of providing a two-way communication between any host and the any mote within the wireless sensor network, four building blocks had to be provided and which are the following:
+\section{System Deployment}
+To have a system that is capable of providing a two-way communication between any host and any mote in the \gls{wsn}, the following components have been built:
 \begin{itemize}
 \item Mote programming
 \item Mote sink packet forwarding
@@ -123,25 +137,25 @@ To have a system that is capable of providing a two-way communication between an
 \item Network gateway sensor data server
 \end{itemize}
 
-\subsection{Mote programming}
+\subsection{Mote Programming}
 Each mote within the WSN network is equipped with a current transformer that is attached to data acquisition board through which data is read and transformed to the appropriate format and sent to the network host. In addition to this, the appliance is attached to the mote through the relay pins existing within the data acquisition board in the mote. In other words, the mote can control the electricity going to each mote and can allow it or block it. This means that one can control the appliance by using some of the functionalities provided by the mote. From the mote's perspective there are two parts that are implemented within its TinyOS program. A TCP server that is used to receive on/off requests in order to control the mote and a TCP client used to send sensor data.Once the program installed, an IPV6 address is passed to the installation routine in order to assign a static IPV6 address to the mote in which the program is cross-compiled and installed. The TCP server and TCP client work in parallel as each one's traffic is handled separately.
 
-\subsubsection{TCP server}
+\subsubsection{TCP Server}
 The TCP server is an important component in the mote's program. Any one willing to control the appliance must connect to the TCP server and send requests. As a mote may control more than one appliance, we then identify the appliance by a unique id and send a zero to turn off or one to turn on. Requests such as "1 1" means to turn on the appliance with id 1.
 \subsubsection{TCP Client}
 The TCP Client is an important component in the mote's program. It serves as mean to send sensor data to the gateway reliably. Once the mote is turned on, the client connects to a TCP server that is in the gateway, then the consumption data is sensed periodically (once per second) and sent to the TCP server who deals with the sensor data.
 
-\subsection{Mote sink packet forwarding}
+\subsection{Mote Sink Packet Forwarding}
 The mote sink packet forwarding module is a special program installed within a mote that is equipped with a USB port that plays the role of a network interface card. The mote is attached to the gateway station and has the BLIP (Berkeley Low power IP stack Protocol) module within in. In addition it communicates with the gateway using USB protocol. In the gateway station, the network interface module is a sort of a IPV6 over USB tunnel which means that if an IPV6 packet packet is going to the sink, it is encapsulated within a USB frame and once it arrives to the mote, the IPV6 packet is extracted and forwarded to the destination mote holding that IPV6 address. The other way around is fairly similar, when a mote wants to send an IPV6 packet to the outside world, the mote creates the packet, sends it to the sink that forwards it by encapsulating it into a USB frame.
 
-\subsection{Network gateway packet transformation}
-This is a very important component in the system. The issue is the following. The WSN network supports only IPV6 while other components such as the middleware and the mobile client do not necessary have an IPV6 address, but we still want all the components to communicate independently of the IP technology to be used. To do so, we have created a network packet transformation program. This program basically converts IPV4 to IPV6 and vice versa. To do so, it assigns virtual IPV4 addresses to IPV6 address holders and and IPV6 address to IPV4 address holders. With such a program, each player in the network has both an IPV4 and an IPV6 but is aware of only the one that is assigned to him. The other "virtual" address is known only at the level of the program installed at the gateway station between the WSN and the outside world. 
+\subsection{IPv4/IPv6 Gateway}
+This is a very important component in the system. The issue is the following. The WSN network supports only IPV6 while other components such as the middle-ware and the mobile client do not necessary have an IPV6 address, but we still want all the components to communicate independently of the IP technology to be used. To do so, we have created a network packet transformation program. This program basically converts IPV4 to IPV6 and vice versa. To do so, it assigns virtual IPV4 addresses to IPV6 address holders and and IPV6 address to IPV4 address holders. With such a program, each player in the network has both an IPV4 and an IPV6 but is aware of only the one that is assigned to him. The other "virtual" address is known only at the level of the program installed at the gateway station between the WSN and the outside world. 
 \\
  The flow of information works as follow; when a station wants to send requests to a mote, it will send IPV4 packet holding the request to the mote but by addressing it using its virtual IPV4 address. This packet will be sniffed by this packet transformation program that will extract the TCP datagram from the ip packet, create a new IPV6 packet specifying the source address as the virtual address of the host and the destination as the address of the mote and then append the TCP datagram to the newly created packet and send it to the mote sink packet forwarding component that is seen by the gateway as a network interface card. This leads to a complicated issue that is to be handled and which is that the program should keep track of the request responses in order to forward them correctly to the destination. 
 \\
 To solve such a problem, an algorithm has been created whose sole role is to mechanically compute the IPV6 address of the host based on its IPV4 and vice versa. This algorithm is based on function whose primary quality is the fact that it is bijective which means any IPV4 address is mapped to one and only one IPV6 function and vice versa. So whenever a request is coming, the source and destination address will be converted using this algorithm and this will make avoid the whole request response tracking part.
-\section{Measurements}
-The goal of this part is to measure to what extent is the system able to operate reliable and offering some acceptable level of performance. As this system is to be deployed in a small environment such as an apartment or a house where each mote will be connected to one or more appliances, and motes will be closely positioned and this positioning will make it possible to make use of the multi-hop routing and therefore placing no more than one sink in each house. In this experiment, we try to simulate the normal work of this system where each sensor is read once every second generating traffic in the Zigbee network. Our goal is to measure the delay and see how does it vary in this system with the amount of traffic generated. As the multi-hop routing protocol gives more priority to packets to be routed than those addressed to that mote, we would like to see if this prioritization reduces the delay when having more and more motes sending packets through the network. TABLE \ref{table:exp1} illustrates how the delay and jitter varies as we add more and more nearby motes to the network.
+\section{Findings}
+The goal of this part is to measure to what extent is the system able to operate reliably by offering an acceptable level of performance. Two experiments were conducted to measure the system's performance. In the first experiment, the normal work of the system is simulated, where each mote reads sensory data every second and generates traffic in the \gls{wsn}. Our goal is to measure the delay and observe its variance as the traffic varies. The routing protocol in principle gives more priority to routing packets rather than processing them. Therefore, this priority must affect the network's delay. Table \ref{table:exp1} illustrates how the delay and jitter vary as more and more nearby motes are added to the network.
 \begin{table}[htbp]
     \begin{tabular}{lll}
     \hline
@@ -156,8 +170,9 @@ The goal of this part is to measure to what extent is the system able to operate
     \caption{Experiment 1 delay and jitter}
     \label{table:exp1}
 \end{table}
-It is clear that the average delay is not much affected by the number of motes in the network, but the jitter on the other hand is clearly affected by the number of motes in the network. This is mainly due to the fact that there are timeframes where the network is less busy and other timeframes where the network becomes busier. This is why the jitter grows as the number of motes in the network grows with it.
 
+\
+It is clear that the average delay is not significantly affected by the number of motes in the network, but the jitter on the other hand is clearly affected by the number of motes in the network as it is depicted in figure \ref{fig:delay_jitter}. The delay is much more affected because there are time interval where the network is less busy and other intervals where the network becomes busier.
 \begin{figure}[htbp]
 \centering
 \includegraphics[scale=0.6]{images/delay_jitter.JPG}
@@ -165,10 +180,34 @@ It is clear that the average delay is not much affected by the number of motes i
 \label{fig:delay_jitter}
 \end{figure}
 
+The second experiment's goal is to measure the contribution of the Gateway Packet transformation process to the overall communication delay. The results gathered reflect the average delay and jitter computed over the elapsed time starting from the sniffing of the packet to the transformation and sending to the recipient. Table \ref{table:exp2} shows the result that was collected from this experiment as it was done on 200 packets that were sniffed and transformed by the system.
+
+\begin{table}[htbp]
+    \begin{tabular}{ll}
+    \hline
+    Delay ($\mu s$) & Jitter ($\mu s$) \\ \hline
+    100        &  30        \\ 
+    \end{tabular}
+    \caption{Experiment 2 delay and jitter}
+        \label{table:exp2}
+\end{table}
+
+\
+The transformation process's elapsed time is measured in microseconds and from table \ref{table:exp2}, one can see that the average delay is on average 0.1 milliseconds whereas the jitter is around 0.03 milliseconds meaning that the process's time varies between a few microseconds to at most 150 microseconds. In addition, depending on the machine's load, the distribution of the delay frequency is shown the histogram depicted in figure \ref{fig:histogram}. From this figure one can conclude that the delay is normally distributed
+\begin{figure}[htbp]
+ \centering
+ \includegraphics[scale=0.7]{images/histogram.JPG}
+ \caption{Delay frequency histogram}
+ \label{fig:histogram}
+ \end{figure}
 \section{Conclusion}
-The Internet of things is the next revolution in computing. The testbed presented in this paper illustrates how can smart grid by making use of numerous technologies such as TinyOs based WSN, 6lowPan can integrate within the Internet of things and benefit from it. The test bed presents the 2-way communication as needed by smart grids and also discusses the architecture of the system and the issues that were handled to make the communication possible and smooth. \\
-The issues that were handled are mainly related to making the communication possible even if it is on a homogeneous system where the data link layer is not the same and the network layer is not the same. The packet is transmitted from the an IPV4 network based on the Wifi network and moves to an IPV6 network based on USB then to Zigbee. These were one of the numerous issues handled in this paper. \\
-Smart grids can and will benefit from the internet of things and making it as one of the most important applications of the internet of things and therefore enable more efficiency in the generation and consumption of data.
+\glsreset{iot}\gls{iot} is the next revolution in computing. The test-bed presented in this paper shows how can Smart Grids by making use of numerous technologies such as \gls{iot} based \glspl{wsn}, \gls{6lowpan} in order to integrate it into \gls{iot} and benefit from it. The test-bed illustrates the two-way communication and also discusses the architecture of this system. 
+
+\
+The issues that were handled are mainly related to making the communication possible on a heterogeneous system where the data link layer and network standards used by different components of the system differs. The packet is transmitted from the an \gls{ipv4} network over Wi-Fi and moves to an \gls{ipv6} network over USB then to Zigbee. 
+
+\
+Smart Grids should benefit from the Internet of Things and will become one of the most important applications of \gls{iot} and therefore enable more efficient generation and consumption of data.
 
 %Bibliography
 \mbox{}
